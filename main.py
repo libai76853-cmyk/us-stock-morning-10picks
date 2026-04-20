@@ -29,6 +29,27 @@ MIN_DOLLAR_VOL = float(os.getenv("MIN_DOLLAR_VOL_M", "5")) * 1e6
 MAX_PER_SECTOR = int(os.getenv("MAX_PER_SECTOR", "2"))
 ENRICH_POOL = int(os.getenv("ENRICH_POOL", "50"))
 CACHE_DIR = os.getenv("CACHE_DIR", "cache")
+FALLBACK_MIN = int(os.getenv("FALLBACK_MIN", "5"))
+
+FALLBACK_UNIVERSE: list[str] = [
+    # Tech (15)
+    "AAPL", "MSFT", "NVDA", "GOOGL", "META", "ORCL", "AVGO", "ADBE",
+    "CRM", "AMD", "CSCO", "INTC", "TXN", "QCOM", "IBM",
+    # Financial (7)
+    "JPM", "V", "MA", "BAC", "WFC", "GS", "SCHW",
+    # Healthcare (8)
+    "UNH", "JNJ", "LLY", "ABBV", "MRK", "TMO", "ABT", "DHR",
+    # Consumer (8)
+    "AMZN", "TSLA", "WMT", "COST", "HD", "KO", "PEP", "MCD",
+    # Industrial (4)
+    "CAT", "HON", "UNP", "BA",
+    # Energy (3)
+    "XOM", "CVX", "COP",
+    # Communications (3)
+    "NFLX", "T", "TMUS",
+    # Utilities (2)
+    "NEE", "DUK",
+]
 
 UA = (
     "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) "
@@ -193,6 +214,20 @@ async def fetch_nasdaq_premarket(client: httpx.AsyncClient) -> list[dict]:
     except Exception as e:
         print(f"  Nasdaq error: {e}")
         return []
+
+
+def inject_fallback_universe(agg: dict[str, dict], tickers: list[str]) -> None:
+    """Add any missing fallback-universe tickers to agg so enrichment + fundamental
+    scoring can still run when free scrapers return nothing."""
+    for t in tickers:
+        if t not in agg:
+            agg[t] = {
+                "ticker": t,
+                "sources": {"Default universe"},
+                "price": 0,
+                "change": 0,
+                "volume": 0,
+            }
 
 
 def aggregate(all_rows: list[dict]) -> dict[str, dict]:
@@ -516,6 +551,9 @@ def make_reason(c: dict) -> str:
     sources = c["sources"]
     parts: list[str] = []
 
+    if sources == {"Default universe"}:
+        return f"默认池基本面筛选（基本面分 {c.get('fund_score', 0):+.0f}）"
+
     if "Gap-Up" in sources and "涨幅榜" in sources:
         parts.append("盘前 Gap-Up 叠加盘中领涨")
     elif "Gap-Up" in sources:
@@ -640,6 +678,16 @@ async def run() -> int:
         agg = aggregate(all_rows)
         print(f"  Unique candidates: {len(agg)}")
 
+        used_fallback = False
+        if len(agg) < FALLBACK_MIN:
+            print(
+                f"  Candidate count < {FALLBACK_MIN}; injecting fallback universe "
+                f"({len(FALLBACK_UNIVERSE)} tickers)"
+            )
+            inject_fallback_universe(agg, FALLBACK_UNIVERSE)
+            used_fallback = True
+            print(f"  Candidates after fallback: {len(agg)}")
+
         if agg:
             print("Fetching Reddit mentions...")
             reddit_counts = await fetch_reddit_mentions(client, set(agg.keys()))
@@ -685,7 +733,12 @@ async def run() -> int:
     save_run_log(run_date, picks, len(filtered), len(enrichments))
 
     partial = ""
-    if len(picks) < TOP_N:
+    if used_fallback:
+        partial = (
+            f"⚠️ 免费数据源返回空，启用 fallback universe "
+            f"（{len(FALLBACK_UNIVERSE)} 只大盘股）按基本面筛选"
+        )
+    elif len(picks) < TOP_N:
         partial = f"今日受数据源限制，仅筛选到 {len(picks)} 只"
 
     if not picks:
