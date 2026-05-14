@@ -301,27 +301,43 @@ async def load_dynamic_universe(
     print(f"  S&P500: {len(sp500)}, Nasdaq100: {len(ndx)}")
     merged = sorted(set(sp500) | set(ndx))
 
-    if len(merged) < 400:
-        print(
-            f"  Universe fetch failed ({len(merged)} tickers); "
-            f"using {len(BACKUP_UNIVERSE)}-ticker backup"
-        )
-        return BACKUP_UNIVERSE, f"备用 {len(BACKUP_UNIVERSE)} 只大盘股"
+    if len(merged) >= 400:
+        if len(sp500) >= 400 and len(ndx) >= 80:
+            try:
+                with open(cache_path, "w") as f:
+                    json.dump(
+                        {
+                            "ts": time.time(),
+                            "fetched": datetime.now(timezone.utc).isoformat(),
+                            "tickers": merged,
+                        },
+                        f,
+                    )
+            except Exception as e:
+                print(f"  Universe cache save failed: {e}")
+        return merged, "S&P500 + Nasdaq100"
 
-    if len(sp500) >= 400 and len(ndx) >= 80:
+    # Wikipedia blocked (e.g. GH Actions IP) — try repo-committed snapshot.
+    repo_snapshot = "universe.json"
+    if os.path.exists(repo_snapshot):
         try:
-            with open(cache_path, "w") as f:
-                json.dump(
-                    {
-                        "ts": time.time(),
-                        "fetched": datetime.now(timezone.utc).isoformat(),
-                        "tickers": merged,
-                    },
-                    f,
+            with open(repo_snapshot) as f:
+                static = json.load(f)
+            tickers = static.get("tickers", [])
+            if len(tickers) >= 400:
+                print(
+                    f"  Wikipedia unreachable; using committed universe.json "
+                    f"({len(tickers)} tickers, fetched {static.get('fetched', '?')})"
                 )
+                return tickers, "S&P500 + Nasdaq100"
         except Exception as e:
-            print(f"  Universe cache save failed: {e}")
-    return merged, "S&P500 + Nasdaq100"
+            print(f"  Repo universe.json load failed: {e}")
+
+    print(
+        f"  Universe fetch failed ({len(merged)} tickers); "
+        f"using {len(BACKUP_UNIVERSE)}-ticker backup"
+    )
+    return BACKUP_UNIVERSE, f"备用 {len(BACKUP_UNIVERSE)} 只大盘股"
 
 
 def inject_fallback_universe(agg: dict[str, dict], tickers: list[str]) -> None:
@@ -690,50 +706,94 @@ def make_reason(c: dict) -> str:
     return " · ".join(parts) or "出现在多个异动榜单"
 
 
-def format_message(picks: list[dict], partial_reason: str = "") -> str:
-    date_str = datetime.now(timezone.utc).astimezone().strftime("%Y-%m-%d")
-    lines = [f"📈 *每日优选 Top {len(picks)}* — {date_str}", ""]
-    if partial_reason:
-        lines.append(f"_{partial_reason}_")
-        lines.append("")
+TELEGRAM_MAX = 4096
+TELEGRAM_BUDGET = 3800  # leave headroom for Markdown + multibyte chars
 
-    for i, c in enumerate(picks, 1):
-        ticker = c["ticker"]
-        price = c.get("last_close") or c["price"]
-        change = c["change"]
-        sector = c.get("sector", "")
-        sec_tag = f" · {sector}" if sector and sector != "Unknown" else ""
 
-        reason = make_reason(c)
-        reason_safe = reason.replace("*", "").replace("_", "").replace("[", "").replace("]", "")
-        lines.append(f"{i}. *{ticker}*  ${price:.2f}  ({change:+.1f}%){sec_tag}")
+def _pick_block(i: int, c: dict) -> list[str]:
+    ticker = c["ticker"]
+    price = c.get("last_close") or c["price"]
+    change = c["change"]
+    sector = c.get("sector", "")
+    sec_tag = f" · {sector}" if sector and sector != "Unknown" else ""
 
-        atr = c.get("atr", 0)
-        if atr > 0 and price > 0:
-            stop = price - 1.5 * atr
-            target = price + 3.0 * atr
-            stop_pct = (stop - price) / price * 100
-            tgt_pct = (target - price) / price * 100
-            lines.append(
-                f"   Entry {price:.2f} · Stop {stop:.2f} ({stop_pct:+.1f}%) · "
-                f"Target {target:.2f} ({tgt_pct:+.1f}%)"
-            )
+    reason = make_reason(c)
+    reason_safe = reason.replace("*", "").replace("_", "").replace("[", "").replace("]", "")
 
-        lines.append(f"   {reason_safe}")
+    block = [f"{i}. *{ticker}*  ${price:.2f}  ({change:+.1f}%){sec_tag}"]
 
-        ft = fund_tag(c)
-        if ft:
-            lines.append(f"   {ft}")
-
-        lines.append(
-            f"   📊 [TV](https://www.tradingview.com/chart/?symbol={ticker}) · "
-            f"[Yahoo](https://finance.yahoo.com/quote/{ticker}) · "
-            f"[News](https://stockanalysis.com/stocks/{ticker.lower()}/)"
+    atr = c.get("atr", 0)
+    if atr > 0 and price > 0:
+        stop = price - 1.5 * atr
+        target = price + 3.0 * atr
+        stop_pct = (stop - price) / price * 100
+        tgt_pct = (target - price) / price * 100
+        block.append(
+            f"   Entry {price:.2f} · Stop {stop:.2f} ({stop_pct:+.1f}%) · "
+            f"Target {target:.2f} ({tgt_pct:+.1f}%)"
         )
 
-    lines.append("")
-    lines.append("⚠️ 基于公开免费数据源，仅供参考，不构成投资建议。")
-    return "\n".join(lines)
+    block.append(f"   {reason_safe}")
+
+    ft = fund_tag(c)
+    if ft:
+        block.append(f"   {ft}")
+
+    block.append(
+        f"   📊 [TV](https://www.tradingview.com/chart/?symbol={ticker}) · "
+        f"[Yahoo](https://finance.yahoo.com/quote/{ticker}) · "
+        f"[News](https://stockanalysis.com/stocks/{ticker.lower()}/)"
+    )
+    return block
+
+
+def format_messages(picks: list[dict], partial_reason: str = "") -> list[str]:
+    """Split picks across multiple Telegram messages under TELEGRAM_BUDGET each.
+
+    Continuation messages get a lightweight "(2/N)" header so the user can
+    follow the sequence.
+    """
+    date_str = datetime.now(timezone.utc).astimezone().strftime("%Y-%m-%d")
+    blocks = [_pick_block(i, c) for i, c in enumerate(picks, 1)]
+
+    footer_lines = ["", "⚠️ 基于公开免费数据源，仅供参考，不构成投资建议。"]
+    footer_chars = sum(len(s) + 1 for s in footer_lines)
+
+    def header_for(idx: int, total: int) -> list[str]:
+        if total == 1:
+            h = [f"📈 *每日优选 Top {len(picks)}* — {date_str}", ""]
+        elif idx == 1:
+            h = [f"📈 *每日优选 Top {len(picks)}* (1/{total}) — {date_str}", ""]
+        else:
+            return [f"📈 *每日优选 ({idx}/{total})*", ""]
+        if partial_reason and idx == 1:
+            h.append(f"_{partial_reason}_")
+            h.append("")
+        return h
+
+    # First pass: assign blocks to message slots using a rolling char count.
+    placeholder_header = sum(len(s) + 1 for s in header_for(1, 9))
+    slots: list[list[list[str]]] = [[]]
+    cur_chars = placeholder_header
+    for block in blocks:
+        block_chars = sum(len(s) + 1 for s in block)
+        if slots[-1] and cur_chars + block_chars + footer_chars > TELEGRAM_BUDGET:
+            slots.append([])
+            cur_chars = placeholder_header
+        slots[-1].append(block)
+        cur_chars += block_chars
+
+    # Second pass: emit each slot with the correct (idx/total) header.
+    total = len(slots)
+    messages: list[str] = []
+    for idx, slot in enumerate(slots, 1):
+        lines = header_for(idx, total)
+        for block in slot:
+            lines.extend(block)
+        if idx == total:
+            lines.extend(footer_lines)
+        messages.append("\n".join(lines))
+    return messages
 
 
 async def send_telegram(text: str) -> bool:
@@ -863,10 +923,14 @@ async def run() -> int:
         await send_telegram(fallback)
         return 0
 
-    msg = format_message(picks, partial)
-    ok = await send_telegram(msg)
-    print(f"Telegram send: {'OK' if ok else 'FAILED'}")
-    return 0 if ok else 1
+    msgs = format_messages(picks, partial)
+    all_ok = True
+    for i, m in enumerate(msgs, 1):
+        ok = await send_telegram(m)
+        print(f"Telegram send {i}/{len(msgs)} ({len(m)} chars): {'OK' if ok else 'FAILED'}")
+        if not ok:
+            all_ok = False
+    return 0 if all_ok else 1
 
 
 if __name__ == "__main__":
