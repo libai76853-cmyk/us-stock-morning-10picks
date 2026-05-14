@@ -22,16 +22,21 @@ from bs4 import BeautifulSoup
 
 TELEGRAM_BOT_TOKEN = os.getenv("TELEGRAM_BOT_TOKEN", "")
 TELEGRAM_CHAT_ID = os.getenv("TELEGRAM_CHAT_ID", "")
-TOP_N = int(os.getenv("TOP_N", "10"))
+TOP_N = int(os.getenv("TOP_N", "33"))
 MIN_PRICE = float(os.getenv("MIN_PRICE", "5"))
 MIN_MARKET_CAP = float(os.getenv("MIN_MARKET_CAP_M", "500")) * 1e6
 MIN_DOLLAR_VOL = float(os.getenv("MIN_DOLLAR_VOL_M", "5")) * 1e6
-MAX_PER_SECTOR = int(os.getenv("MAX_PER_SECTOR", "2"))
+MAX_PER_SECTOR = int(os.getenv("MAX_PER_SECTOR", "3"))
 ENRICH_POOL = int(os.getenv("ENRICH_POOL", "50"))
 CACHE_DIR = os.getenv("CACHE_DIR", "cache")
 FALLBACK_MIN = int(os.getenv("FALLBACK_MIN", "5"))
 
-FALLBACK_UNIVERSE: list[str] = [
+SP500_WIKI = "https://en.wikipedia.org/wiki/List_of_S%26P_500_companies"
+NDX_WIKI = "https://en.wikipedia.org/wiki/Nasdaq-100"
+UNIVERSE_CACHE_TTL = 7 * 24 * 3600  # 1 week
+
+# Last-resort backup if Wikipedia is also unreachable.
+BACKUP_UNIVERSE: list[str] = [
     # Tech (15)
     "AAPL", "MSFT", "NVDA", "GOOGL", "META", "ORCL", "AVGO", "ADBE",
     "CRM", "AMD", "CSCO", "INTC", "TXN", "QCOM", "IBM",
@@ -89,6 +94,11 @@ def parse_pct(s: str) -> float:
         return float(s)
     except ValueError:
         return 0.0
+
+
+def _normalize_ticker(t: str) -> str:
+    """Wikipedia uses BRK.B; yfinance expects BRK-B."""
+    return t.replace(".", "-").strip()
 
 
 async def fetch_finviz_screener(client: httpx.AsyncClient, name: str, query: str) -> list[dict]:
@@ -214,6 +224,104 @@ async def fetch_nasdaq_premarket(client: httpx.AsyncClient) -> list[dict]:
     except Exception as e:
         print(f"  Nasdaq error: {e}")
         return []
+
+
+async def _fetch_wiki_constituents(
+    client: httpx.AsyncClient, url: str, name: str
+) -> list[str]:
+    """Pull tickers from the first wikitable on `url` with a Symbol/Ticker column."""
+    try:
+        r = await client.get(url, headers={"User-Agent": UA})
+        if r.status_code != 200:
+            print(f"  {name}: HTTP {r.status_code}")
+            return []
+        soup = BeautifulSoup(r.text, "lxml")
+    except Exception as e:
+        print(f"  {name} error: {e}")
+        return []
+
+    for tbl in soup.find_all("table", class_="wikitable"):
+        first_row = tbl.find("tr")
+        if not first_row:
+            continue
+        headers = [th.get_text(strip=True).lower() for th in first_row.find_all("th")]
+        sym_idx = next(
+            (i for i, h in enumerate(headers) if h in ("symbol", "ticker")),
+            None,
+        )
+        if sym_idx is None:
+            continue
+
+        tickers: list[str] = []
+        for tr in tbl.find_all("tr"):
+            tds = tr.find_all("td")
+            if len(tds) <= sym_idx:
+                continue
+            raw = tds[sym_idx].get_text(strip=True)
+            if not raw:
+                continue
+            t = _normalize_ticker(raw)
+            if not (1 <= len(t) <= 6):
+                continue
+            if not all(c.isupper() or c == "-" for c in t):
+                continue
+            tickers.append(t)
+
+        if len(tickers) >= 50:
+            return tickers
+    return []
+
+
+async def load_dynamic_universe(
+    client: httpx.AsyncClient,
+) -> tuple[list[str], str]:
+    """S&P 500 ∪ Nasdaq-100 from Wikipedia, cached 7d on disk.
+
+    Returns (tickers, human_label). Falls back to BACKUP_UNIVERSE if both
+    Wikipedia fetches fail or come back short.
+    """
+    cache_path = os.path.join(CACHE_DIR, "universe.json")
+    os.makedirs(CACHE_DIR, exist_ok=True)
+
+    if os.path.exists(cache_path):
+        try:
+            with open(cache_path) as f:
+                cached = json.load(f)
+            if time.time() - cached.get("ts", 0) < UNIVERSE_CACHE_TTL:
+                tickers = cached.get("tickers", [])
+                print(f"  Universe cache hit ({len(tickers)} tickers)")
+                return tickers, "S&P500 + Nasdaq100"
+        except Exception as e:
+            print(f"  Universe cache load failed: {e}")
+
+    sp500, ndx = await asyncio.gather(
+        _fetch_wiki_constituents(client, SP500_WIKI, "S&P500"),
+        _fetch_wiki_constituents(client, NDX_WIKI, "Nasdaq100"),
+    )
+    print(f"  S&P500: {len(sp500)}, Nasdaq100: {len(ndx)}")
+    merged = sorted(set(sp500) | set(ndx))
+
+    if len(merged) < 400:
+        print(
+            f"  Universe fetch failed ({len(merged)} tickers); "
+            f"using {len(BACKUP_UNIVERSE)}-ticker backup"
+        )
+        return BACKUP_UNIVERSE, f"备用 {len(BACKUP_UNIVERSE)} 只大盘股"
+
+    if len(sp500) >= 400 and len(ndx) >= 80:
+        try:
+            with open(cache_path, "w") as f:
+                json.dump(
+                    {
+                        "ts": time.time(),
+                        "fetched": datetime.now(timezone.utc).isoformat(),
+                        "tickers": merged,
+                    },
+                    f,
+                )
+        except Exception as e:
+            print(f"  Universe cache save failed: {e}")
+    return merged, "S&P500 + Nasdaq100"
 
 
 def inject_fallback_universe(agg: dict[str, dict], tickers: list[str]) -> None:
@@ -679,12 +787,15 @@ async def run() -> int:
         print(f"  Unique candidates: {len(agg)}")
 
         used_fallback = False
+        fallback_universe: list[str] = []
+        fallback_label = ""
         if len(agg) < FALLBACK_MIN:
+            fallback_universe, fallback_label = await load_dynamic_universe(client)
             print(
-                f"  Candidate count < {FALLBACK_MIN}; injecting fallback universe "
-                f"({len(FALLBACK_UNIVERSE)} tickers)"
+                f"  Candidate count < {FALLBACK_MIN}; injecting {fallback_label} "
+                f"({len(fallback_universe)} tickers)"
             )
-            inject_fallback_universe(agg, FALLBACK_UNIVERSE)
+            inject_fallback_universe(agg, fallback_universe)
             used_fallback = True
             print(f"  Candidates after fallback: {len(agg)}")
 
@@ -706,12 +817,15 @@ async def run() -> int:
         await send_telegram(fallback)
         return 0
 
-    enrich_tickers = [c["ticker"] for c in ranked[:ENRICH_POOL]]
+    effective_pool = (
+        max(ENRICH_POOL, len(fallback_universe)) if used_fallback else ENRICH_POOL
+    )
+    enrich_tickers = [c["ticker"] for c in ranked[:effective_pool]]
     print(f"Enriching top {len(enrich_tickers)} via yfinance...")
     enrichments = await enrich_candidates(enrich_tickers)
     print(f"  Enrichment covered: {len(enrichments)}/{len(enrich_tickers)}")
 
-    filtered = hard_filter(ranked[:ENRICH_POOL], enrichments)
+    filtered = hard_filter(ranked[:effective_pool], enrichments)
     print(f"  After hard filter: {len(filtered)}")
 
     boosted = apply_fundamental_boost(filtered)
@@ -735,8 +849,8 @@ async def run() -> int:
     partial = ""
     if used_fallback:
         partial = (
-            f"⚠️ 免费数据源返回空，启用 fallback universe "
-            f"（{len(FALLBACK_UNIVERSE)} 只大盘股）按基本面筛选"
+            f"⚠️ 免费数据源返回空，启用 {fallback_label} "
+            f"（{len(fallback_universe)} 只）按基本面筛选"
         )
     elif len(picks) < TOP_N:
         partial = f"今日受数据源限制，仅筛选到 {len(picks)} 只"
