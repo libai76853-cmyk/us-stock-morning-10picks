@@ -1,8 +1,10 @@
 name: Daily Stock Picks
 
 on:
-  schedule:
-    - cron: "30 12 * * 1-5"
+  # Trigger via Cloudflare Worker cron (see cf-worker-trigger/) which calls
+  # this workflow's dispatch endpoint at 12:30 UTC Mon-Fri. We removed the
+  # native GitHub `schedule:` event on 2026-05-19 because it had drifted to
+  # +3.5h late under platform load — CF cron is reliable within ~1 min.
   workflow_dispatch:
 
 jobs:
