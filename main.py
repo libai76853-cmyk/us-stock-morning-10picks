@@ -394,12 +394,36 @@ def _enrich_sync(ticker: str, max_retries: int = 3) -> dict | None:
             hist = t.history(period="1mo", auto_adjust=False)
             if hist.empty or len(hist) < 15:
                 return None
-            high, low, close = hist["High"], hist["Low"], hist["Close"]
+            high, low, close, volume = (
+                hist["High"], hist["Low"], hist["Close"], hist["Volume"]
+            )
             prev = close.shift(1)
             tr = pd.concat(
                 [high - low, (high - prev).abs(), (low - prev).abs()], axis=1
             ).max(axis=1)
             atr_val = tr.rolling(14).mean().iloc[-1]
+
+            # Momentum signals from the same 1-month bar — no extra network cost.
+            # These vary day-to-day, which is the whole point of having them:
+            # without scraper-fed heat signals (Finviz et al. are blocked from CI),
+            # static fundamentals alone freeze the picks.
+            last_close = float(close.iloc[-1])
+            ret_1d = (
+                (last_close / float(close.iloc[-2]) - 1) * 100
+                if len(close) >= 2 else 0.0
+            )
+            ret_5d = (
+                (last_close / float(close.iloc[-6]) - 1) * 100
+                if len(close) >= 6 else 0.0
+            )
+            vol_window = volume.tail(20)
+            vol_avg = float(vol_window.mean()) if len(vol_window) >= 5 else 0.0
+            vol_ratio = (
+                float(volume.iloc[-1]) / vol_avg if vol_avg > 0 else 0.0
+            )
+            month_high = float(high.max())
+            near_high = last_close / month_high if month_high > 0 else 0.0
+
             return {
                 "ticker": ticker,
                 "market_cap": float(info.get("marketCap") or 0),
@@ -407,7 +431,7 @@ def _enrich_sync(ticker: str, max_retries: int = 3) -> dict | None:
                     info.get("averageVolume10days") or info.get("averageVolume") or 0
                 ),
                 "sector": info.get("sector") or "Unknown",
-                "last_close": float(close.iloc[-1]),
+                "last_close": last_close,
                 "atr": float(atr_val) if atr_val == atr_val else 0.0,
                 "trailing_pe": float(info.get("trailingPE") or 0),
                 "forward_pe": float(info.get("forwardPE") or 0),
@@ -415,6 +439,10 @@ def _enrich_sync(ticker: str, max_retries: int = 3) -> dict | None:
                 "roe": float(info.get("returnOnEquity") or 0),
                 "revenue_growth": float(info.get("revenueGrowth") or 0),
                 "earnings_growth_q": float(info.get("earningsQuarterlyGrowth") or 0),
+                "ret_1d": ret_1d,
+                "ret_5d": ret_5d,
+                "vol_ratio": vol_ratio,
+                "near_high": near_high,
             }
         except Exception:
             if attempt == max_retries - 1:
@@ -470,6 +498,7 @@ def save_run_log(date_str: str, picks: list[dict], filtered_count: int, enriched
                 "score": p.get("score"),
                 "heat_score": p.get("heat_score"),
                 "fund_score": p.get("fund_score"),
+                "mom_score": p.get("mom_score"),
                 "sector": p.get("sector"),
                 "last_close": p.get("last_close"),
                 "change": p.get("change"),
@@ -481,6 +510,10 @@ def save_run_log(date_str: str, picks: list[dict], filtered_count: int, enriched
                 "roe": p.get("roe"),
                 "revenue_growth": p.get("revenue_growth"),
                 "earnings_growth_q": p.get("earnings_growth_q"),
+                "ret_1d": p.get("ret_1d"),
+                "ret_5d": p.get("ret_5d"),
+                "vol_ratio": p.get("vol_ratio"),
+                "near_high": p.get("near_high"),
                 "sources": sorted(p.get("sources", set())),
                 "trending": p.get("trending", False),
                 "reddit": p.get("reddit", 0),
@@ -577,6 +610,7 @@ def hard_filter(candidates: list[dict], enrich: dict[str, dict]) -> list[dict]:
                 "last_close", "atr", "sector", "market_cap",
                 "trailing_pe", "forward_pe", "peg",
                 "roe", "revenue_growth", "earnings_growth_q",
+                "ret_1d", "ret_5d", "vol_ratio", "near_high",
             ):
                 if k in e:
                     c[k] = e[k]
@@ -624,10 +658,56 @@ def fundamental_score(c: dict) -> float:
     return s
 
 
-def apply_fundamental_boost(candidates: list[dict]) -> list[dict]:
+def momentum_score(c: dict) -> float:
+    """Bucket-based momentum boost from yfinance price/volume action.
+
+    The four signals are computed in `_enrich_sync` from the same 1-month bar
+    yfinance already fetches for ATR; no extra network. Range ≈ −8 to +40.
+    Built so that on days when the scraper-fed heat signals are all zero
+    (Finviz et al. blocked from GH Actions runner IPs), the picks still
+    re-rank day-to-day based on real price/volume action.
+    """
+    s = 0.0
+
+    r1 = c.get("ret_1d") or 0
+    if r1 >= 5:
+        s += 12
+    elif r1 >= 2:
+        s += 6
+    elif r1 >= 1:
+        s += 3
+    elif r1 <= -3:
+        s -= 5
+
+    r5 = c.get("ret_5d") or 0
+    if r5 >= 10:
+        s += 10
+    elif r5 >= 5:
+        s += 5
+    elif r5 <= -5:
+        s -= 3
+
+    vr = c.get("vol_ratio") or 0
+    if vr >= 3:
+        s += 10
+    elif vr >= 2:
+        s += 5
+
+    nh = c.get("near_high") or 0
+    if nh >= 0.95:
+        s += 8
+    elif nh >= 0.90:
+        s += 4
+
+    return s
+
+
+def apply_boosts(candidates: list[dict]) -> list[dict]:
+    """Apply fundamental + momentum boosts on top of heat_score."""
     for c in candidates:
         c["fund_score"] = fundamental_score(c)
-        c["score"] += c["fund_score"]
+        c["mom_score"] = momentum_score(c)
+        c["score"] += c["fund_score"] + c["mom_score"]
     candidates.sort(key=lambda x: x["score"], reverse=True)
     return candidates
 
@@ -646,6 +726,20 @@ def fund_tag(c: dict) -> str:
     rg = c.get("revenue_growth") or 0
     if rg:
         parts.append(f"Rev {rg * 100:+.0f}%")
+    return " · ".join(parts)
+
+
+def mom_tag(c: dict) -> str:
+    parts = []
+    r5 = c.get("ret_5d") or 0
+    if abs(r5) >= 0.5:
+        parts.append(f"5d {r5:+.1f}%")
+    vr = c.get("vol_ratio") or 0
+    if vr >= 1.5:
+        parts.append(f"量比 {vr:.1f}x")
+    nh = c.get("near_high") or 0
+    if nh >= 0.90:
+        parts.append(f"距月高 {(1 - nh) * 100:.1f}%")
     return " · ".join(parts)
 
 
@@ -676,7 +770,9 @@ def make_reason(c: dict) -> str:
     parts: list[str] = []
 
     if sources == {"Default universe"}:
-        return f"默认池基本面筛选（基本面分 {c.get('fund_score', 0):+.0f}）"
+        fund = c.get("fund_score", 0)
+        mom = c.get("mom_score", 0)
+        return f"默认池：基本面 {fund:+.0f} · 动量 {mom:+.0f}"
 
     if "Gap-Up" in sources and "涨幅榜" in sources:
         parts.append("盘前 Gap-Up 叠加盘中领涨")
@@ -713,7 +809,10 @@ TELEGRAM_BUDGET = 3800  # leave headroom for Markdown + multibyte chars
 def _pick_block(i: int, c: dict) -> list[str]:
     ticker = c["ticker"]
     price = c.get("last_close") or c["price"]
-    change = c["change"]
+    # Scraper-provided live change first; fall back to yfinance close-to-close
+    # ret_1d so the percentage column is meaningful even when Finviz/Nasdaq are
+    # blocked from CI.
+    change = c.get("change") or c.get("ret_1d") or 0
     sector = c.get("sector", "")
     sec_tag = f" · {sector}" if sector and sector != "Unknown" else ""
 
@@ -734,6 +833,10 @@ def _pick_block(i: int, c: dict) -> list[str]:
         )
 
     block.append(f"   {reason_safe}")
+
+    mt = mom_tag(c)
+    if mt:
+        block.append(f"   {mt}")
 
     ft = fund_tag(c)
     if ft:
@@ -888,18 +991,21 @@ async def run() -> int:
     filtered = hard_filter(ranked[:effective_pool], enrichments)
     print(f"  After hard filter: {len(filtered)}")
 
-    boosted = apply_fundamental_boost(filtered)
+    boosted = apply_boosts(filtered)
     picks = pick_diverse(boosted, TOP_N, MAX_PER_SECTOR)
 
     print(f"\n=== Top {len(picks)} ===")
     for i, p in enumerate(picks, 1):
         heat = p.get("heat_score", 0)
         fund = p.get("fund_score", 0)
+        mom = p.get("mom_score", 0)
+        disp_change = p.get("change") or p.get("ret_1d") or 0
         print(
             f"{i:2d}. {p['ticker']:6s} ${p.get('last_close') or p['price']:7.2f}  "
-            f"{p['change']:+5.1f}%  score={p['score']:5.1f} "
-            f"(heat {heat:.0f} + fund {fund:+.0f})  "
+            f"{disp_change:+5.1f}%  score={p['score']:5.1f} "
+            f"(heat {heat:.0f} + fund {fund:+.0f} + mom {mom:+.0f})  "
             f"sec={p.get('sector','?'):15s}  atr={p.get('atr',0):.2f}  "
+            f"r5={p.get('ret_5d',0):+.1f}% vr={p.get('vol_ratio',0):.1f} "
             f"srcs={','.join(p['sources'])}"
         )
 
@@ -910,7 +1016,7 @@ async def run() -> int:
     if used_fallback:
         partial = (
             f"⚠️ 免费数据源返回空，启用 {fallback_label} "
-            f"（{len(fallback_universe)} 只）按基本面筛选"
+            f"（{len(fallback_universe)} 只）按基本面 + 动量筛选"
         )
     elif len(picks) < TOP_N:
         partial = f"今日受数据源限制，仅筛选到 {len(picks)} 只"
