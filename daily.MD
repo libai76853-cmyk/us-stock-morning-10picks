@@ -1,0 +1,137 @@
+# 每日选股 changelog
+
+每次代码改动按日倒序记录。最上面是最新。
+
+格式：日期 | commit | 摘要 + 影响 + 验证。
+
+---
+
+## 2026-05-21 — 动量信号上线
+
+**Commit**: [`5d4e8b0`](https://github.com/libai76853-cmyk/us-stock-morning-10picks/commit/5d4e8b0) Add yfinance-derived momentum signals so picks vary day-to-day
+
+**症状**：5/19 和 5/20 推送的 Top 10 一模一样、顺序完全一致 — AVGO/CPAY/INCY/JBL/LVS/META/TPR/ALNY/APP/LLY。
+
+**根因**：免费爬虫从未工作（详见 2026-04-19 段），所有 516 universe ticker 拿到 `heat_score=20`（统一来自 `len(sources)=1`），只剩基本面分排序 → 基本面季报频率 → 排名冻结。
+
+**修复**：`_enrich_sync` 从已有的 `t.history(period="1mo")` 多算 4 个动量信号（0 额外网络）：
+- `ret_1d`：昨日 close vs 前日 close
+- `ret_5d`：5 日涨幅
+- `vol_ratio`：昨日成交量 / 20 日均量
+- `near_high`：last_close / 月内最高
+
+`momentum_score()` 桶式打分（−8 到 +40），加入 `apply_boosts()` 与基本面并列。`mom_tag()` 在推送里显示。`change%` 列改为优先用 scraper 的 live change，无则回退 `ret_1d`。
+
+**验证**：run [26254803493](https://github.com/libai76853-cmyk/us-stock-morning-10picks/actions/runs/26254803493) — 新 Top 10：RL/IBM/SNDK/FSLR/TPR/WSM/DXCM/LLY/DAL/GPN，8/10 是新名字。Top 2（RL, IBM）拿满 mom +40。Telegram 现在拆 4 条（每只多一行 mom_tag）。
+
+---
+
+## 2026-05-20 — CF cron 首次自动触发失败 + 修复
+
+**Commit**: 无代码改动（运维操作）
+
+**症状**：5/20 12:30 UTC 应该是 CF Worker cron 首次自动触发，但 0 个 workflow_dispatch run 被创建。CF Dashboard Observability 显示 1 Error。
+
+**根因**：5/19 用户手动跑 `npx wrangler secret put GH_TOKEN` 时交互式粘贴 PAT，剪贴板或输入法层在某处搞坏了 token 的字节。wrangler 不验证 secret 内容，所以这个错误是静默的。Worker 持坏 token 直到 cron 触发，被 GitHub 401，scheduled handler 抛错。
+
+**修复**：从 Claude Code shell 借用用户磁盘上 `wrangler login` 留下的 OAuth 会话，用 `printf '%s' "<PAT>" | npx wrangler secret put GH_TOKEN` 经 stdin 重灌（绕过所有 GUI 剪贴板）。`TRIGGER_KEY` 同样设了（随机 64-hex 存到 `/tmp/trigger_key.txt`）。
+
+**验证**：手动 curl `https://daily-picks-trigger.libai76853.workers.dev/?key=$KEY` 返回 `dispatch -> HTTP 204`，触发 run [26186834874](https://github.com/libai76853-cmyk/us-stock-morning-10picks/actions/runs/26186834874)，1m20s 跑完，Telegram 3/3 OK。
+
+**经验教训**：给 wrangler / 任何接受 secret 的 CLI 灌值时，**永远经 stdin pipe（`printf '%s' "value"` 或 `cat file`），绝不交互粘贴**。同一类剪贴板/输入法 bug 2 天内已击中 2 个不同表面。
+
+---
+
+## 2026-05-19 — Cloudflare Worker 替代 GH cron
+
+**Commit**: [`d9b8782`](https://github.com/libai76853-cmyk/us-stock-morning-10picks/commit/d9b8782) Drop GitHub schedule trigger; CF Worker is now the cron source
+
+**症状**：原 GH Actions `schedule:` cron 的实际触发延迟从 04-30 的 +2h04m 涨到 05-18 的 +3h32m，推送从「盘前 8:30 ET」漂移到「开盘后 11-12 AM ET」，错过实战窗口。
+
+**根因**：GH Actions 免费 tier 的 `schedule` 事件是低优先级共享 runner，全网负载升高时被排队。官方文档已声明此限制。
+
+**修复**：
+1. 新建 Cloudflare Worker `daily-picks-trigger`，cron `30 12 * * 1-5` 调用 GitHub API 的 `workflow_dispatch` endpoint
+2. 创建 fine-grained PAT `cf-worker-daily-picks-trigger`，权限仅 `Actions: read+write` on this repo，到期 2026-08-17
+3. 部署后删除 GH workflow 的 `schedule:` trigger，避免双触发
+4. 文件结构 `cf-worker-trigger/` 内：`wrangler.toml` / `src/index.js` / `DEPLOY.md`
+
+**验证**：run [26109579335](https://github.com/libai76853-cmyk/us-stock-morning-10picks/actions/runs/26109579335) 1m01s 全绿。
+
+---
+
+## 2026-05-14 — Universe 扩到 S&P500+NDX100，TOP_N 33，Telegram 拆分
+
+**Commit**:
+- [`25d51e5`](https://github.com/libai76853-cmyk/us-stock-morning-10picks/commit/25d51e5) Expand fallback universe to S&P 500 + Nasdaq 100; bump TOP_N to 33
+- [`92c9630`](https://github.com/libai76853-cmyk/us-stock-morning-10picks/commit/92c9630) Handle Wikipedia 403 + Telegram 4096-char limit
+
+**改动**：
+1. Fallback universe 从硬编码 50 只扩到从 Wikipedia 抓 S&P500 + Nasdaq100 → 去重 516 ticker
+2. 抓不到时（Wikipedia 在 CI 上也 403）读 repo 内 commit 的 `universe.json`（516 ticker 静态快照）
+3. 兜底用过时 universe 时 `enrich_pool` 自动扩到全集 516（否则 heat 都相同，前 50 是乱选）
+4. `TOP_N` 10 → 33，`MAX_PER_SECTOR` 2 → 3（11 个 GICS × 3 = 33 严格容量）
+5. Telegram 4096 字符限制：`format_messages()` 按字符预算拆成多条，每条带 `(idx/total)` header；前 33 票拆 3 条
+6. CI workflow timeout 10min → 15min（500+ ticker 富化更慢）
+
+**验证**：run [25877720807](https://github.com/libai76853-cmyk/us-stock-morning-10picks/actions/runs/25877720807) 跑通，Telegram 3 条全发 OK。
+
+---
+
+## 2026-04-20 — 兜底机制 + yfinance 富化
+
+**Commit**:
+- [`9732b49`](https://github.com/libai76853-cmyk/us-stock-morning-10picks/commit/9732b49) Upgrade picker: yfinance enrichment, hard filter, sector diversity, ATR targets, fundamentals, cache, run log
+- [`b1767c4`](https://github.com/libai76853-cmyk/us-stock-morning-10picks/commit/b1767c4) Add fallback universe when free scrapers return <5 candidates
+
+**改动**：
+1. 加 yfinance `Ticker.info` + `history(period="1mo")` 富化：市值、平均量、行业、ATR(14)、PE/PEG/ROE/营收增长/盈利增长
+2. `hard_filter` 用富化数据剔小盘（< $500M）、薄流动性（< $5M 日成交额）、低价股（< $5）
+3. `pick_diverse` 行业上限分散
+4. ATR 自适应入场点 / 止损 / 目标（Stop = entry − 1.5×ATR, Target = entry + 3×ATR）
+5. `fundamental_score` 桶式打分（−9 到 +35）作为热度分之上的加权
+6. 当 scraper 返回 < 5 候选时启用硬编码 50 大盘股 fallback universe
+7. yfinance 富化结果按当日缓存（`cache/enrich_YYYY-MM-DD.json`）避免同日重跑
+
+---
+
+## 2026-04-19 — Day 1 部署 + 爬虫从未工作
+
+**Commit**: [`5d5516e`](https://github.com/libai76853-cmyk/us-stock-morning-10picks/commit/5d5516e) Initial commit: daily US stock picker
+
+**部署**：GitHub Actions cron `30 12 * * 1-5` (12:30 UTC Mon-Fri) → `python main.py` → Telegram 推送。
+
+**爬虫初始状态（从未工作）**：
+- Finviz 4 个 screener（涨幅榜、Gap-Up、异动量、52周新高）：HTTP 200 + 空表
+- Nasdaq 盘前 API：空 rows
+- StockTwits trending：空集
+- Reddit 5 个 sub × 2 listing：0 mention
+
+最早 run [24617831384](https://github.com/libai76853-cmyk/us-stock-morning-10picks/actions/runs/24617831384) 日志：
+```
+Total rows: 0, Nasdaq pre: 0, ST trending: 0
+Unique candidates: 0
+```
+
+**结论**：4 个免费数据源在 GH Actions runner IP 段全部被反爬，从 day 1 就靠 fallback 兜底。详见根目录 `daily.MD` 顶部恢复方案讨论。
+
+---
+
+## 模板（未来改动追加在此之上）
+
+```markdown
+## YYYY-MM-DD — 一句话标题
+
+**Commit**: [`<short>`](https://github.com/libai76853-cmyk/us-stock-morning-10picks/commit/<short>) 完整 subject
+
+**症状 / 动机**：（如果是 fix）观察到的现象；（如果是 feature）为什么要加
+
+**根因 / 设计**：技术解释
+
+**改动**：
+- 文件 / 函数级别的清单
+
+**验证**：run [<id>](https://github.com/.../runs/<id>) 结果
+
+**后续 / TODO**：（如有）
+```
