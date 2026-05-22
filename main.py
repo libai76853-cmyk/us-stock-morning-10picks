@@ -391,7 +391,9 @@ def _enrich_sync(ticker: str, max_retries: int = 3) -> dict | None:
         try:
             t = yf.Ticker(ticker)
             info = t.info or {}
-            hist = t.history(period="1mo", auto_adjust=False)
+            # 1y bar — covers 52w high/low, 200d MA, and gives MACD/RSI room
+            # to stabilize. Single HTTP call same as 1mo.
+            hist = t.history(period="1y", auto_adjust=False)
             if hist.empty or len(hist) < 15:
                 return None
             high, low, close, volume = (
@@ -403,10 +405,7 @@ def _enrich_sync(ticker: str, max_retries: int = 3) -> dict | None:
             ).max(axis=1)
             atr_val = tr.rolling(14).mean().iloc[-1]
 
-            # Momentum signals from the same 1-month bar — no extra network cost.
-            # These vary day-to-day, which is the whole point of having them:
-            # without scraper-fed heat signals (Finviz et al. are blocked from CI),
-            # static fundamentals alone freeze the picks.
+            # --- Short-term momentum (last 1mo) -------------------------------
             last_close = float(close.iloc[-1])
             ret_1d = (
                 (last_close / float(close.iloc[-2]) - 1) * 100
@@ -421,8 +420,52 @@ def _enrich_sync(ticker: str, max_retries: int = 3) -> dict | None:
             vol_ratio = (
                 float(volume.iloc[-1]) / vol_avg if vol_avg > 0 else 0.0
             )
-            month_high = float(high.max())
+            # near_high stays "last 20 bars" (month high) for back-compat
+            month_high = float(high.tail(20).max())
             near_high = last_close / month_high if month_high > 0 else 0.0
+
+            # --- Technical (52w lookback) -------------------------------------
+            high_52w = float(high.max())
+            dist_52w = last_close / high_52w if high_52w > 0 else 0.0
+
+            ma200_pos = 0.0
+            if len(close) >= 200:
+                ma200 = float(close.rolling(200).mean().iloc[-1])
+                if ma200 > 0:
+                    ma200_pos = last_close / ma200
+
+            # RSI(14) using Wilder smoothing approximation via SMA.
+            rsi14 = 50.0
+            if len(close) >= 15:
+                delta = close.diff()
+                gains = delta.clip(lower=0)
+                losses = -delta.clip(upper=0)
+                avg_gain = float(gains.rolling(14).mean().iloc[-1])
+                avg_loss = float(losses.rolling(14).mean().iloc[-1])
+                if avg_loss == 0:
+                    rsi14 = 100.0 if avg_gain > 0 else 50.0
+                else:
+                    rs = avg_gain / avg_loss
+                    rsi14 = 100.0 - (100.0 / (1.0 + rs))
+
+            # MACD state: 0 unset, +2 fresh golden cross within 5d,
+            # +1 ongoing bullish, -1 ongoing bearish, -2 fresh death cross.
+            macd_state = 0
+            if len(close) >= 35:
+                ema12 = close.ewm(span=12, adjust=False).mean()
+                ema26 = close.ewm(span=26, adjust=False).mean()
+                macd_line = ema12 - ema26
+                signal_line = macd_line.ewm(span=9, adjust=False).mean()
+                diff = macd_line - signal_line
+                today_pos = float(diff.iloc[-1]) > 0
+                recent_other_sign = (
+                    (diff.iloc[-6:-1] < 0).any() if today_pos
+                    else (diff.iloc[-6:-1] > 0).any()
+                )
+                if today_pos:
+                    macd_state = 2 if recent_other_sign else 1
+                else:
+                    macd_state = -2 if recent_other_sign else -1
 
             return {
                 "ticker": ticker,
@@ -443,6 +486,10 @@ def _enrich_sync(ticker: str, max_retries: int = 3) -> dict | None:
                 "ret_5d": ret_5d,
                 "vol_ratio": vol_ratio,
                 "near_high": near_high,
+                "dist_52w": dist_52w,
+                "ma200_pos": ma200_pos,
+                "rsi14": float(rsi14),
+                "macd_state": int(macd_state),
             }
         except Exception:
             if attempt == max_retries - 1:
@@ -499,6 +546,7 @@ def save_run_log(date_str: str, picks: list[dict], filtered_count: int, enriched
                 "heat_score": p.get("heat_score"),
                 "fund_score": p.get("fund_score"),
                 "mom_score": p.get("mom_score"),
+                "tech_score": p.get("tech_score"),
                 "sector": p.get("sector"),
                 "last_close": p.get("last_close"),
                 "change": p.get("change"),
@@ -514,6 +562,10 @@ def save_run_log(date_str: str, picks: list[dict], filtered_count: int, enriched
                 "ret_5d": p.get("ret_5d"),
                 "vol_ratio": p.get("vol_ratio"),
                 "near_high": p.get("near_high"),
+                "dist_52w": p.get("dist_52w"),
+                "ma200_pos": p.get("ma200_pos"),
+                "rsi14": p.get("rsi14"),
+                "macd_state": p.get("macd_state"),
                 "sources": sorted(p.get("sources", set())),
                 "trending": p.get("trending", False),
                 "reddit": p.get("reddit", 0),
@@ -611,6 +663,7 @@ def hard_filter(candidates: list[dict], enrich: dict[str, dict]) -> list[dict]:
                 "trailing_pe", "forward_pe", "peg",
                 "roe", "revenue_growth", "earnings_growth_q",
                 "ret_1d", "ret_5d", "vol_ratio", "near_high",
+                "dist_52w", "ma200_pos", "rsi14", "macd_state",
             ):
                 if k in e:
                     c[k] = e[k]
@@ -702,12 +755,61 @@ def momentum_score(c: dict) -> float:
     return s
 
 
+def technical_score(c: dict) -> float:
+    """Longer-horizon technical signals from the 1y yfinance bar.
+
+    Complements `momentum_score` (which uses last ~20 bars). Range ≈ −10 to +22.
+    Captures: 52w breakout strength, 200d MA position, RSI extremes, MACD cross.
+    """
+    s = 0.0
+
+    d = c.get("dist_52w") or 0
+    if d >= 0.95:
+        s += 8
+    elif d >= 0.85:
+        s += 4
+    elif 0 < d <= 0.50:
+        s -= 3
+
+    ma = c.get("ma200_pos") or 0
+    if ma >= 1.10:
+        s += 5
+    elif ma >= 1.00:
+        s += 2
+    elif 0 < ma <= 0.95:
+        s -= 3
+
+    rsi = c.get("rsi14") or 0
+    if rsi > 0:  # avoid spurious +5 when enrichment missing
+        if 50 <= rsi <= 65:
+            s += 5
+        elif 65 < rsi <= 75:
+            s += 2
+        elif rsi > 75:
+            s -= 2
+        elif rsi < 30:
+            s += 3
+
+    m = c.get("macd_state") or 0
+    if m == 2:
+        s += 6
+    elif m == 1:
+        s += 3
+    elif m == -1:
+        s -= 1
+    elif m == -2:
+        s -= 4
+
+    return s
+
+
 def apply_boosts(candidates: list[dict]) -> list[dict]:
-    """Apply fundamental + momentum boosts on top of heat_score."""
+    """Apply fundamental + momentum + technical boosts on top of heat_score."""
     for c in candidates:
         c["fund_score"] = fundamental_score(c)
         c["mom_score"] = momentum_score(c)
-        c["score"] += c["fund_score"] + c["mom_score"]
+        c["tech_score"] = technical_score(c)
+        c["score"] += c["fund_score"] + c["mom_score"] + c["tech_score"]
     candidates.sort(key=lambda x: x["score"], reverse=True)
     return candidates
 
@@ -729,17 +831,47 @@ def fund_tag(c: dict) -> str:
     return " · ".join(parts)
 
 
-def mom_tag(c: dict) -> str:
+def signal_tag(c: dict) -> str:
+    """Combined momentum + technical signal tag for the Telegram per-pick line.
+
+    Kept as one line (instead of two) so the message doesn't bloat to 5+
+    Telegram chunks. Only includes fields that actually triggered something
+    interesting — avoids visual noise for neutral readings.
+    """
     parts = []
+
     r5 = c.get("ret_5d") or 0
     if abs(r5) >= 0.5:
         parts.append(f"5d {r5:+.1f}%")
+
     vr = c.get("vol_ratio") or 0
     if vr >= 1.5:
         parts.append(f"量比 {vr:.1f}x")
-    nh = c.get("near_high") or 0
-    if nh >= 0.90:
-        parts.append(f"距月高 {(1 - nh) * 100:.1f}%")
+
+    d = c.get("dist_52w") or 0
+    if d >= 0.95:
+        parts.append(f"距52w高 {(1 - d) * 100:.1f}%")
+    elif 0 < d <= 0.50:
+        parts.append(f"距52w高 {(1 - d) * 100:.0f}%")  # near 52w low
+
+    ma = c.get("ma200_pos") or 0
+    if ma >= 1.10:
+        parts.append(f">200日均 {(ma - 1) * 100:.0f}%")
+    elif 0 < ma <= 0.95:
+        parts.append(f"<200日均 {(1 - ma) * 100:.0f}%")
+
+    rsi = c.get("rsi14") or 0
+    if rsi > 75:
+        parts.append(f"RSI{rsi:.0f}超买")
+    elif 0 < rsi < 30:
+        parts.append(f"RSI{rsi:.0f}超卖")
+
+    m = c.get("macd_state") or 0
+    if m == 2:
+        parts.append("MACD金叉")
+    elif m == -2:
+        parts.append("MACD死叉")
+
     return " · ".join(parts)
 
 
@@ -772,7 +904,8 @@ def make_reason(c: dict) -> str:
     if sources == {"Default universe"}:
         fund = c.get("fund_score", 0)
         mom = c.get("mom_score", 0)
-        return f"默认池：基本面 {fund:+.0f} · 动量 {mom:+.0f}"
+        tech = c.get("tech_score", 0)
+        return f"默认池：基本面 {fund:+.0f} · 动量 {mom:+.0f} · 技术 {tech:+.0f}"
 
     if "Gap-Up" in sources and "涨幅榜" in sources:
         parts.append("盘前 Gap-Up 叠加盘中领涨")
@@ -834,9 +967,9 @@ def _pick_block(i: int, c: dict) -> list[str]:
 
     block.append(f"   {reason_safe}")
 
-    mt = mom_tag(c)
-    if mt:
-        block.append(f"   {mt}")
+    st = signal_tag(c)
+    if st:
+        block.append(f"   {st}")
 
     ft = fund_tag(c)
     if ft:
@@ -999,14 +1132,16 @@ async def run() -> int:
         heat = p.get("heat_score", 0)
         fund = p.get("fund_score", 0)
         mom = p.get("mom_score", 0)
+        tech = p.get("tech_score", 0)
         disp_change = p.get("change") or p.get("ret_1d") or 0
         print(
             f"{i:2d}. {p['ticker']:6s} ${p.get('last_close') or p['price']:7.2f}  "
             f"{disp_change:+5.1f}%  score={p['score']:5.1f} "
-            f"(heat {heat:.0f} + fund {fund:+.0f} + mom {mom:+.0f})  "
-            f"sec={p.get('sector','?'):15s}  atr={p.get('atr',0):.2f}  "
-            f"r5={p.get('ret_5d',0):+.1f}% vr={p.get('vol_ratio',0):.1f} "
-            f"srcs={','.join(p['sources'])}"
+            f"(h{heat:.0f}+f{fund:+.0f}+m{mom:+.0f}+t{tech:+.0f})  "
+            f"sec={p.get('sector','?'):15s}  "
+            f"r5={p.get('ret_5d',0):+5.1f}% vr={p.get('vol_ratio',0):.1f} "
+            f"52w={p.get('dist_52w',0):.2f} ma200={p.get('ma200_pos',0):.2f} "
+            f"rsi={p.get('rsi14',0):.0f} macd={p.get('macd_state',0):+d}"
         )
 
     run_date = datetime.now(timezone.utc).astimezone().strftime("%Y-%m-%d")
@@ -1016,7 +1151,7 @@ async def run() -> int:
     if used_fallback:
         partial = (
             f"⚠️ 免费数据源返回空，启用 {fallback_label} "
-            f"（{len(fallback_universe)} 只）按基本面 + 动量筛选"
+            f"（{len(fallback_universe)} 只）按基本面 + 动量 + 技术筛选"
         )
     elif len(picks) < TOP_N:
         partial = f"今日受数据源限制，仅筛选到 {len(picks)} 只"
