@@ -6,6 +6,34 @@
 
 ---
 
+## 2026-05-22 — 技术信号补完：52w/200d/RSI/MACD
+
+**Commit**: [`ce336a4`](https://github.com/libai76853-cmyk/us-stock-morning-10picks/commit/ce336a4) Add technical signals: 52w distance, 200d MA, RSI(14), MACD
+
+**动机**：免费爬虫 day 1 起就死，原热度柱永远 0；昨天补了短期动量后排名活了，但还想加中期技术面以补回爬虫失去的"52周新高"那类信号。
+
+**改动**：
+1. yfinance 取数从 `period="1mo"` 升到 `period="1y"`（同一次 HTTP 调用，仅返回体变大），覆盖 200 日均线和 52 周高低位需要的窗口
+2. `_enrich_sync` 新增 4 字段：
+   - `dist_52w` = last_close / 52w high（0..1，越接近 1 越强）
+   - `ma200_pos` = last_close / 200日MA（>1 = 在均线上方）
+   - `rsi14` = 标准 Wilder RSI（SMA 平滑近似）
+   - `macd_state` = −2(死叉刚发) / −1(下行中) / +1(上行中) / +2(金叉刚发，5 日内)
+3. 新增 `technical_score()`，桶式打分 −10 到 +22
+4. `apply_boosts()` 现在叠 3 柱：fund + mom + tech
+5. `mom_tag()` 改成 `signal_tag()`，把动量 + 技术合一行显示，避免推送行数翻倍
+6. `make_reason()`、print log、`save_run_log` 都加上 `tech_score` 字段
+
+**验证**：run [26269859731](https://github.com/libai76853-cmyk/us-stock-morning-10picks/actions/runs/26269859731)。新 Top 10：RL/CPAY/JBL/WSM/TPR/**ARM**/DAL/LLY/**MET**/DXCM。ARM 和 MET 是技术信号筛出来的新面孔（ARM 在 200 日均线上方 104%，MET 触 52 周新高）。Telegram 4 条全发 OK，总字符数跟昨天差不多（合并 tag 后没膨胀）。
+
+**总分构成**（现状）：
+- `heat_score` 0~? — 爬虫提供，目前永远 20 因为只有 "Default universe"
+- `fund_score` −9 ~ +35 — 基本面 P/E + PEG + ROE + 营收/盈利增长
+- `mom_score` −8 ~ +40 — 1日/5日涨幅、量比、距月高
+- `tech_score` −10 ~ +22 — 距 52w 高、200日均位置、RSI、MACD 信号
+
+---
+
 ## 2026-05-21 — 动量信号上线
 
 **Commit**: [`5d4e8b0`](https://github.com/libai76853-cmyk/us-stock-morning-10picks/commit/5d4e8b0) Add yfinance-derived momentum signals so picks vary day-to-day
