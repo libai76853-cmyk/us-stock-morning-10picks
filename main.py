@@ -714,19 +714,28 @@ def fundamental_score(c: dict) -> float:
 def momentum_score(c: dict) -> float:
     """Bucket-based momentum boost from yfinance price/volume action.
 
-    The four signals are computed in `_enrich_sync` from the same 1-month bar
-    yfinance already fetches for ATR; no extra network. Range ≈ −8 to +40.
-    Built so that on days when the scraper-fed heat signals are all zero
-    (Finviz et al. blocked from GH Actions runner IPs), the picks still
-    re-rank day-to-day based on real price/volume action.
+    Rebalanced 2026-05-22 to avoid "tops bias": prior version stacked +40
+    purely for "already at month high + just had a +5% day", which made the
+    picker chase parabolic moves. Now:
+
+      - `ret_1d ≥8%` actively penalized (noise/exhaustion)
+      - `near_high ≥0.98` (literally at month peak) penalized
+      - Sweet spot moved to `near_high 0.88-0.92` — i.e. an 8-12% pullback
+        from the month high, still inside the uptrend
+
+    The four signals are computed in `_enrich_sync` from the same 1-month
+    bar yfinance already fetches for ATR; no extra network. Range ≈ −10 to
+    +28.
     """
     s = 0.0
 
     r1 = c.get("ret_1d") or 0
-    if r1 >= 5:
-        s += 12
+    if r1 >= 8:
+        s -= 3      # 单日 ≥8% 通常是新闻噪音或日内反转风险
+    elif r1 >= 5:
+        s += 2      # 大涨但不极端
     elif r1 >= 2:
-        s += 6
+        s += 6      # 温和上涨
     elif r1 >= 1:
         s += 3
     elif r1 <= -3:
@@ -747,10 +756,16 @@ def momentum_score(c: dict) -> float:
         s += 5
 
     nh = c.get("near_high") or 0
-    if nh >= 0.95:
-        s += 8
-    elif nh >= 0.90:
-        s += 4
+    if nh >= 0.98:
+        s -= 2      # 顶到月内最高，反转风险
+    elif nh >= 0.93:
+        s += 5
+    elif nh >= 0.88:
+        s += 7      # 健康回调甜区（距月高 7-12%）
+    elif nh >= 0.82:
+        s += 4      # 较深回调，仍在趋势内
+    elif 0 < nh < 0.70:
+        s -= 2      # 跌得太深
 
     return s
 
@@ -758,37 +773,61 @@ def momentum_score(c: dict) -> float:
 def technical_score(c: dict) -> float:
     """Longer-horizon technical signals from the 1y yfinance bar.
 
-    Complements `momentum_score` (which uses last ~20 bars). Range ≈ −10 to +22.
-    Captures: 52w breakout strength, 200d MA position, RSI extremes, MACD cross.
+    Rebalanced 2026-05-22 alongside `momentum_score` to defuse "tops bias":
+    creating a 52w high or sitting >30% above 200d MA is now neutral-to-
+    negative rather than the previous max bonus. RSI penalties for >75/>80
+    sharpened from −2 to −8/−15.
+
+    A new composite `quality_dip` rewards the canonical "buy strength on
+    pullback" setup: above 200d MA + recent pullback from month high +
+    healthy (not stretched) RSI.
+
+    Range ≈ −20 to +25.
     """
     s = 0.0
 
     d = c.get("dist_52w") or 0
-    if d >= 0.95:
-        s += 8
+    if d >= 0.98:
+        s -= 2          # 创 52w 新高，反转风险
+    elif d >= 0.92:
+        s += 5
     elif d >= 0.85:
-        s += 4
+        s += 6          # 距 52w 高 8-15%，趋势内回调甜区
+    elif d >= 0.70:
+        s += 0          # 中性区
     elif 0 < d <= 0.50:
-        s -= 3
+        s -= 3          # 深度熊势
 
     ma = c.get("ma200_pos") or 0
-    if ma >= 1.10:
+    if ma >= 1.30:
+        s += 0          # 距 200d 均线 ≥30%，过度拉伸
+    elif ma >= 1.10:
         s += 5
     elif ma >= 1.00:
-        s += 2
-    elif 0 < ma <= 0.95:
+        s += 3
+    elif ma >= 0.95:
+        s += 1          # 在 200d 附近，可能是入场点
+    elif 0 < ma < 0.95:
         s -= 3
 
     rsi = c.get("rsi14") or 0
-    if rsi > 0:  # avoid spurious +5 when enrichment missing
-        if 50 <= rsi <= 65:
-            s += 5
-        elif 65 < rsi <= 75:
-            s += 2
+    if rsi > 0:
+        if rsi > 80:
+            s -= 15     # 极端超买
         elif rsi > 75:
-            s -= 2
-        elif rsi < 30:
-            s += 3
+            s -= 8      # 超买
+        elif rsi > 65:
+            s += 0      # 偏高位，不奖也不罚
+        elif rsi >= 50:
+            s += 5      # 健康上涨区
+        elif rsi >= 40:
+            s += 4      # 弱回调，潜在反转
+        elif rsi >= 30:
+            s += 2      # 深回调
+        elif rsi >= 25:
+            s += 5      # 超卖反弹机会
+        else:
+            s += 8      # 深度超卖
 
     m = c.get("macd_state") or 0
     if m == 2:
@@ -799,6 +838,11 @@ def technical_score(c: dict) -> float:
         s -= 1
     elif m == -2:
         s -= 4
+
+    # Quality dip composite: 长期上涨 + 短期回调 + 不超买
+    nh = c.get("near_high") or 0
+    if ma >= 1.05 and 0.80 <= nh <= 0.92 and 35 <= rsi <= 65:
+        s += 6
 
     return s
 
