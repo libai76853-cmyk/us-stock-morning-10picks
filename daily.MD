@@ -6,6 +6,30 @@
 
 ---
 
+## 2026-05-22 — 运维：CF cron 静默漏一拍，手动补 + redeploy
+
+**Commit**: 无代码改动（运维操作）
+
+**症状**：今天 12:30 UTC 的 CF cron 应触发但**没出现任何 workflow_dispatch run**。当 13:34 UTC 用户问"怎么还没推送"时已过点 1 小时。对比昨天 5/21 12:31:00 UTC cron 完美触发，配置零改动。
+
+**诊断**：
+- Worker URL 活，curl `/` 返回 403（路径正常）
+- 手动带 key curl 返回 `dispatch -> HTTP 204` → Worker 代码、`GH_TOKEN`、workflow_dispatch 端点全 OK
+- `wrangler deployments list` 显示 Worker 自 5/20 20:03 起没动过
+
+**根因**：CF Workers cron 触发器偶发漏 tick（CF 已知问题，无法预测，频次很低）。这次 CF 后端没把 scheduled event dispatch 出来，等同跳过这一次。
+
+**修复**：
+1. 手动 curl `/?key=...` 补一次触发 → run [26290954012](https://github.com/libai76853-cmyk/us-stock-morning-10picks/actions/runs/26290954012) 1m 多跑完，Telegram 4/4 OK
+2. `npx wrangler deploy` 重发同份代码 → 新版本 `0b8a3f35`，cron `30 12 * * 1-5` 重新注册
+
+**经验**：如果未来用户再说"今天没推送"，第一步永远是：
+- 看 `gh run list` 最近一次 run 时间戳
+- 如果今天 12:30 UTC 后没新 run → CF cron 漏拍
+- 修复路径：curl `/?key=$(cat /tmp/trigger_key.txt)` 补当天 + `cd cf-worker-trigger && npx wrangler deploy` 刷新注册
+
+---
+
 ## 2026-05-22 — 技术信号补完：52w/200d/RSI/MACD
 
 **Commit**: [`ce336a4`](https://github.com/libai76853-cmyk/us-stock-morning-10picks/commit/ce336a4) Add technical signals: 52w distance, 200d MA, RSI(14), MACD
