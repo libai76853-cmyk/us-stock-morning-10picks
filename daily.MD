@@ -57,7 +57,13 @@
 - v5 现状：+57（动量 +40 + 技术 +17）
 - v6 新版：+16（动量 +27 + 技术 +-11）→ 应该掉出 Top 10
 
-实测见下一次 workflow_dispatch run id（推送后回填）。
+**实测**：run [26302404485](https://github.com/libai76853-cmyk/us-stock-morning-10picks/actions/runs/26302404485) 1m+ 跑完，Telegram 4/4 OK。
+- 昨日 v5 Top 10：RL/IBM/SNDK/FSLR/TPR/WSM/DXCM/LLY/DAL/GPN
+- 今日 v6 Top 10：TPR/ANET/CPAY/JBL/CHRW/**RL**/INCY/LLY/DECK/APA
+- **7/10 是新面孔**（IBM、SNDK、FSLR、WSM、DXCM、DAL、GPN 全出局，都是顶部追涨型）
+- RL 从 #1 掉到 #6（实测 score 73，含 heat 20，去 heat 后约 +53，仍高于 +16 估计 — 因为 ret_5d=+16.1% 仍触发 +10、macd=2 +6、ma200=1.11 +5 这些没改）
+- RSI 范围从昨天的 65-80 → 今天 37-70；52w 距离从 ≥0.95 → 0.82-0.97
+- 新引入：ANET（rsi 37 弱势区）、DECK（距 52w 高 18%）、APA（rsi 38）= 都是经典回调买点
 
 **回退方案**：如果新版本踢掉太多真正强势趋势票，调整 `dist_52w` 的 0.98 桶从 −2 改回 0 或微正。
 
