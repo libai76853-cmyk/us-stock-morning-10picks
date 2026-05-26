@@ -11,6 +11,8 @@ jobs:
   pick:
     runs-on: ubuntu-latest
     timeout-minutes: 15
+    permissions:
+      contents: write  # required to auto-commit weekly/*.json + stats.md back
     steps:
       # 2026-05-26: GitHub's anti-abuse system occasionally returns a transient
       # "remote: Your account is suspended" error on `git fetch` during
@@ -52,3 +54,19 @@ jobs:
           TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
           TOP_N: "33"
         run: python main.py
+
+      # Auto-commit the updated weekly tracking JSON back to the repo so the
+      # next day's run can read this week's locked entries + accumulated
+      # daily_closes. stats.md may also have been appended on Friday close.
+      - name: Commit weekly tracking updates
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add weekly/ stats.md 2>/dev/null || true
+          if git diff --staged --quiet; then
+            echo "No weekly file changes to commit."
+          else
+            git commit -m "Auto: weekly tracking $(date -u +%Y-%m-%d)"
+            # Retry push once on transient failure (same flavor as checkout retry).
+            git push || (sleep 30 && git push)
+          fi

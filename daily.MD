@@ -6,6 +6,68 @@
 
 ---
 
+## 2026-05-26 — v7 周度跟踪模式（picks 周一锁定 + 全周 P/L 监测）
+
+**Commit**: 本次推送
+
+**症状/动机**：用户原话「根据这些天推送的数据。我觉得还是一周推送一样的做比较。然后部署一个监测数据系统 ，看哪些target了。哪些出局？这个方向更好」。痛点：每日重生 picks 模式下 list 一变就没法验证「这只票推荐之后到底涨没涨」，等于一直换主意永不复盘，无法形成调评分桶的反馈闭环。
+
+**新架构**：每周一生成 33 picks，整周锁定，每日推送状态表（含 P/L），周末汇总。
+
+| 模式 | 触发条件 | 动作 |
+|---|---|---|
+| GENERATE | `weekly/weekly_picks_<Monday>.json` 不存在 | 跑 picker pipeline → 写文件，entries=null |
+| LOCK | 文件存在 + entries=null + today > Monday | 从 yfinance 拉周一 Open → 锁定 entry / stop (=entry−1.5×ATR) / target (=entry+3×ATR) |
+| TRACK | entries 已锁定 | 拉最新 close → 计算 P/L → 检测 target_hit / stopped_out → append daily_closes |
+| PREVIEW | 周一盘前 entries 还没锁 | 只发 ticker 列表预览，无 entry/target/stop |
+
+**文件 schema** `weekly/weekly_picks_<YYYY-MM-DD>.json`（按周一日期命名，commit 进 repo）：
+
+```json
+{
+  "week_start": "2026-05-25",
+  "generated_at": "...",
+  "entries_locked_at": "...",  // null until locked
+  "picks": [{
+    "rank": 1, "ticker": "TPR", "sector": "...",
+    "score": 83, "components": {"heat":20,"fund":32,"mom":10,"tech":21},
+    "signals": {...}, "fundamentals": {...},
+    "preview_close": 139.20,   // Friday close at gen time
+    "entry_atr": 6.20,
+    "entry_price": null,        // null until LOCK
+    "stop_price": null, "target_price": null,
+    "status": "PENDING|HOLD|TARGET_HIT|STOPPED",
+    "exit_price": null, "exit_date": null,
+    "daily_closes": [{"date":"...","close":...}, ...],
+    "reason": "..."
+  }, ...],
+  "weekly_stats": {"target_hit":N, "stopped_out":N, "holding":N, "avg_pnl_pct":X.X}
+}
+```
+
+**Telegram 模板**：
+- TRACK 模式：`📈 本周 Picks 状态 — Day N` + 每只票 `[HOLD/🎯/🛑] +X.X% Entry→Now Stop/Target 距离`
+- 出场后的票仍每日显示但标 `[🎯 TARGET]` / `[🛑 STOP]`，不再跟 P/L（exit_price 已锁）
+
+**改动文件**：
+- `main.py`：新增 weekly tracking 模块（~300 行），refactor 原 run() → `_generate_picks_pipeline()` + 新的 mode-switching `run()`
+- `.github/workflows/daily_picks.yml`：加 `permissions: contents: write` + commit step
+- 新目录 `weekly/`（不在 .gitignore 里，会被 commit）
+
+**首次部署引导**：今天周二 5/26，本周 Monday=5/25 已过。预期流程：
+1. 触发后无 `weekly/weekly_picks_2026-05-25.json` → GENERATE
+2. today (5/26) > monday (5/25) → 立即 LOCK，从 yfinance 抓 5/25 Open
+3. entries 已锁 → TRACK，发 Day 2 状态表
+4. 末尾 auto-commit weekly/weekly_picks_2026-05-25.json 回 repo
+
+**Telegram 预期变化**：从每日重生 33 picks → 整周看同一份 33 picks 的演进
+- 周一：preview 预览（盘前）
+- 周二：locked entries + Day 1 P/L
+- 周三-五：每日 P/L 更新 + 触发的 target/stop 事件
+- 周五收盘后：本周战果 append 到 `stats.md`
+
+---
+
 ## 2026-05-26 — checkout 加一次 60s retry 防 GH 反滥用瞬时 flag
 
 **Commit**: 本次推送

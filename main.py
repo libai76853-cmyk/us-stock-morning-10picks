@@ -14,7 +14,7 @@ import sys
 import time
 from collections import defaultdict
 from concurrent.futures import ThreadPoolExecutor
-from datetime import datetime, timedelta, timezone
+from datetime import date, datetime, timedelta, timezone
 
 import httpx
 from bs4 import BeautifulSoup
@@ -29,7 +29,10 @@ MIN_DOLLAR_VOL = float(os.getenv("MIN_DOLLAR_VOL_M", "5")) * 1e6
 MAX_PER_SECTOR = int(os.getenv("MAX_PER_SECTOR", "3"))
 ENRICH_POOL = int(os.getenv("ENRICH_POOL", "50"))
 CACHE_DIR = os.getenv("CACHE_DIR", "cache")
+WEEKLY_DIR = os.getenv("WEEKLY_DIR", "weekly")  # committed to repo, not in cache/
 FALLBACK_MIN = int(os.getenv("FALLBACK_MIN", "5"))
+ATR_STOP_MULT = float(os.getenv("ATR_STOP_MULT", "1.5"))
+ATR_TARGET_MULT = float(os.getenv("ATR_TARGET_MULT", "3.0"))
 
 SP500_WIKI = "https://en.wikipedia.org/wiki/List_of_S%26P_500_companies"
 NDX_WIKI = "https://en.wikipedia.org/wiki/Nasdaq-100"
@@ -1104,9 +1107,384 @@ async def send_telegram(text: str) -> bool:
             return False
 
 
-async def run() -> int:
-    print(f"Starting picker — {datetime.now(timezone.utc).isoformat()}")
+# ============================================================================
+# Weekly tracking (v7, 2026-05-26) — see daily.MD for design rationale.
+#
+# Lifecycle per week:
+#   Mon 12:30 UTC  (pre-market):  GENERATE — write weekly file, entries=null
+#   Tue 12:30 UTC                 LOCK     — fetch Mon's open → entry/stop/target
+#                                            then TRACK Day 1
+#   Wed-Fri 12:30 UTC             TRACK    — refresh latest, P/L, detect hits
+#
+# All days commit the updated weekly/weekly_picks_<Monday>.json back to repo.
+# ============================================================================
 
+
+def _this_monday(today: date) -> date:
+    """Return the Monday of the week containing `today` (Mon=0 ... Sun=6)."""
+    return today - timedelta(days=today.weekday())
+
+
+def _weekly_path(monday: date) -> str:
+    os.makedirs(WEEKLY_DIR, exist_ok=True)
+    return os.path.join(WEEKLY_DIR, f"weekly_picks_{monday.isoformat()}.json")
+
+
+def load_weekly_picks(monday: date) -> dict | None:
+    path = _weekly_path(monday)
+    if not os.path.exists(path):
+        return None
+    try:
+        with open(path) as f:
+            return json.load(f)
+    except Exception as e:
+        print(f"  Weekly load failed: {e}")
+        return None
+
+
+def save_weekly_picks(monday: date, data: dict) -> None:
+    path = _weekly_path(monday)
+    try:
+        with open(path, "w") as f:
+            json.dump(data, f, ensure_ascii=False, indent=2)
+    except Exception as e:
+        print(f"  Weekly save failed: {e}")
+
+
+def build_weekly_schema(monday: date, picks: list[dict]) -> dict:
+    """Convert in-memory picks into JSON-safe weekly schema (entries=null)."""
+    return {
+        "week_start": monday.isoformat(),
+        "generated_at": datetime.now(timezone.utc).isoformat(),
+        "entries_locked_at": None,
+        "picks": [
+            {
+                "rank": i,
+                "ticker": p["ticker"],
+                "sector": p.get("sector", "Unknown"),
+                "score": p.get("score"),
+                "components": {
+                    "heat": p.get("heat_score", 0),
+                    "fund": p.get("fund_score", 0),
+                    "mom": p.get("mom_score", 0),
+                    "tech": p.get("tech_score", 0),
+                },
+                "signals": {
+                    "ret_1d": p.get("ret_1d"),
+                    "ret_5d": p.get("ret_5d"),
+                    "vol_ratio": p.get("vol_ratio"),
+                    "near_high": p.get("near_high"),
+                    "dist_52w": p.get("dist_52w"),
+                    "ma200_pos": p.get("ma200_pos"),
+                    "rsi14": p.get("rsi14"),
+                    "macd_state": p.get("macd_state"),
+                },
+                "fundamentals": {
+                    "market_cap": p.get("market_cap"),
+                    "trailing_pe": p.get("trailing_pe"),
+                    "forward_pe": p.get("forward_pe"),
+                    "peg": p.get("peg"),
+                    "roe": p.get("roe"),
+                    "revenue_growth": p.get("revenue_growth"),
+                    "earnings_growth_q": p.get("earnings_growth_q"),
+                },
+                "preview_close": p.get("last_close"),  # Friday close at gen time
+                "entry_atr": p.get("atr"),
+                "entry_price": None,
+                "stop_price": None,
+                "target_price": None,
+                "status": "PENDING",
+                "exit_price": None,
+                "exit_date": None,
+                "daily_closes": [],
+                "reason": make_reason(p),
+            }
+            for i, p in enumerate(picks, 1)
+        ],
+        "weekly_stats": {
+            "target_hit": 0,
+            "stopped_out": 0,
+            "holding": len(picks),
+            "avg_pnl_pct": None,
+        },
+    }
+
+
+def fetch_monday_opens(tickers: list[str], monday: date) -> dict[str, float]:
+    """Batch-fetch Monday's open price via yfinance bulk download."""
+    import yfinance as yf
+
+    end = monday + timedelta(days=3)  # buffer for weekends/holidays
+    try:
+        df = yf.download(
+            tickers=tickers,
+            start=monday.isoformat(),
+            end=end.isoformat(),
+            group_by="ticker",
+            threads=True,
+            progress=False,
+            auto_adjust=False,
+        )
+    except Exception as e:
+        print(f"  yf bulk download failed: {e}")
+        return {}
+
+    opens: dict[str, float] = {}
+    for t in tickers:
+        try:
+            if len(tickers) > 1:
+                td = df[t]
+            else:
+                td = df
+            # First trading day on/after Monday
+            if td.empty:
+                continue
+            monday_rows = td[td.index.date >= monday]
+            if monday_rows.empty:
+                continue
+            opens[t] = float(monday_rows["Open"].iloc[0])
+        except Exception as e:
+            print(f"  fetch_monday_opens[{t}]: {e}")
+    return opens
+
+
+def lock_weekly_entries(weekly: dict) -> bool:
+    """Set entry_price (Monday open), stop_price, target_price for each PENDING pick.
+    Returns True if at least one pick was locked.
+    """
+    monday = date.fromisoformat(weekly["week_start"])
+    pending_tickers = [p["ticker"] for p in weekly["picks"] if p["status"] == "PENDING"]
+    if not pending_tickers:
+        return False
+
+    print(f"  Locking entries from {monday} open for {len(pending_tickers)} tickers")
+    opens = fetch_monday_opens(pending_tickers, monday)
+    if not opens:
+        print(f"  No Monday open prices retrieved — not locking yet")
+        return False
+
+    locked = 0
+    for p in weekly["picks"]:
+        if p["status"] != "PENDING":
+            continue
+        entry = opens.get(p["ticker"])
+        if entry is None or entry <= 0:
+            continue
+        atr = p.get("entry_atr") or 0
+        p["entry_price"] = round(entry, 2)
+        if atr > 0:
+            p["stop_price"] = round(entry - ATR_STOP_MULT * atr, 2)
+            p["target_price"] = round(entry + ATR_TARGET_MULT * atr, 2)
+        p["status"] = "HOLD"
+        locked += 1
+
+    weekly["entries_locked_at"] = datetime.now(timezone.utc).isoformat()
+    print(f"  Locked {locked}/{len(pending_tickers)} entries")
+    return locked > 0
+
+
+async def update_weekly_tracking(weekly: dict) -> None:
+    """Refresh latest close, append daily snapshot, detect target/stop events."""
+    active = [p for p in weekly["picks"] if p["status"] == "HOLD"]
+    if not active:
+        print(f"  No HOLD picks to track")
+        _aggregate_weekly_stats(weekly)
+        return
+
+    tickers = [p["ticker"] for p in active]
+    print(f"  Refreshing latest close for {len(tickers)} HOLD picks via yfinance")
+    enrichments = await enrich_candidates(tickers, use_cache=False)
+
+    today_iso = datetime.now(timezone.utc).astimezone().date().isoformat()
+
+    for p in active:
+        e = enrichments.get(p["ticker"])
+        if not e:
+            continue
+        last = float(e.get("last_close") or 0)
+        if last <= 0:
+            continue
+        # Append today's close (idempotent: replace if already present for today)
+        p["daily_closes"] = [
+            dc for dc in p["daily_closes"] if dc.get("date") != today_iso
+        ]
+        p["daily_closes"].append({"date": today_iso, "close": round(last, 2)})
+
+        # Event detection
+        target = p.get("target_price")
+        stop = p.get("stop_price")
+        if target and last >= target:
+            p["status"] = "TARGET_HIT"
+            p["exit_price"] = round(last, 2)
+            p["exit_date"] = today_iso
+        elif stop and last <= stop:
+            p["status"] = "STOPPED"
+            p["exit_price"] = round(last, 2)
+            p["exit_date"] = today_iso
+
+    _aggregate_weekly_stats(weekly)
+
+
+def _aggregate_weekly_stats(weekly: dict) -> None:
+    """Recompute the weekly_stats summary block in-place."""
+    target_hit = stopped = holding = 0
+    pnl_pcts: list[float] = []
+    for p in weekly["picks"]:
+        s = p.get("status")
+        entry = p.get("entry_price")
+        if s == "TARGET_HIT":
+            target_hit += 1
+            if entry and p.get("exit_price"):
+                pnl_pcts.append((p["exit_price"] / entry - 1) * 100)
+        elif s == "STOPPED":
+            stopped += 1
+            if entry and p.get("exit_price"):
+                pnl_pcts.append((p["exit_price"] / entry - 1) * 100)
+        elif s == "HOLD":
+            holding += 1
+            if entry and p.get("daily_closes"):
+                latest = p["daily_closes"][-1].get("close")
+                if latest:
+                    pnl_pcts.append((latest / entry - 1) * 100)
+    weekly["weekly_stats"] = {
+        "target_hit": target_hit,
+        "stopped_out": stopped,
+        "holding": holding,
+        "avg_pnl_pct": round(sum(pnl_pcts) / len(pnl_pcts), 2) if pnl_pcts else None,
+    }
+
+
+# ----- Tracking-mode Telegram formatting ------------------------------------
+
+
+def _tracking_pick_block(rank: int, p: dict) -> list[str]:
+    ticker = p["ticker"]
+    sector = p.get("sector", "")
+    sec_tag = f" · {sector}" if sector and sector != "Unknown" else ""
+    status = p.get("status", "PENDING")
+    entry = p.get("entry_price") or 0
+    target = p.get("target_price") or 0
+    stop = p.get("stop_price") or 0
+    latest = (
+        p["daily_closes"][-1]["close"] if p.get("daily_closes") else p.get("preview_close") or 0
+    )
+
+    status_tag = {
+        "HOLD": "[HOLD]",
+        "TARGET_HIT": "[🎯 TARGET]",
+        "STOPPED": "[🛑 STOP]",
+        "PENDING": "[PENDING]",
+    }.get(status, "[?]")
+
+    pnl_str = ""
+    if entry and latest:
+        pnl_pct = (latest / entry - 1) * 100
+        pnl_str = f"  {pnl_pct:+.1f}%"
+
+    lines = [f"{rank}. *{ticker}* {status_tag}{sec_tag}{pnl_str}"]
+
+    if status == "HOLD" and entry > 0:
+        stop_d = (stop - latest) / latest * 100 if latest and stop else 0
+        tgt_d = (target - latest) / latest * 100 if latest and target else 0
+        lines.append(
+            f"   Entry ${entry:.2f} → ${latest:.2f} · "
+            f"Stop ${stop:.2f} ({stop_d:+.1f}%) · "
+            f"Target ${target:.2f} ({tgt_d:+.1f}%)"
+        )
+    elif status in ("TARGET_HIT", "STOPPED"):
+        exit_p = p.get("exit_price") or 0
+        exit_d = p.get("exit_date") or "?"
+        lines.append(
+            f"   Entry ${entry:.2f} → Exit ${exit_p:.2f} on {exit_d}"
+        )
+    elif status == "PENDING":
+        lines.append(
+            f"   Preview ${p.get('preview_close') or 0:.2f} · 周一开盘后锁定入场价"
+        )
+
+    return lines
+
+
+def format_tracking_messages(weekly: dict, today: date) -> list[str]:
+    """Telegram messages for LOCK/TRACK mode (Day 1+)."""
+    monday = date.fromisoformat(weekly["week_start"])
+    day_n = (today - monday).days + 1  # 1 = Monday, 5 = Friday
+    stats = weekly["weekly_stats"]
+    avg_pnl = (
+        f"{stats['avg_pnl_pct']:+.1f}%" if stats.get("avg_pnl_pct") is not None else "—"
+    )
+
+    header = [
+        f"📈 *本周 Picks 状态* — Day {day_n} ({today.isoformat()})",
+        f"持仓 {stats['holding']} · 🎯 {stats['target_hit']} hit · "
+        f"🛑 {stats['stopped_out']} stop · 平均 P/L {avg_pnl}",
+        "",
+    ]
+    footer = ["", "⚠️ 每周一开盘价锁定入场点；基于公开免费数据源，仅供参考。"]
+
+    blocks = [_tracking_pick_block(i, p) for i, p in enumerate(weekly["picks"], 1)]
+    return _pack_into_messages(header, blocks, footer, day_n)
+
+
+def format_preview_messages(weekly: dict, partial: str = "") -> list[str]:
+    """Telegram for pre-market Monday: list candidates, entries still null."""
+    monday = date.fromisoformat(weekly["week_start"])
+    header = [
+        f"📈 *本周 Picks 预览* — {monday.isoformat()} (Mon)",
+        "",
+    ]
+    if partial:
+        header.append(f"_{partial}_")
+        header.append("")
+    header.append("入场价将在周二（盘后能拿到周一 Open 后）锁定。")
+    header.append("")
+    footer = ["", "⚠️ 基于公开免费数据源，仅供参考，不构成投资建议。"]
+    blocks = [_tracking_pick_block(i, p) for i, p in enumerate(weekly["picks"], 1)]
+    return _pack_into_messages(header, blocks, footer, 0)
+
+
+def _pack_into_messages(
+    header_first: list[str],
+    blocks: list[list[str]],
+    footer: list[str],
+    day_n: int,
+) -> list[str]:
+    """Shared packer: same byte-budget logic as format_messages()."""
+    footer_chars = sum(len(s) + 1 for s in footer)
+    placeholder_h = sum(len(s) + 1 for s in header_first)
+    slots: list[list[list[str]]] = [[]]
+    cur = placeholder_h
+    for b in blocks:
+        bc = sum(len(s) + 1 for s in b)
+        if slots[-1] and cur + bc + footer_chars > TELEGRAM_BUDGET:
+            slots.append([])
+            cur = placeholder_h
+        slots[-1].append(b)
+        cur += bc
+
+    total = len(slots)
+    messages: list[str] = []
+    for idx, slot in enumerate(slots, 1):
+        if idx == 1 or total == 1:
+            head = list(header_first)
+            if total > 1 and idx == 1:
+                head[0] = head[0] + f" (1/{total})"
+        else:
+            head = [f"📈 *本周 Picks 状态 — Day {day_n}* ({idx}/{total})", ""]
+        lines = head[:]
+        for b in slot:
+            lines.extend(b)
+        if idx == total:
+            lines.extend(footer)
+        messages.append("\n".join(lines))
+    return messages
+
+
+async def _generate_picks_pipeline() -> tuple[list[dict], str]:
+    """Full picker pipeline: fetch → score → enrich → filter → boost → diversify.
+
+    Returns (picks, partial_reason). Used by GENERATE mode of the weekly tracker.
+    """
     async with httpx.AsyncClient(timeout=30, follow_redirects=True) as client:
         print("Fetching Finviz + Nasdaq pre + StockTwits trending...")
         finviz_tasks = [fetch_finviz_screener(client, n, q) for n, q in FINVIZ_SCREENERS]
@@ -1122,7 +1500,10 @@ async def run() -> int:
             all_rows.extend(lst)
         all_rows.extend(nasdaq_rows)
 
-        print(f"  Total rows: {len(all_rows)}, Nasdaq pre: {len(nasdaq_rows)}, ST trending: {len(st_trending)}")
+        print(
+            f"  Total rows: {len(all_rows)}, Nasdaq pre: {len(nasdaq_rows)}, "
+            f"ST trending: {len(st_trending)}"
+        )
         agg = aggregate(all_rows)
         print(f"  Unique candidates: {len(agg)}")
 
@@ -1149,13 +1530,7 @@ async def run() -> int:
     ranked = score(agg, st_trending, reddit_counts)
 
     if not ranked:
-        fallback = (
-            f"⚠️ 今日未能从任何免费数据源挑选出股票。\n"
-            f"可能原因：周末休市 / Finviz/Nasdaq 被反爬 / 网络问题。\n"
-            f"时间：{datetime.now(timezone.utc).isoformat()}"
-        )
-        await send_telegram(fallback)
-        return 0
+        return [], "⚠️ 今日未能从任何免费数据源挑选出股票"
 
     effective_pool = (
         max(ENRICH_POOL, len(fallback_universe)) if used_fallback else ENRICH_POOL
@@ -1200,15 +1575,54 @@ async def run() -> int:
     elif len(picks) < TOP_N:
         partial = f"今日受数据源限制，仅筛选到 {len(picks)} 只"
 
-    if not picks:
-        fallback = (
-            f"⚠️ 今日候选经硬过滤后无合格股票（市值/流动性/价格门槛）。\n"
-            f"时间：{datetime.now(timezone.utc).isoformat()}"
-        )
-        await send_telegram(fallback)
-        return 0
+    return picks, partial
 
-    msgs = format_messages(picks, partial)
+
+async def run() -> int:
+    """Weekly-tracker entry: dispatch GENERATE / LOCK / TRACK based on file state."""
+    print(f"Starting picker (weekly mode) — {datetime.now(timezone.utc).isoformat()}")
+
+    today = datetime.now(timezone.utc).astimezone().date()
+    monday = _this_monday(today)
+    print(f"  Today: {today}, week_start (Monday): {monday}, day_of_week: {today.weekday()}")
+
+    weekly = load_weekly_picks(monday)
+    is_monday_pre_market = (today == monday)
+    partial = ""
+
+    if weekly is None:
+        # ---- GENERATE ----
+        print(f"[mode=GENERATE] No file for week {monday}; running picker pipeline")
+        picks, partial = await _generate_picks_pipeline()
+        if not picks:
+            await send_telegram(
+                f"⚠️ 今日生成 picks 失败\n时间：{datetime.now(timezone.utc).isoformat()}\n"
+                f"{partial}"
+            )
+            return 1
+        weekly = build_weekly_schema(monday, picks)
+        save_weekly_picks(monday, weekly)
+        print(f"  Wrote {_weekly_path(monday)}")
+    else:
+        print(f"[mode=LOAD] Found existing file for week {monday}")
+
+    # ---- LOCK (if Monday already past and entries still null) ----
+    if weekly["entries_locked_at"] is None and not is_monday_pre_market:
+        print(f"[mode=LOCK] Fetching Monday's opens to lock entries")
+        if lock_weekly_entries(weekly):
+            save_weekly_picks(monday, weekly)
+
+    # ---- TRACK (if entries locked) ----
+    if weekly["entries_locked_at"] is not None:
+        print(f"[mode=TRACK] Refreshing latest closes + event detection")
+        await update_weekly_tracking(weekly)
+        save_weekly_picks(monday, weekly)
+        msgs = format_tracking_messages(weekly, today)
+    else:
+        # Pre-market Monday preview only
+        print(f"[mode=PREVIEW] Entries not yet locked; sending preview list")
+        msgs = format_preview_messages(weekly, partial=partial)
+
     all_ok = True
     for i, m in enumerate(msgs, 1):
         ok = await send_telegram(m)
