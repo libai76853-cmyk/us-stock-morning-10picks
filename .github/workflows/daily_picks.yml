@@ -60,14 +60,13 @@ jobs:
       # daily_closes. stats.md may also have been appended on Friday close.
       - name: Commit weekly tracking updates
         run: |
-          set -x  # echo each command so we can see what's happening
-          pwd
-          ls -la weekly/ 2>&1 || echo "weekly/ directory missing"
-          git status --short
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add -v weekly/ stats.md 2>&1 || true
-          git status --short
+          # Add each path conditionally — a single `git add a b` aborts on
+          # the first missing pathspec and silently skips the others, even
+          # with `|| true` (seen 2026-05-26 when stats.md didn't exist yet).
+          [ -d weekly ] && git add weekly/
+          [ -f stats.md ] && git add stats.md
           if git diff --staged --quiet; then
             echo "No weekly file changes to commit."
           else
