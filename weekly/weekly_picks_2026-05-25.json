@@ -1,0 +1,1391 @@
+{
+  "week_start": "2026-05-25",
+  "generated_at": "2026-05-26T15:48:39.172942+00:00",
+  "entries_locked_at": "2026-05-26T15:48:39.997793+00:00",
+  "picks": [
+    {
+      "rank": 1,
+      "ticker": "ANET",
+      "sector": "Technology",
+      "score": 92.0,
+      "components": {
+        "heat": 20,
+        "fund": 22.0,
+        "mom": 23.0,
+        "tech": 27.0
+      },
+      "signals": {
+        "ret_1d": 3.3954396994009706,
+        "ret_5d": 12.384437909458779,
+        "vol_ratio": 0.3970460062073499,
+        "near_high": 0.8892238362894715,
+        "dist_52w": 0.8857619121451896,
+        "ma200_pos": 1.1383772020984706,
+        "rsi14": 42.69332737087553,
+        "macd_state": 2
+      },
+      "fundamentals": {
+        "market_cap": 200535310336.0,
+        "trailing_pe": 54.72852,
+        "forward_pe": 35.79254,
+        "peg": 1.98,
+        "roe": 0.31520998,
+        "revenue_growth": 0.351,
+        "earnings_growth_q": 0.257
+      },
+      "preview_close": 159.25999450683594,
+      "entry_atr": 8.396071297781807,
+      "entry_price": 157.51,
+      "stop_price": 144.91,
+      "target_price": 182.69,
+      "status": "HOLD",
+      "exit_price": null,
+      "exit_date": null,
+      "daily_closes": [
+        {
+          "date": "2026-05-26",
+          "close": 159.32
+        }
+      ],
+      "reason": "默认池：基本面 +22 · 动量 +23 · 技术 +27"
+    },
+    {
+      "rank": 2,
+      "ticker": "TPR",
+      "sector": "Consumer Cyclical",
+      "score": 83.0,
+      "components": {
+        "heat": 20,
+        "fund": 32.0,
+        "mom": 10.0,
+        "tech": 21.0
+      },
+      "signals": {
+        "ret_1d": 0.6354174230044807,
+        "ret_5d": 6.251427203407212,
+        "vol_ratio": 0.13301749446240924,
+        "near_high": 0.9334270805442516,
+        "dist_52w": 0.8604679512675902,
+        "ma200_pos": 1.1018484034165543,
+        "rsi14": 47.809104109715086,
+        "macd_state": 2
+      },
+      "fundamentals": {
+        "market_cap": 28158971904.0,
+        "trailing_pe": 42.490852,
+        "forward_pe": 18.067524,
+        "peg": 0.29,
+        "roe": 0.60914004,
+        "revenue_growth": 0.212,
+        "earnings_growth_q": 0.691
+      },
+      "preview_close": 139.3699951171875,
+      "entry_atr": 6.094286237444196,
+      "entry_price": 140.3,
+      "stop_price": 131.16,
+      "target_price": 158.58,
+      "status": "HOLD",
+      "exit_price": null,
+      "exit_date": null,
+      "daily_closes": [
+        {
+          "date": "2026-05-26",
+          "close": 139.37
+        }
+      ],
+      "reason": "默认池：基本面 +32 · 动量 +10 · 技术 +21"
+    },
+    {
+      "rank": 3,
+      "ticker": "NVDA",
+      "sector": "Technology",
+      "score": 77.0,
+      "components": {
+        "heat": 20,
+        "fund": 32.0,
+        "mom": 7.0,
+        "tech": 18.0
+      },
+      "signals": {
+        "ret_1d": -0.756979923351031,
+        "ret_5d": -3.877298530044415,
+        "vol_ratio": 0.5056475211398187,
+        "near_high": 0.9034412911720091,
+        "dist_52w": 0.9034412911720091,
+        "ma200_pos": 1.1415778003924602,
+        "rsi14": 62.83581569482247,
+        "macd_state": -2
+      },
+      "fundamentals": {
+        "market_cap": 5176390844416.0,
+        "trailing_pe": 32.778374,
+        "forward_pe": 16.900171,
+        "peg": 0.66,
+        "roe": 1.14288,
+        "revenue_growth": 0.852,
+        "earnings_growth_q": 2.106
+      },
+      "preview_close": 213.6999969482422,
+      "entry_atr": 8.332141331263951,
+      "entry_price": 216.58,
+      "stop_price": 204.08,
+      "target_price": 241.57,
+      "status": "HOLD",
+      "exit_price": null,
+      "exit_date": null,
+      "daily_closes": [
+        {
+          "date": "2026-05-26",
+          "close": 213.67
+        }
+      ],
+      "reason": "默认池：基本面 +32 · 动量 +7 · 技术 +18"
+    },
+    {
+      "rank": 4,
+      "ticker": "APH",
+      "sector": "Technology",
+      "score": 76.0,
+      "components": {
+        "heat": 20,
+        "fund": 22.0,
+        "mom": 14.0,
+        "tech": 20.0
+      },
+      "signals": {
+        "ret_1d": 8.480991333710165,
+        "ret_5d": 17.696346590628465,
+        "vol_ratio": 0.6645241020652977,
+        "near_high": 0.9247353227477206,
+        "dist_52w": 0.8576388904747937,
+        "ma200_pos": 1.0762809813897618,
+        "rsi14": 55.05306189701856,
+        "macd_state": 2
+      },
+      "fundamentals": {
+        "market_cap": 176243392512.0,
+        "trailing_pe": 41.04871,
+        "forward_pe": 25.45663,
+        "peg": 1.13,
+        "roe": 0.36825,
+        "revenue_growth": 0.584,
+        "earnings_growth_q": 0.265
+      },
+      "preview_close": 143.25999450683594,
+      "entry_atr": 6.0364276341029575,
+      "entry_price": 136.88,
+      "stop_price": 127.83,
+      "target_price": 154.99,
+      "status": "HOLD",
+      "exit_price": null,
+      "exit_date": null,
+      "daily_closes": [
+        {
+          "date": "2026-05-26",
+          "close": 143.39
+        }
+      ],
+      "reason": "默认池：基本面 +22 · 动量 +14 · 技术 +20"
+    },
+    {
+      "rank": 5,
+      "ticker": "FCX",
+      "sector": "Basic Materials",
+      "score": 74.0,
+      "components": {
+        "heat": 20,
+        "fund": 14.0,
+        "mom": 18.0,
+        "tech": 22.0
+      },
+      "signals": {
+        "ret_1d": 3.194062733707126,
+        "ret_5d": 5.7355392077737655,
+        "vol_ratio": 0.3105318195749905,
+        "near_high": 0.9291213164623057,
+        "dist_52w": 0.9013667763900505,
+        "ma200_pos": 1.22400522332772,
+        "rsi14": 62.88406385061516,
+        "macd_state": 2
+      },
+      "fundamentals": {
+        "market_cap": 91960705024.0,
+        "trailing_pe": 33.84656,
+        "forward_pe": 17.157633,
+        "peg": 4.17,
+        "roe": 0.15630999,
+        "revenue_growth": 0.088,
+        "earnings_growth_q": 1.503
+      },
+      "preview_close": 63.970001220703125,
+      "entry_atr": 2.890000479561942,
+      "entry_price": 63.04,
+      "stop_price": 58.71,
+      "target_price": 71.71,
+      "status": "HOLD",
+      "exit_price": null,
+      "exit_date": null,
+      "daily_closes": [
+        {
+          "date": "2026-05-26",
+          "close": 63.98
+        }
+      ],
+      "reason": "默认池：基本面 +14 · 动量 +18 · 技术 +22"
+    },
+    {
+      "rank": 6,
+      "ticker": "NEM",
+      "sector": "Basic Materials",
+      "score": 72.0,
+      "components": {
+        "heat": 20,
+        "fund": 24.0,
+        "mom": 13.0,
+        "tech": 15.0
+      },
+      "signals": {
+        "ret_1d": 2.7824254585327113,
+        "ret_5d": 0.7146141766167791,
+        "vol_ratio": 0.3603302590354195,
+        "near_high": 0.912378362091209,
+        "dist_52w": 0.8202476136648514,
+        "ma200_pos": 1.1105431559202954,
+        "rsi14": 52.08520405026451,
+        "macd_state": -1
+      },
+      "fundamentals": {
+        "market_cap": 118108700672.0,
+        "trailing_pe": 14.349546,
+        "forward_pe": 9.670824,
+        "peg": 2.78,
+        "roe": 0.25832,
+        "revenue_growth": 0.458,
+        "earnings_growth_q": 0.725
+      },
+      "preview_close": 110.63500213623047,
+      "entry_atr": 4.680714198521206,
+      "entry_price": 111.2,
+      "stop_price": 104.18,
+      "target_price": 125.24,
+      "status": "HOLD",
+      "exit_price": null,
+      "exit_date": null,
+      "daily_closes": [],
+      "reason": "默认池：基本面 +24 · 动量 +13 · 技术 +15"
+    },
+    {
+      "rank": 7,
+      "ticker": "NCLH",
+      "sector": "Consumer Cyclical",
+      "score": 71.0,
+      "components": {
+        "heat": 20,
+        "fund": 21.0,
+        "mom": 23.0,
+        "tech": 7.0
+      },
+      "signals": {
+        "ret_1d": 3.7730166089118278,
+        "ret_5d": 10.845351650212764,
+        "vol_ratio": 0.32436320454574924,
+        "near_high": 0.8846757412697654,
+        "dist_52w": 0.6223326241944996,
+        "ma200_pos": 0.7873109066414763,
+        "rsi14": 49.80330747182496,
+        "macd_state": 2
+      },
+      "fundamentals": {
+        "market_cap": 7765848576.0,
+        "trailing_pe": 13.6411295,
+        "forward_pe": 8.385137,
+        "peg": 0.75,
+        "roe": 0.29533002,
+        "revenue_growth": 0.096,
+        "earnings_growth_q": 0.0
+      },
+      "preview_close": 16.915000915527344,
+      "entry_atr": 0.8403571673801967,
+      "entry_price": 16.84,
+      "stop_price": 15.58,
+      "target_price": 19.36,
+      "status": "HOLD",
+      "exit_price": null,
+      "exit_date": null,
+      "daily_closes": [],
+      "reason": "默认池：基本面 +21 · 动量 +23 · 技术 +7"
+    },
+    {
+      "rank": 8,
+      "ticker": "CEG",
+      "sector": "Utilities",
+      "score": 70.0,
+      "components": {
+        "heat": 20,
+        "fund": 20.0,
+        "mom": 23.0,
+        "tech": 7.0
+      },
+      "signals": {
+        "ret_1d": 3.470361306447445,
+        "ret_5d": 16.135610332925808,
+        "vol_ratio": 0.48992446394773503,
+        "near_high": 0.9254115278856236,
+        "dist_52w": 0.7372795979458941,
+        "ma200_pos": 0.9392543497150408,
+        "rsi14": 42.58159363573287,
+        "macd_state": 2
+      },
+      "fundamentals": {
+        "market_cap": 109901209600.0,
+        "trailing_pe": 26.458721,
+        "forward_pe": 22.387604,
+        "peg": 3.74,
+        "roe": 0.16104999,
+        "revenue_growth": 0.638,
+        "earnings_growth_q": 12.475
+      },
+      "preview_close": 304.2752990722656,
+      "entry_atr": 14.071426391601562,
+      "entry_price": 299.92,
+      "stop_price": 278.81,
+      "target_price": 342.13,
+      "status": "HOLD",
+      "exit_price": null,
+      "exit_date": null,
+      "daily_closes": [],
+      "reason": "默认池：基本面 +20 · 动量 +23 · 技术 +7"
+    },
+    {
+      "rank": 9,
+      "ticker": "RCL",
+      "sector": "Consumer Cyclical",
+      "score": 70.0,
+      "components": {
+        "heat": 20,
+        "fund": 24.0,
+        "mom": 18.0,
+        "tech": 8.0
+      },
+      "signals": {
+        "ret_1d": 3.893010926627327,
+        "ret_5d": 5.33671609397226,
+        "vol_ratio": 0.3267325700390416,
+        "near_high": 0.9211037208922974,
+        "dist_52w": 0.7259754633675819,
+        "ma200_pos": 0.9050993101274872,
+        "rsi14": 50.99704054316108,
+        "macd_state": 2
+      },
+      "fundamentals": {
+        "market_cap": 71358636032.0,
+        "trailing_pe": 16.23368,
+        "forward_pe": 13.299391,
+        "peg": 1.18,
+        "roe": 0.49576,
+        "revenue_growth": 0.113,
+        "earnings_growth_q": 0.289
+      },
+      "preview_close": 266.07000732421875,
+      "entry_atr": 12.419991629464286,
+      "entry_price": 260.1,
+      "stop_price": 241.47,
+      "target_price": 297.36,
+      "status": "HOLD",
+      "exit_price": null,
+      "exit_date": null,
+      "daily_closes": [],
+      "reason": "默认池：基本面 +24 · 动量 +18 · 技术 +8"
+    },
+    {
+      "rank": 10,
+      "ticker": "INCY",
+      "sector": "Healthcare",
+      "score": 69.0,
+      "components": {
+        "heat": 20,
+        "fund": 32.0,
+        "mom": 5.0,
+        "tech": 12.0
+      },
+      "signals": {
+        "ret_1d": -0.27275319993252944,
+        "ret_5d": 1.7911483957673502,
+        "vol_ratio": 0.22308870351204688,
+        "near_high": 0.9406367792801618,
+        "dist_52w": 0.8628995979433451,
+        "ma200_pos": 1.0152400917759634,
+        "rsi14": 48.06721249506975,
+        "macd_state": -1
+      },
+      "fundamentals": {
+        "market_cap": 19357892608.0,
+        "trailing_pe": 13.685734,
+        "forward_pe": 10.6858835,
+        "peg": 0.36,
+        "roe": 0.30823,
+        "revenue_growth": 0.209,
+        "earnings_growth_q": 0.917
+      },
+      "preview_close": 96.8949966430664,
+      "entry_atr": 2.5369862147739957,
+      "entry_price": 97.35,
+      "stop_price": 93.54,
+      "target_price": 104.96,
+      "status": "HOLD",
+      "exit_price": null,
+      "exit_date": null,
+      "daily_closes": [],
+      "reason": "默认池：基本面 +32 · 动量 +5 · 技术 +12"
+    },
+    {
+      "rank": 11,
+      "ticker": "APA",
+      "sector": "Energy",
+      "score": 67.0,
+      "components": {
+        "heat": 20,
+        "fund": 26.0,
+        "mom": 7.0,
+        "tech": 14.0
+      },
+      "signals": {
+        "ret_1d": -0.8376308487888395,
+        "ret_5d": -4.171862984060359,
+        "vol_ratio": 0.1740093355891136,
+        "near_high": 0.9141125762565594,
+        "dist_52w": 0.8426412308957061,
+        "ma200_pos": 1.3499063970449565,
+        "rsi14": 39.892356975740675,
+        "macd_state": 2
+      },
+      "fundamentals": {
+        "market_cap": 13599766528.0,
+        "trailing_pe": 8.968532,
+        "forward_pe": 9.111254,
+        "peg": 0.69,
+        "roe": 0.26217,
+        "revenue_growth": -0.119,
+        "earnings_growth_q": 0.285
+      },
+      "preview_close": 38.474998474121094,
+      "entry_atr": 1.7721358707972936,
+      "entry_price": 38.52,
+      "stop_price": 35.86,
+      "target_price": 43.84,
+      "status": "HOLD",
+      "exit_price": null,
+      "exit_date": null,
+      "daily_closes": [],
+      "reason": "默认池：基本面 +26 · 动量 +7 · 技术 +14"
+    },
+    {
+      "rank": 12,
+      "ticker": "TPL",
+      "sector": "Energy",
+      "score": 67.0,
+      "components": {
+        "heat": 20,
+        "fund": 21.0,
+        "mom": 7.0,
+        "tech": 19.0
+      },
+      "signals": {
+        "ret_1d": 0.7437231657969834,
+        "ret_5d": 4.761905889566798,
+        "vol_ratio": 0.21667515670363544,
+        "near_high": 0.8904669604139022,
+        "dist_52w": 0.7401680920658202,
+        "ma200_pos": 1.1113109252169393,
+        "rsi14": 36.904987613423096,
+        "macd_state": 2
+      },
+      "fundamentals": {
+        "market_cap": 27936024576.0,
+        "trailing_pe": 55.634613,
+        "forward_pe": 5.5391135,
+        "peg": 7.33,
+        "roe": 0.36466,
+        "revenue_growth": 0.208,
+        "earnings_growth_q": 0.184
+      },
+      "preview_close": 405.0199890136719,
+      "entry_atr": 18.377068655831472,
+      "entry_price": 402.33,
+      "stop_price": 374.76,
+      "target_price": 457.46,
+      "status": "HOLD",
+      "exit_price": null,
+      "exit_date": null,
+      "daily_closes": [],
+      "reason": "默认池：基本面 +21 · 动量 +7 · 技术 +19"
+    },
+    {
+      "rank": 13,
+      "ticker": "LLY",
+      "sector": "Healthcare",
+      "score": 66.0,
+      "components": {
+        "heat": 20,
+        "fund": 27.0,
+        "mom": 6.0,
+        "tech": 13.0
+      },
+      "signals": {
+        "ret_1d": 1.1117338798415588,
+        "ret_5d": 8.981968904927061,
+        "vol_ratio": 0.3337125078117765,
+        "near_high": 0.9952402291513373,
+        "dist_52w": 0.9496362380962736,
+        "ma200_pos": 1.157353641104541,
+        "rsi14": 69.18983302328876,
+        "macd_state": 1
+      },
+      "fundamentals": {
+        "market_cap": 960262766592.0,
+        "trailing_pe": 38.29445,
+        "forward_pe": 24.214796,
+        "peg": 1.43,
+        "roe": 1.07459,
+        "revenue_growth": 0.555,
+        "earnings_growth_q": 1.681
+      },
+      "preview_close": 1076.8399658203125,
+      "entry_atr": 28.422860281808035,
+      "entry_price": 1075.0,
+      "stop_price": 1032.37,
+      "target_price": 1160.27,
+      "status": "HOLD",
+      "exit_price": null,
+      "exit_date": null,
+      "daily_closes": [],
+      "reason": "默认池：基本面 +27 · 动量 +6 · 技术 +13"
+    },
+    {
+      "rank": 14,
+      "ticker": "UAL",
+      "sector": "Industrials",
+      "score": 66.0,
+      "components": {
+        "heat": 20,
+        "fund": 21.0,
+        "mom": 10.0,
+        "tech": 15.0
+      },
+      "signals": {
+        "ret_1d": 5.7061857247737935,
+        "ret_5d": 14.169528685615695,
+        "vol_ratio": 0.5490175540346324,
+        "near_high": 0.990660966199194,
+        "dist_52w": 0.8863677803389715,
+        "ma200_pos": 1.0429995155967207,
+        "rsi14": 67.39562998236386,
+        "macd_state": 2
+      },
+      "fundamentals": {
+        "market_cap": 34295304192.0,
+        "trailing_pe": 9.451154,
+        "forward_pe": 7.4499073,
+        "peg": 6.5,
+        "roe": 0.25726998,
+        "revenue_growth": 0.106,
+        "earnings_growth_q": 0.806
+      },
+      "preview_close": 105.66390228271484,
+      "entry_atr": 4.3914288112095425,
+      "entry_price": 103.94,
+      "stop_price": 97.35,
+      "target_price": 117.11,
+      "status": "HOLD",
+      "exit_price": null,
+      "exit_date": null,
+      "daily_closes": [],
+      "reason": "默认池：基本面 +21 · 动量 +10 · 技术 +15"
+    },
+    {
+      "rank": 15,
+      "ticker": "VST",
+      "sector": "Utilities",
+      "score": 65.0,
+      "components": {
+        "heat": 20,
+        "fund": 27.0,
+        "mom": 10.0,
+        "tech": 8.0
+      },
+      "signals": {
+        "ret_1d": 5.624875565247467,
+        "ret_5d": 20.70200918361518,
+        "vol_ratio": 0.7325246612260006,
+        "near_high": 0.980224467942724,
+        "dist_52w": 0.7508870533114945,
+        "ma200_pos": 0.9491781823290086,
+        "rsi14": 53.61780550845179,
+        "macd_state": 2
+      },
+      "fundamentals": {
+        "market_cap": 55655337984.0,
+        "trailing_pe": 27.555927,
+        "forward_pe": 15.063999,
+        "peg": 0.47,
+        "roe": 0.42898,
+        "revenue_growth": 0.434,
+        "earnings_growth_q": 0.0
+      },
+      "preview_close": 165.05999755859375,
+      "entry_atr": 7.265354701450893,
+      "entry_price": 158.91,
+      "stop_price": 148.01,
+      "target_price": 180.71,
+      "status": "HOLD",
+      "exit_price": null,
+      "exit_date": null,
+      "daily_closes": [],
+      "reason": "默认池：基本面 +27 · 动量 +10 · 技术 +8"
+    },
+    {
+      "rank": 16,
+      "ticker": "AFL",
+      "sector": "Financial Services",
+      "score": 64.0,
+      "components": {
+        "heat": 20,
+        "fund": 23.0,
+        "mom": 5.0,
+        "tech": 16.0
+      },
+      "signals": {
+        "ret_1d": -0.7084668930498195,
+        "ret_5d": -1.3861942095292679,
+        "vol_ratio": 0.22290936866425165,
+        "near_high": 0.9767548945040849,
+        "dist_52w": 0.9767548945040849,
+        "ma200_pos": 1.0574222656705616,
+        "rsi14": 61.041776142932214,
+        "macd_state": 1
+      },
+      "fundamentals": {
+        "market_cap": 59563958272.0,
+        "trailing_pe": 13.374286,
+        "forward_pe": 15.390553,
+        "peg": 1.18,
+        "roe": 0.16469,
+        "revenue_growth": 0.279,
+        "earnings_growth_q": 34.138
+      },
+      "preview_close": 117.0250015258789,
+      "entry_atr": 1.9435719081333704,
+      "entry_price": 117.0,
+      "stop_price": 114.08,
+      "target_price": 122.83,
+      "status": "HOLD",
+      "exit_price": null,
+      "exit_date": null,
+      "daily_closes": [],
+      "reason": "默认池：基本面 +23 · 动量 +5 · 技术 +16"
+    },
+    {
+      "rank": 17,
+      "ticker": "EME",
+      "sector": "Industrials",
+      "score": 64.0,
+      "components": {
+        "heat": 20,
+        "fund": 19.0,
+        "mom": 10.0,
+        "tech": 15.0
+      },
+      "signals": {
+        "ret_1d": 1.5720196676272558,
+        "ret_5d": -1.702595505765736,
+        "vol_ratio": 0.21170435740334104,
+        "near_high": 0.9057680837227213,
+        "dist_52w": 0.9057680837227213,
+        "ma200_pos": 1.219128597113051,
+        "rsi14": 26.70493951144661,
+        "macd_state": -1
+      },
+      "fundamentals": {
+        "market_cap": 38398431232.0,
+        "trailing_pe": 28.934732,
+        "forward_pe": 26.589125,
+        "peg": 1.08,
+        "roe": 0.39229,
+        "revenue_growth": 0.197,
+        "earnings_growth_q": 0.269
+      },
+      "preview_close": 862.2550048828125,
+      "entry_atr": 29.754991803850448,
+      "entry_price": 863.64,
+      "stop_price": 819.01,
+      "target_price": 952.9,
+      "status": "HOLD",
+      "exit_price": null,
+      "exit_date": null,
+      "daily_closes": [],
+      "reason": "默认池：基本面 +19 · 动量 +10 · 技术 +15"
+    },
+    {
+      "rank": 18,
+      "ticker": "FIX",
+      "sector": "Industrials",
+      "score": 64.0,
+      "components": {
+        "heat": 20,
+        "fund": 16.0,
+        "mom": 13.0,
+        "tech": 15.0
+      },
+      "signals": {
+        "ret_1d": 3.5637186666723553,
+        "ret_5d": 2.101650193519511,
+        "vol_ratio": 0.32255509136550226,
+        "near_high": 0.9129280736352396,
+        "dist_52w": 0.9129280736352396,
+        "ma200_pos": 1.6404813759914416,
+        "rsi14": 43.24688713524893,
+        "macd_state": -1
+      },
+      "fundamentals": {
+        "market_cap": 66617454592.0,
+        "trailing_pe": 54.801846,
+        "forward_pe": 36.142944,
+        "peg": 1.44,
+        "roe": 0.53294,
+        "revenue_growth": 0.01,
+        "earnings_growth_q": 0.382
+      },
+      "preview_close": 1893.4036865234375,
+      "entry_atr": 92.567138671875,
+      "entry_price": 1877.39,
+      "stop_price": 1738.53,
+      "target_price": 2155.09,
+      "status": "HOLD",
+      "exit_price": null,
+      "exit_date": null,
+      "daily_closes": [],
+      "reason": "默认池：基本面 +16 · 动量 +13 · 技术 +15"
+    },
+    {
+      "rank": 19,
+      "ticker": "EOG",
+      "sector": "Energy",
+      "score": 63.0,
+      "components": {
+        "heat": 20,
+        "fund": 20.0,
+        "mom": 5.0,
+        "tech": 18.0
+      },
+      "signals": {
+        "ret_1d": -1.543696300613484,
+        "ret_5d": -2.7624393700859673,
+        "vol_ratio": 0.246091633243838,
+        "near_high": 0.9542896101468331,
+        "dist_52w": 0.9155198377325642,
+        "ma200_pos": 1.1646109807462115,
+        "rsi14": 47.28656674341023,
+        "macd_state": 1
+      },
+      "fundamentals": {
+        "market_cap": 74056671232.0,
+        "trailing_pe": 13.671582,
+        "forward_pe": 9.638982,
+        "peg": 1.15,
+        "roe": 0.18195,
+        "revenue_growth": 0.156,
+        "earnings_growth_q": 0.353
+      },
+      "preview_close": 139.0399932861328,
+      "entry_atr": 3.8871350969587053,
+      "entry_price": 139.89,
+      "stop_price": 134.06,
+      "target_price": 151.55,
+      "status": "HOLD",
+      "exit_price": null,
+      "exit_date": null,
+      "daily_closes": [],
+      "reason": "默认池：基本面 +20 · 动量 +5 · 技术 +18"
+    },
+    {
+      "rank": 20,
+      "ticker": "HIG",
+      "sector": "Financial Services",
+      "score": 63.0,
+      "components": {
+        "heat": 20,
+        "fund": 22.0,
+        "mom": 5.0,
+        "tech": 16.0
+      },
+      "signals": {
+        "ret_1d": -0.8234159247143324,
+        "ret_5d": -1.2155855973833951,
+        "vol_ratio": 0.17913493964628124,
+        "near_high": 0.9643979781777944,
+        "dist_52w": 0.933563971601968,
+        "ma200_pos": 1.0059446500427576,
+        "rsi14": 52.81743748008099,
+        "macd_state": 1
+      },
+      "fundamentals": {
+        "market_cap": 36980244480.0,
+        "trailing_pe": 9.493314,
+        "forward_pe": 9.359281,
+        "peg": 0.12,
+        "roe": 0.22735001,
+        "revenue_growth": 0.061,
+        "earnings_growth_q": 0.359
+      },
+      "preview_close": 134.89999389648438,
+      "entry_atr": 2.3021349225725447,
+      "entry_price": 135.94,
+      "stop_price": 132.49,
+      "target_price": 142.85,
+      "status": "HOLD",
+      "exit_price": null,
+      "exit_date": null,
+      "daily_closes": [],
+      "reason": "默认池：基本面 +22 · 动量 +5 · 技术 +16"
+    },
+    {
+      "rank": 21,
+      "ticker": "PCG",
+      "sector": "Utilities",
+      "score": 63.0,
+      "components": {
+        "heat": 20,
+        "fund": 21.0,
+        "mom": 5.0,
+        "tech": 17.0
+      },
+      "signals": {
+        "ret_1d": -0.4548141699927677,
+        "ret_5d": 3.5646720533720755,
+        "vol_ratio": 0.19492563183378375,
+        "near_high": 0.9701537140372629,
+        "dist_52w": 0.8567328312241336,
+        "ma200_pos": 1.0069795950743035,
+        "rsi14": 51.28984959424657,
+        "macd_state": 1
+      },
+      "fundamentals": {
+        "market_cap": 36149518336.0,
+        "trailing_pe": 12.724808,
+        "forward_pe": 9.106645,
+        "peg": 0.71,
+        "roe": 0.08826999,
+        "revenue_growth": 0.15,
+        "earnings_growth_q": 0.414
+      },
+      "preview_close": 16.415000915527344,
+      "entry_atr": 0.4657145227704729,
+      "entry_price": 16.54,
+      "stop_price": 15.84,
+      "target_price": 17.94,
+      "status": "HOLD",
+      "exit_price": null,
+      "exit_date": null,
+      "daily_closes": [],
+      "reason": "默认池：基本面 +21 · 动量 +5 · 技术 +17"
+    },
+    {
+      "rank": 22,
+      "ticker": "JPM",
+      "sector": "Financial Services",
+      "score": 61.0,
+      "components": {
+        "heat": 20,
+        "fund": 17.0,
+        "mom": 5.0,
+        "tech": 19.0
+      },
+      "signals": {
+        "ret_1d": 0.17298739175215516,
+        "ret_5d": 2.0549969906602295,
+        "vol_ratio": 0.3460252553512157,
+        "near_high": 0.9703130430184983,
+        "dist_52w": 0.9100370753509545,
+        "ma200_pos": 1.0041210572936414,
+        "rsi14": 47.58300353105671,
+        "macd_state": 2
+      },
+      "fundamentals": {
+        "market_cap": 822368796672.0,
+        "trailing_pe": 14.6846895,
+        "forward_pe": 13.031309,
+        "peg": 1.63,
+        "roe": 0.16465001,
+        "revenue_growth": 0.127,
+        "earnings_growth_q": 0.126
+      },
+      "preview_close": 306.9100036621094,
+      "entry_atr": 6.169285365513393,
+      "entry_price": 308.49,
+      "stop_price": 299.24,
+      "target_price": 327.0,
+      "status": "HOLD",
+      "exit_price": null,
+      "exit_date": null,
+      "daily_closes": [],
+      "reason": "默认池：基本面 +17 · 动量 +5 · 技术 +19"
+    },
+    {
+      "rank": 23,
+      "ticker": "KO",
+      "sector": "Consumer Defensive",
+      "score": 61.0,
+      "components": {
+        "heat": 20,
+        "fund": 18.0,
+        "mom": 5.0,
+        "tech": 18.0
+      },
+      "signals": {
+        "ret_1d": -1.2361341518670854,
+        "ret_5d": -0.8955612895030218,
+        "vol_ratio": 0.3257213552036998,
+        "near_high": 0.9735397730859783,
+        "dist_52w": 0.9735397730859783,
+        "ma200_pos": 1.1051585868233031,
+        "rsi14": 63.9802050572803,
+        "macd_state": 1
+      },
+      "fundamentals": {
+        "market_cap": 346232815616.0,
+        "trailing_pe": 25.305912,
+        "forward_pe": 23.100273,
+        "peg": 4.17,
+        "roe": 0.43372002,
+        "revenue_growth": 0.121,
+        "earnings_growth_q": 0.178
+      },
+      "preview_close": 80.4728012084961,
+      "entry_atr": 1.115358625139509,
+      "entry_price": 80.84,
+      "stop_price": 79.17,
+      "target_price": 84.19,
+      "status": "HOLD",
+      "exit_price": null,
+      "exit_date": null,
+      "daily_closes": [],
+      "reason": "默认池：基本面 +18 · 动量 +5 · 技术 +18"
+    },
+    {
+      "rank": 24,
+      "ticker": "GOOG",
+      "sector": "Communication Services",
+      "score": 60.0,
+      "components": {
+        "heat": 20,
+        "fund": 22.0,
+        "mom": 5.0,
+        "tech": 13.0
+      },
+      "signals": {
+        "ret_1d": 0.8935589876188921,
+        "ret_5d": -2.6303062051815984,
+        "vol_ratio": 0.35864484747078196,
+        "near_high": 0.9463495138291098,
+        "dist_52w": 0.9463495138291098,
+        "ma200_pos": 1.288978369184909,
+        "rsi14": 48.83322904431697,
+        "macd_state": -1
+      },
+      "fundamentals": {
+        "market_cap": 4637428023296.0,
+        "trailing_pe": 29.152323,
+        "forward_pe": 26.444656,
+        "peg": 1.49,
+        "roe": 0.38884997,
+        "revenue_growth": 0.218,
+        "earnings_growth_q": 0.812
+      },
+      "preview_close": 382.7699890136719,
+      "entry_atr": 9.325284685407366,
+      "entry_price": 380.99,
+      "stop_price": 367.01,
+      "target_price": 408.97,
+      "status": "HOLD",
+      "exit_price": null,
+      "exit_date": null,
+      "daily_closes": [],
+      "reason": "默认池：基本面 +22 · 动量 +5 · 技术 +13"
+    },
+    {
+      "rank": 25,
+      "ticker": "META",
+      "sector": "Communication Services",
+      "score": 60.0,
+      "components": {
+        "heat": 20,
+        "fund": 32.0,
+        "mom": 7.0,
+        "tech": 1.0
+      },
+      "signals": {
+        "ret_1d": -0.436705505825874,
+        "ret_5d": -0.5914581141624353,
+        "vol_ratio": 0.35083083336608684,
+        "near_high": 0.8959199287284181,
+        "dist_52w": 0.7630706068485086,
+        "ma200_pos": 0.9086777943162244,
+        "rsi14": 51.74488208071459,
+        "macd_state": -1
+      },
+      "fundamentals": {
+        "market_cap": 1542333267968.0,
+        "trailing_pe": 22.078306,
+        "forward_pe": 16.87437,
+        "peg": 0.88,
+        "roe": 0.32930002,
+        "revenue_growth": 0.331,
+        "earnings_growth_q": 0.609
+      },
+      "preview_close": 607.594970703125,
+      "entry_atr": 12.753566196986608,
+      "entry_price": 609.6,
+      "stop_price": 590.47,
+      "target_price": 647.86,
+      "status": "HOLD",
+      "exit_price": null,
+      "exit_date": null,
+      "daily_closes": [],
+      "reason": "默认池：基本面 +32 · 动量 +7 · 技术 +1"
+    },
+    {
+      "rank": 26,
+      "ticker": "ALNY",
+      "sector": "Healthcare",
+      "score": 59.0,
+      "components": {
+        "heat": 20,
+        "fund": 27.0,
+        "mom": 5.0,
+        "tech": 7.0
+      },
+      "signals": {
+        "ret_1d": -0.5446379452955119,
+        "ret_5d": 3.339503938758037,
+        "vol_ratio": 0.14327620138248143,
+        "near_high": 0.9315719512741253,
+        "dist_52w": 0.596973047844888,
+        "ma200_pos": 0.7631390799447281,
+        "rsi14": 45.273906632510624,
+        "macd_state": 2
+      },
+      "fundamentals": {
+        "market_cap": 39497023488.0,
+        "trailing_pe": 74.14285,
+        "forward_pe": 21.173923,
+        "peg": 0.51,
+        "roe": 0.90356004,
+        "revenue_growth": 0.964,
+        "earnings_growth_q": 0.0
+      },
+      "preview_close": 295.8299865722656,
+      "entry_atr": 8.964996337890625,
+      "entry_price": 299.0,
+      "stop_price": 285.55,
+      "target_price": 325.89,
+      "status": "HOLD",
+      "exit_price": null,
+      "exit_date": null,
+      "daily_closes": [],
+      "reason": "默认池：基本面 +27 · 动量 +5 · 技术 +7"
+    },
+    {
+      "rank": 27,
+      "ticker": "APP",
+      "sector": "Communication Services",
+      "score": 59.0,
+      "components": {
+        "heat": 20,
+        "fund": 27.0,
+        "mom": 0.0,
+        "tech": 12.0
+      },
+      "signals": {
+        "ret_1d": 9.81878128625182,
+        "ret_5d": 7.432286528805565,
+        "vol_ratio": 0.6817403482319854,
+        "near_high": 0.981728982416792,
+        "dist_52w": 0.7094528078333514,
+        "ma200_pos": 0.9896941547415723,
+        "rsi14": 59.74408070137121,
+        "macd_state": 2
+      },
+      "fundamentals": {
+        "market_cap": 177703632896.0,
+        "trailing_pe": 45.95787,
+        "forward_pe": 24.125097,
+        "peg": 1.32,
+        "roe": 2.66444,
+        "revenue_growth": 0.59,
+        "earnings_growth_q": 1.092
+      },
+      "preview_close": 528.97509765625,
+      "entry_atr": 34.721923828125,
+      "entry_price": 516.07,
+      "stop_price": 463.99,
+      "target_price": 620.24,
+      "status": "HOLD",
+      "exit_price": null,
+      "exit_date": null,
+      "daily_closes": [],
+      "reason": "默认池：基本面 +27 · 动量 +0 · 技术 +12"
+    },
+    {
+      "rank": 28,
+      "ticker": "IFF",
+      "sector": "Basic Materials",
+      "score": 59.0,
+      "components": {
+        "heat": 20,
+        "fund": 13.0,
+        "mom": 7.0,
+        "tech": 19.0
+      },
+      "signals": {
+        "ret_1d": 0.7306098042991316,
+        "ret_5d": 2.8901017245744898,
+        "vol_ratio": 0.1124234471261859,
+        "near_high": 0.9039218307636762,
+        "dist_52w": 0.8979278220404137,
+        "ma200_pos": 1.0978797004359562,
+        "rsi14": 57.50297132257963,
+        "macd_state": -1
+      },
+      "fundamentals": {
+        "market_cap": 19359662080.0,
+        "trailing_pe": 23.47678,
+        "forward_pe": 15.776356,
+        "peg": 0.87,
+        "roe": 0.060510002,
+        "revenue_growth": -0.036,
+        "earnings_growth_q": 0.0
+      },
+      "preview_close": 75.83000183105469,
+      "entry_atr": 3.541785103934152,
+      "entry_price": 75.88,
+      "stop_price": 70.57,
+      "target_price": 86.51,
+      "status": "HOLD",
+      "exit_price": null,
+      "exit_date": null,
+      "daily_closes": [],
+      "reason": "默认池：基本面 +13 · 动量 +7 · 技术 +19"
+    },
+    {
+      "rank": 29,
+      "ticker": "KR",
+      "sector": "Consumer Defensive",
+      "score": 59.0,
+      "components": {
+        "heat": 20,
+        "fund": 18.0,
+        "mom": 7.0,
+        "tech": 14.0
+      },
+      "signals": {
+        "ret_1d": -2.639407473425881,
+        "ret_5d": -4.164228971620821,
+        "vol_ratio": 0.5298016225270122,
+        "near_high": 0.9130525632414681,
+        "dist_52w": 0.8549882072158649,
+        "ma200_pos": 0.9755414151459235,
+        "rsi14": 45.51381746778056,
+        "macd_state": 1
+      },
+      "fundamentals": {
+        "market_cap": 40369311744.0,
+        "trailing_pe": 42.516235,
+        "forward_pe": 11.638593,
+        "peg": 0.65,
+        "roe": 0.14405,
+        "revenue_growth": 0.012,
+        "earnings_growth_q": 0.358
+      },
+      "preview_close": 65.4749984741211,
+      "entry_atr": 1.8442856924874442,
+      "entry_price": 66.2,
+      "stop_price": 63.43,
+      "target_price": 71.73,
+      "status": "HOLD",
+      "exit_price": null,
+      "exit_date": null,
+      "daily_closes": [],
+      "reason": "默认池：基本面 +18 · 动量 +7 · 技术 +14"
+    },
+    {
+      "rank": 30,
+      "ticker": "MKC",
+      "sector": "Consumer Defensive",
+      "score": 56.0,
+      "components": {
+        "heat": 20,
+        "fund": 24.0,
+        "mom": 7.0,
+        "tech": 5.0
+      },
+      "signals": {
+        "ret_1d": -2.280335083651608,
+        "ret_5d": 0.02140968173418578,
+        "vol_ratio": 0.2943851109708022,
+        "near_high": 0.9015633631801542,
+        "dist_52w": 0.5976202264063718,
+        "ma200_pos": 0.7433748999266938,
+        "rsi14": 39.45495922024682,
+        "macd_state": 2
+      },
+      "fundamentals": {
+        "market_cap": 12557665280.0,
+        "trailing_pe": 7.6573772,
+        "forward_pe": 13.955489,
+        "peg": 1.84,
+        "roe": 0.25347,
+        "revenue_growth": 0.167,
+        "earnings_growth_q": 5.261
+      },
+      "preview_close": 46.709999084472656,
+      "entry_atr": 1.336428506033761,
+      "entry_price": 47.65,
+      "stop_price": 45.65,
+      "target_price": 51.66,
+      "status": "HOLD",
+      "exit_price": null,
+      "exit_date": null,
+      "daily_closes": [],
+      "reason": "默认池：基本面 +24 · 动量 +7 · 技术 +5"
+    },
+    {
+      "rank": 31,
+      "ticker": "WY",
+      "sector": "Real Estate",
+      "score": 51.0,
+      "components": {
+        "heat": 20,
+        "fund": 8.0,
+        "mom": 5.0,
+        "tech": 18.0
+      },
+      "signals": {
+        "ret_1d": 0.591713400470506,
+        "ret_5d": 4.066455459991669,
+        "vol_ratio": 0.20242990362424232,
+        "near_high": 0.9384857517450435,
+        "dist_52w": 0.8542713106839454,
+        "ma200_pos": 0.9773424551693045,
+        "rsi14": 51.47926690119147,
+        "macd_state": 2
+      },
+      "fundamentals": {
+        "market_cap": 17160813568.0,
+        "trailing_pe": 42.5,
+        "forward_pe": 34.14634,
+        "peg": 1.86,
+        "roe": 0.04161,
+        "revenue_growth": -0.02,
+        "earnings_growth_q": 0.88
+      },
+      "preview_close": 23.799999237060547,
+      "entry_atr": 0.536428587777274,
+      "entry_price": 23.88,
+      "stop_price": 23.08,
+      "target_price": 25.49,
+      "status": "HOLD",
+      "exit_price": null,
+      "exit_date": null,
+      "daily_closes": [],
+      "reason": "默认池：基本面 +8 · 动量 +5 · 技术 +18"
+    },
+    {
+      "rank": 32,
+      "ticker": "CBRE",
+      "sector": "Real Estate",
+      "score": 50.0,
+      "components": {
+        "heat": 20,
+        "fund": 25.0,
+        "mom": 4.0,
+        "tech": 1.0
+      },
+      "signals": {
+        "ret_1d": -0.9918386962030845,
+        "ret_5d": -0.5136447074556516,
+        "vol_ratio": 0.3240586005893393,
+        "near_high": 0.8711150111370619,
+        "dist_52w": 0.7446491139666993,
+        "ma200_pos": 0.8462015745413743,
+        "rsi14": 27.175477557790444,
+        "macd_state": -1
+      },
+      "fundamentals": {
+        "market_cap": 37998809088.0,
+        "trailing_pe": 29.627853,
+        "forward_pe": 14.6554785,
+        "peg": 0.7,
+        "roe": 0.15597,
+        "revenue_growth": 0.186,
+        "earnings_growth_q": 0.951
+      },
+      "preview_close": 129.77000427246094,
+      "entry_atr": 4.55999755859375,
+      "entry_price": 131.91,
+      "stop_price": 125.07,
+      "target_price": 145.59,
+      "status": "HOLD",
+      "exit_price": null,
+      "exit_date": null,
+      "daily_closes": [],
+      "reason": "默认池：基本面 +25 · 动量 +4 · 技术 +1"
+    },
+    {
+      "rank": 33,
+      "ticker": "AMT",
+      "sector": "Real Estate",
+      "score": 48.0,
+      "components": {
+        "heat": 20,
+        "fund": 16.0,
+        "mom": -2.0,
+        "tech": 14.0
+      },
+      "signals": {
+        "ret_1d": 0.06526794299910321,
+        "ret_5d": 3.773692738871759,
+        "vol_ratio": 0.19196821426529959,
+        "near_high": 0.9904178035463664,
+        "dist_52w": 0.7850894029068471,
+        "ma200_pos": 1.0002038837027476,
+        "rsi14": 59.67581553396098,
+        "macd_state": 2
+      },
+      "fundamentals": {
+        "market_cap": 85710348288.0,
+        "trailing_pe": 29.672583,
+        "forward_pe": 26.638693,
+        "peg": 1.93,
+        "roe": 0.29952,
+        "revenue_growth": 0.068,
+        "earnings_growth_q": 0.759
+      },
+      "preview_close": 183.97000122070312,
+      "entry_atr": 4.466423034667969,
+      "entry_price": 183.79,
+      "stop_price": 177.09,
+      "target_price": 197.19,
+      "status": "HOLD",
+      "exit_price": null,
+      "exit_date": null,
+      "daily_closes": [],
+      "reason": "默认池：基本面 +16 · 动量 -2 · 技术 +14"
+    }
+  ],
+  "weekly_stats": {
+    "target_hit": 0,
+    "stopped_out": 0,
+    "holding": 33,
+    "avg_pnl_pct": 1.08
+  }
+}
