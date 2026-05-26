@@ -6,6 +6,33 @@
 
 ---
 
+## 2026-05-26 — checkout 加一次 60s retry 防 GH 反滥用瞬时 flag
+
+**Commit**: 本次推送
+
+**症状/动机**：今天 12:30 UTC cron 触发的 run [26448175994](https://github.com/libai76853-cmyk/us-stock-morning-10picks/actions/runs/26448175994) 在 `actions/checkout@v4` 步骤连续 3 次失败，错误：
+```
+remote: Your account is suspended. Please visit https://support.github.com...
+fatal: unable to access '...': The requested URL returned error: 403
+```
+
+`actions/checkout@v4` 内置 retry 是 3 次 / 总共 ~30 秒（11s+18s 间隔），全部撞在同一个 GH 反滥用瞬时 flag 上。2 小时后我手动 `gh workflow run` 重触发，同一份代码同一个 commit `b1f0c87` checkout 完全正常 → 确认是 GH side 瞬时误判，账号本身没问题（`api.github.com/users/libai76853-cmyk` 全程返回 200）。
+
+**改动**：`.github/workflows/daily_picks.yml`
+- `checkout` 第 1 次：加 `id: checkout1` + `continue-on-error: true`，失败不杀 job
+- 中间步骤：`if: steps.checkout1.outcome == 'failure'` 时 `sleep 60`
+- `checkout` 第 2 次：同 `if` 条件，无 `continue-on-error`，失败则整个 job 才失败
+- 两次 checkout 都显式 `set-safe-directory: true`（v4 默认已 true，但写出来更明显）
+
+**预期效果**：
+- 大多数瞬时 flag 在 60-90 秒内消散，这次 retry 能自愈
+- 极端长持续的 flag（比如 5/26 那次持续 ~2h）仍需手动 `gh workflow run` 重触发，但发生频率极低
+- 正常路径无开销：if 条件挂着，attempt 2 不会跑
+
+**未来如果还频繁出**：考虑升级为 2-3 次 retry，间隔指数退避（60s / 180s / 600s）；或在 CF Worker 端加 retry（先 dispatch，10 分钟后查状态，failure 就再 dispatch 一次）。
+
+---
+
 ## 2026-05-22 — v6 评分重平衡：罚顶部 + 奖回调
 
 **Commit**: 见本次推送

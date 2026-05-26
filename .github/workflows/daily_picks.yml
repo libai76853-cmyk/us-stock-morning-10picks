@@ -12,7 +12,31 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 15
     steps:
-      - uses: actions/checkout@v4
+      # 2026-05-26: GitHub's anti-abuse system occasionally returns a transient
+      # "remote: Your account is suspended" error on `git fetch` during
+      # checkout from CI runner IPs. actions/checkout@v4's built-in retry
+      # (3 attempts in ~30s) is too tight to ride out that flag. So: try
+      # once, swallow failure, sleep 60s, try again. If both fail, the job
+      # fails as before — manual `gh workflow run` retry covers that case.
+      - name: Checkout (attempt 1)
+        id: checkout1
+        uses: actions/checkout@v4
+        with:
+          set-safe-directory: true
+        continue-on-error: true
+
+      - name: Sleep 60s if checkout failed
+        if: steps.checkout1.outcome == 'failure'
+        run: |
+          echo "Checkout attempt 1 failed — likely a transient GH anti-abuse flag."
+          echo "Sleeping 60s before retry..."
+          sleep 60
+
+      - name: Checkout (attempt 2)
+        if: steps.checkout1.outcome == 'failure'
+        uses: actions/checkout@v4
+        with:
+          set-safe-directory: true
 
       - uses: actions/setup-python@v5
         with:
