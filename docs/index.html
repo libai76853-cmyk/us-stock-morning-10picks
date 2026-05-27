@@ -22,26 +22,27 @@
 </head>
 <body>
   <h1>每日选股 · 滚动 Cohort 追踪</h1>
-  <div class="sub">每日推送一批，跟踪 10 个交易日 · 更新 2026-05-27T15:21:08.646228+00:00</div>
+  <div class="sub">每日推送一批，跟踪 10 个交易日 · 更新 2026-05-27T15:41:35.062255+00:00</div>
   <div class="nav-big pos">
-    NAV 1.0075 <span style="font-size:14px">(+0.75%)</span>
+    NAV 1.0078 <span style="font-size:14px">(+0.78%)</span>
   </div>
-  <div class="sub">daily-rebalanced equal-weight NAV, 10-trading-day hold per cohort · 累计跟踪 33 个持仓</div>
+  <div class="sub">daily-rebalanced equal-weight NAV, 10-trading-day hold per cohort · 累计跟踪 66 个持仓</div>
   <canvas id="nav" height="120"></canvas>
   <h1>各 Cohort 战绩</h1>
   <table>
     <tr><th>推送日</th><th>只数</th><th>🎯目标</th><th>🛑止损</th>
         <th>持有</th><th>待锁</th><th>均 P/L%</th><th>退休</th></tr>
-    <tr><td>2026-05-27</td><td>33</td><td class='hit'>0</td><td class='stop'>0</td><td>33</td><td>0</td><td class='pos'>0.75</td><td></td></tr>
+    <tr><td>2026-05-27</td><td>33</td><td class='hit'>0</td><td class='stop'>0</td><td>33</td><td>0</td><td class='pos'>0.73</td><td></td></tr>
+<tr><td>2026-05-25</td><td>33</td><td class='hit'>0</td><td class='stop'>1</td><td>32</td><td>0</td><td class='pos'>0.84</td><td></td></tr>
   </table>
   <script>
     new Chart(document.getElementById('nav'), {
       type: 'line',
       data: {
-        labels: ["2026-05-27"],
+        labels: ["2026-05-26", "2026-05-27"],
         datasets: [{
           label: 'NAV (等权日度再平衡)',
-          data: [1.0075],
+          data: [0.9999, 1.0078],
           borderColor: '#58a6ff', backgroundColor: 'rgba(88,166,255,.1)',
           fill: true, tension: .25, pointRadius: 2,
         }]
