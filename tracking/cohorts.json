@@ -867,6 +867,708 @@
           ]
         }
       ]
+    },
+    "2026-05-25": {
+      "pick_date": "2026-05-25",
+      "generated_at": "2026-05-26T15:48:39.172942+00:00",
+      "entries_locked": true,
+      "retired": false,
+      "backfilled_from": "weekly/weekly_picks_2026-05-25.json",
+      "picks": [
+        {
+          "rank": 1,
+          "ticker": "ANET",
+          "sector": "Technology",
+          "score": 92.0,
+          "components": {
+            "heat": 20,
+            "fund": 22.0,
+            "mom": 23.0,
+            "tech": 27.0
+          },
+          "screen_close": 159.25999450683594,
+          "entry_atr": 8.396071297781807,
+          "entry_price": 157.51,
+          "stop_price": 144.91,
+          "target_price": 182.69,
+          "status": "HOLD",
+          "exit_price": null,
+          "exit_date": null,
+          "closes": []
+        },
+        {
+          "rank": 2,
+          "ticker": "TPR",
+          "sector": "Consumer Cyclical",
+          "score": 83.0,
+          "components": {
+            "heat": 20,
+            "fund": 32.0,
+            "mom": 10.0,
+            "tech": 21.0
+          },
+          "screen_close": 139.3699951171875,
+          "entry_atr": 6.094286237444196,
+          "entry_price": 140.3,
+          "stop_price": 131.16,
+          "target_price": 158.58,
+          "status": "HOLD",
+          "exit_price": null,
+          "exit_date": null,
+          "closes": []
+        },
+        {
+          "rank": 3,
+          "ticker": "NVDA",
+          "sector": "Technology",
+          "score": 77.0,
+          "components": {
+            "heat": 20,
+            "fund": 32.0,
+            "mom": 7.0,
+            "tech": 18.0
+          },
+          "screen_close": 213.6999969482422,
+          "entry_atr": 8.332141331263951,
+          "entry_price": 216.58,
+          "stop_price": 204.08,
+          "target_price": 241.57,
+          "status": "HOLD",
+          "exit_price": null,
+          "exit_date": null,
+          "closes": []
+        },
+        {
+          "rank": 4,
+          "ticker": "APH",
+          "sector": "Technology",
+          "score": 76.0,
+          "components": {
+            "heat": 20,
+            "fund": 22.0,
+            "mom": 14.0,
+            "tech": 20.0
+          },
+          "screen_close": 143.25999450683594,
+          "entry_atr": 6.0364276341029575,
+          "entry_price": 136.88,
+          "stop_price": 127.83,
+          "target_price": 154.99,
+          "status": "HOLD",
+          "exit_price": null,
+          "exit_date": null,
+          "closes": []
+        },
+        {
+          "rank": 5,
+          "ticker": "FCX",
+          "sector": "Basic Materials",
+          "score": 74.0,
+          "components": {
+            "heat": 20,
+            "fund": 14.0,
+            "mom": 18.0,
+            "tech": 22.0
+          },
+          "screen_close": 63.970001220703125,
+          "entry_atr": 2.890000479561942,
+          "entry_price": 63.04,
+          "stop_price": 58.71,
+          "target_price": 71.71,
+          "status": "HOLD",
+          "exit_price": null,
+          "exit_date": null,
+          "closes": []
+        },
+        {
+          "rank": 6,
+          "ticker": "NEM",
+          "sector": "Basic Materials",
+          "score": 72.0,
+          "components": {
+            "heat": 20,
+            "fund": 24.0,
+            "mom": 13.0,
+            "tech": 15.0
+          },
+          "screen_close": 110.63500213623047,
+          "entry_atr": 4.680714198521206,
+          "entry_price": 111.2,
+          "stop_price": 104.18,
+          "target_price": 125.24,
+          "status": "HOLD",
+          "exit_price": null,
+          "exit_date": null,
+          "closes": []
+        },
+        {
+          "rank": 7,
+          "ticker": "NCLH",
+          "sector": "Consumer Cyclical",
+          "score": 71.0,
+          "components": {
+            "heat": 20,
+            "fund": 21.0,
+            "mom": 23.0,
+            "tech": 7.0
+          },
+          "screen_close": 16.915000915527344,
+          "entry_atr": 0.8403571673801967,
+          "entry_price": 16.84,
+          "stop_price": 15.58,
+          "target_price": 19.36,
+          "status": "HOLD",
+          "exit_price": null,
+          "exit_date": null,
+          "closes": []
+        },
+        {
+          "rank": 8,
+          "ticker": "CEG",
+          "sector": "Utilities",
+          "score": 70.0,
+          "components": {
+            "heat": 20,
+            "fund": 20.0,
+            "mom": 23.0,
+            "tech": 7.0
+          },
+          "screen_close": 304.2752990722656,
+          "entry_atr": 14.071426391601562,
+          "entry_price": 299.92,
+          "stop_price": 278.81,
+          "target_price": 342.13,
+          "status": "HOLD",
+          "exit_price": null,
+          "exit_date": null,
+          "closes": []
+        },
+        {
+          "rank": 9,
+          "ticker": "RCL",
+          "sector": "Consumer Cyclical",
+          "score": 70.0,
+          "components": {
+            "heat": 20,
+            "fund": 24.0,
+            "mom": 18.0,
+            "tech": 8.0
+          },
+          "screen_close": 266.07000732421875,
+          "entry_atr": 12.419991629464286,
+          "entry_price": 260.1,
+          "stop_price": 241.47,
+          "target_price": 297.36,
+          "status": "HOLD",
+          "exit_price": null,
+          "exit_date": null,
+          "closes": []
+        },
+        {
+          "rank": 10,
+          "ticker": "INCY",
+          "sector": "Healthcare",
+          "score": 69.0,
+          "components": {
+            "heat": 20,
+            "fund": 32.0,
+            "mom": 5.0,
+            "tech": 12.0
+          },
+          "screen_close": 96.8949966430664,
+          "entry_atr": 2.5369862147739957,
+          "entry_price": 97.35,
+          "stop_price": 93.54,
+          "target_price": 104.96,
+          "status": "HOLD",
+          "exit_price": null,
+          "exit_date": null,
+          "closes": []
+        },
+        {
+          "rank": 11,
+          "ticker": "APA",
+          "sector": "Energy",
+          "score": 67.0,
+          "components": {
+            "heat": 20,
+            "fund": 26.0,
+            "mom": 7.0,
+            "tech": 14.0
+          },
+          "screen_close": 38.474998474121094,
+          "entry_atr": 1.7721358707972936,
+          "entry_price": 38.52,
+          "stop_price": 35.86,
+          "target_price": 43.84,
+          "status": "HOLD",
+          "exit_price": null,
+          "exit_date": null,
+          "closes": []
+        },
+        {
+          "rank": 12,
+          "ticker": "TPL",
+          "sector": "Energy",
+          "score": 67.0,
+          "components": {
+            "heat": 20,
+            "fund": 21.0,
+            "mom": 7.0,
+            "tech": 19.0
+          },
+          "screen_close": 405.0199890136719,
+          "entry_atr": 18.377068655831472,
+          "entry_price": 402.33,
+          "stop_price": 374.76,
+          "target_price": 457.46,
+          "status": "HOLD",
+          "exit_price": null,
+          "exit_date": null,
+          "closes": []
+        },
+        {
+          "rank": 13,
+          "ticker": "LLY",
+          "sector": "Healthcare",
+          "score": 66.0,
+          "components": {
+            "heat": 20,
+            "fund": 27.0,
+            "mom": 6.0,
+            "tech": 13.0
+          },
+          "screen_close": 1076.8399658203125,
+          "entry_atr": 28.422860281808035,
+          "entry_price": 1075.0,
+          "stop_price": 1032.37,
+          "target_price": 1160.27,
+          "status": "HOLD",
+          "exit_price": null,
+          "exit_date": null,
+          "closes": []
+        },
+        {
+          "rank": 14,
+          "ticker": "UAL",
+          "sector": "Industrials",
+          "score": 66.0,
+          "components": {
+            "heat": 20,
+            "fund": 21.0,
+            "mom": 10.0,
+            "tech": 15.0
+          },
+          "screen_close": 105.66390228271484,
+          "entry_atr": 4.3914288112095425,
+          "entry_price": 103.94,
+          "stop_price": 97.35,
+          "target_price": 117.11,
+          "status": "HOLD",
+          "exit_price": null,
+          "exit_date": null,
+          "closes": []
+        },
+        {
+          "rank": 15,
+          "ticker": "VST",
+          "sector": "Utilities",
+          "score": 65.0,
+          "components": {
+            "heat": 20,
+            "fund": 27.0,
+            "mom": 10.0,
+            "tech": 8.0
+          },
+          "screen_close": 165.05999755859375,
+          "entry_atr": 7.265354701450893,
+          "entry_price": 158.91,
+          "stop_price": 148.01,
+          "target_price": 180.71,
+          "status": "HOLD",
+          "exit_price": null,
+          "exit_date": null,
+          "closes": []
+        },
+        {
+          "rank": 16,
+          "ticker": "AFL",
+          "sector": "Financial Services",
+          "score": 64.0,
+          "components": {
+            "heat": 20,
+            "fund": 23.0,
+            "mom": 5.0,
+            "tech": 16.0
+          },
+          "screen_close": 117.0250015258789,
+          "entry_atr": 1.9435719081333704,
+          "entry_price": 117.0,
+          "stop_price": 114.08,
+          "target_price": 122.83,
+          "status": "HOLD",
+          "exit_price": null,
+          "exit_date": null,
+          "closes": []
+        },
+        {
+          "rank": 17,
+          "ticker": "EME",
+          "sector": "Industrials",
+          "score": 64.0,
+          "components": {
+            "heat": 20,
+            "fund": 19.0,
+            "mom": 10.0,
+            "tech": 15.0
+          },
+          "screen_close": 862.2550048828125,
+          "entry_atr": 29.754991803850448,
+          "entry_price": 863.64,
+          "stop_price": 819.01,
+          "target_price": 952.9,
+          "status": "HOLD",
+          "exit_price": null,
+          "exit_date": null,
+          "closes": []
+        },
+        {
+          "rank": 18,
+          "ticker": "FIX",
+          "sector": "Industrials",
+          "score": 64.0,
+          "components": {
+            "heat": 20,
+            "fund": 16.0,
+            "mom": 13.0,
+            "tech": 15.0
+          },
+          "screen_close": 1893.4036865234375,
+          "entry_atr": 92.567138671875,
+          "entry_price": 1877.39,
+          "stop_price": 1738.53,
+          "target_price": 2155.09,
+          "status": "HOLD",
+          "exit_price": null,
+          "exit_date": null,
+          "closes": []
+        },
+        {
+          "rank": 19,
+          "ticker": "EOG",
+          "sector": "Energy",
+          "score": 63.0,
+          "components": {
+            "heat": 20,
+            "fund": 20.0,
+            "mom": 5.0,
+            "tech": 18.0
+          },
+          "screen_close": 139.0399932861328,
+          "entry_atr": 3.8871350969587053,
+          "entry_price": 139.89,
+          "stop_price": 134.06,
+          "target_price": 151.55,
+          "status": "HOLD",
+          "exit_price": null,
+          "exit_date": null,
+          "closes": []
+        },
+        {
+          "rank": 20,
+          "ticker": "HIG",
+          "sector": "Financial Services",
+          "score": 63.0,
+          "components": {
+            "heat": 20,
+            "fund": 22.0,
+            "mom": 5.0,
+            "tech": 16.0
+          },
+          "screen_close": 134.89999389648438,
+          "entry_atr": 2.3021349225725447,
+          "entry_price": 135.94,
+          "stop_price": 132.49,
+          "target_price": 142.85,
+          "status": "HOLD",
+          "exit_price": null,
+          "exit_date": null,
+          "closes": []
+        },
+        {
+          "rank": 21,
+          "ticker": "PCG",
+          "sector": "Utilities",
+          "score": 63.0,
+          "components": {
+            "heat": 20,
+            "fund": 21.0,
+            "mom": 5.0,
+            "tech": 17.0
+          },
+          "screen_close": 16.415000915527344,
+          "entry_atr": 0.4657145227704729,
+          "entry_price": 16.54,
+          "stop_price": 15.84,
+          "target_price": 17.94,
+          "status": "HOLD",
+          "exit_price": null,
+          "exit_date": null,
+          "closes": []
+        },
+        {
+          "rank": 22,
+          "ticker": "JPM",
+          "sector": "Financial Services",
+          "score": 61.0,
+          "components": {
+            "heat": 20,
+            "fund": 17.0,
+            "mom": 5.0,
+            "tech": 19.0
+          },
+          "screen_close": 306.9100036621094,
+          "entry_atr": 6.169285365513393,
+          "entry_price": 308.49,
+          "stop_price": 299.24,
+          "target_price": 327.0,
+          "status": "HOLD",
+          "exit_price": null,
+          "exit_date": null,
+          "closes": []
+        },
+        {
+          "rank": 23,
+          "ticker": "KO",
+          "sector": "Consumer Defensive",
+          "score": 61.0,
+          "components": {
+            "heat": 20,
+            "fund": 18.0,
+            "mom": 5.0,
+            "tech": 18.0
+          },
+          "screen_close": 80.4728012084961,
+          "entry_atr": 1.115358625139509,
+          "entry_price": 80.84,
+          "stop_price": 79.17,
+          "target_price": 84.19,
+          "status": "HOLD",
+          "exit_price": null,
+          "exit_date": null,
+          "closes": []
+        },
+        {
+          "rank": 24,
+          "ticker": "GOOG",
+          "sector": "Communication Services",
+          "score": 60.0,
+          "components": {
+            "heat": 20,
+            "fund": 22.0,
+            "mom": 5.0,
+            "tech": 13.0
+          },
+          "screen_close": 382.7699890136719,
+          "entry_atr": 9.325284685407366,
+          "entry_price": 380.99,
+          "stop_price": 367.01,
+          "target_price": 408.97,
+          "status": "HOLD",
+          "exit_price": null,
+          "exit_date": null,
+          "closes": []
+        },
+        {
+          "rank": 25,
+          "ticker": "META",
+          "sector": "Communication Services",
+          "score": 60.0,
+          "components": {
+            "heat": 20,
+            "fund": 32.0,
+            "mom": 7.0,
+            "tech": 1.0
+          },
+          "screen_close": 607.594970703125,
+          "entry_atr": 12.753566196986608,
+          "entry_price": 609.6,
+          "stop_price": 590.47,
+          "target_price": 647.86,
+          "status": "HOLD",
+          "exit_price": null,
+          "exit_date": null,
+          "closes": []
+        },
+        {
+          "rank": 26,
+          "ticker": "ALNY",
+          "sector": "Healthcare",
+          "score": 59.0,
+          "components": {
+            "heat": 20,
+            "fund": 27.0,
+            "mom": 5.0,
+            "tech": 7.0
+          },
+          "screen_close": 295.8299865722656,
+          "entry_atr": 8.964996337890625,
+          "entry_price": 299.0,
+          "stop_price": 285.55,
+          "target_price": 325.89,
+          "status": "HOLD",
+          "exit_price": null,
+          "exit_date": null,
+          "closes": []
+        },
+        {
+          "rank": 27,
+          "ticker": "APP",
+          "sector": "Communication Services",
+          "score": 59.0,
+          "components": {
+            "heat": 20,
+            "fund": 27.0,
+            "mom": 0.0,
+            "tech": 12.0
+          },
+          "screen_close": 528.97509765625,
+          "entry_atr": 34.721923828125,
+          "entry_price": 516.07,
+          "stop_price": 463.99,
+          "target_price": 620.24,
+          "status": "HOLD",
+          "exit_price": null,
+          "exit_date": null,
+          "closes": []
+        },
+        {
+          "rank": 28,
+          "ticker": "IFF",
+          "sector": "Basic Materials",
+          "score": 59.0,
+          "components": {
+            "heat": 20,
+            "fund": 13.0,
+            "mom": 7.0,
+            "tech": 19.0
+          },
+          "screen_close": 75.83000183105469,
+          "entry_atr": 3.541785103934152,
+          "entry_price": 75.88,
+          "stop_price": 70.57,
+          "target_price": 86.51,
+          "status": "HOLD",
+          "exit_price": null,
+          "exit_date": null,
+          "closes": []
+        },
+        {
+          "rank": 29,
+          "ticker": "KR",
+          "sector": "Consumer Defensive",
+          "score": 59.0,
+          "components": {
+            "heat": 20,
+            "fund": 18.0,
+            "mom": 7.0,
+            "tech": 14.0
+          },
+          "screen_close": 65.4749984741211,
+          "entry_atr": 1.8442856924874442,
+          "entry_price": 66.2,
+          "stop_price": 63.43,
+          "target_price": 71.73,
+          "status": "HOLD",
+          "exit_price": null,
+          "exit_date": null,
+          "closes": []
+        },
+        {
+          "rank": 30,
+          "ticker": "MKC",
+          "sector": "Consumer Defensive",
+          "score": 56.0,
+          "components": {
+            "heat": 20,
+            "fund": 24.0,
+            "mom": 7.0,
+            "tech": 5.0
+          },
+          "screen_close": 46.709999084472656,
+          "entry_atr": 1.336428506033761,
+          "entry_price": 47.65,
+          "stop_price": 45.65,
+          "target_price": 51.66,
+          "status": "HOLD",
+          "exit_price": null,
+          "exit_date": null,
+          "closes": []
+        },
+        {
+          "rank": 31,
+          "ticker": "WY",
+          "sector": "Real Estate",
+          "score": 51.0,
+          "components": {
+            "heat": 20,
+            "fund": 8.0,
+            "mom": 5.0,
+            "tech": 18.0
+          },
+          "screen_close": 23.799999237060547,
+          "entry_atr": 0.536428587777274,
+          "entry_price": 23.88,
+          "stop_price": 23.08,
+          "target_price": 25.49,
+          "status": "HOLD",
+          "exit_price": null,
+          "exit_date": null,
+          "closes": []
+        },
+        {
+          "rank": 32,
+          "ticker": "CBRE",
+          "sector": "Real Estate",
+          "score": 50.0,
+          "components": {
+            "heat": 20,
+            "fund": 25.0,
+            "mom": 4.0,
+            "tech": 1.0
+          },
+          "screen_close": 129.77000427246094,
+          "entry_atr": 4.55999755859375,
+          "entry_price": 131.91,
+          "stop_price": 125.07,
+          "target_price": 145.59,
+          "status": "HOLD",
+          "exit_price": null,
+          "exit_date": null,
+          "closes": []
+        },
+        {
+          "rank": 33,
+          "ticker": "AMT",
+          "sector": "Real Estate",
+          "score": 48.0,
+          "components": {
+            "heat": 20,
+            "fund": 16.0,
+            "mom": -2.0,
+            "tech": 14.0
+          },
+          "screen_close": 183.97000122070312,
+          "entry_atr": 4.466423034667969,
+          "entry_price": 183.79,
+          "stop_price": 177.09,
+          "target_price": 197.19,
+          "status": "HOLD",
+          "exit_price": null,
+          "exit_date": null,
+          "closes": []
+        }
+      ]
     }
   }
 }
