@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>每日选股 — 滚动追踪</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4"></script>
+<style>
+  body { font-family: -apple-system, system-ui, sans-serif; margin: 0; padding: 16px;
+         background: #0f1115; color: #e6e6e6; }
+  h1 { font-size: 18px; margin: 0 0 4px; }
+  .sub { color: #8a8f98; font-size: 12px; margin-bottom: 16px; }
+  .nav-big { font-size: 28px; font-weight: 700; }
+  .pos { color: #3fb950; } .neg { color: #f85149; }
+  .hit { color: #3fb950; } .stop { color: #f85149; }
+  canvas { background: #161b22; border-radius: 8px; padding: 8px; margin-bottom: 20px; }
+  table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  th, td { padding: 6px 8px; text-align: right; border-bottom: 1px solid #21262d; }
+  th:first-child, td:first-child { text-align: left; }
+  th { color: #8a8f98; font-weight: 600; }
+</style>
+</head>
+<body>
+  <h1>每日选股 · 滚动 Cohort 追踪</h1>
+  <div class="sub">每日推送一批，跟踪 10 个交易日 · 更新 2026-05-27T15:21:08.646228+00:00</div>
+  <div class="nav-big pos">
+    NAV 1.0075 <span style="font-size:14px">(+0.75%)</span>
+  </div>
+  <div class="sub">daily-rebalanced equal-weight NAV, 10-trading-day hold per cohort · 累计跟踪 33 个持仓</div>
+  <canvas id="nav" height="120"></canvas>
+  <h1>各 Cohort 战绩</h1>
+  <table>
+    <tr><th>推送日</th><th>只数</th><th>🎯目标</th><th>🛑止损</th>
+        <th>持有</th><th>待锁</th><th>均 P/L%</th><th>退休</th></tr>
+    <tr><td>2026-05-27</td><td>33</td><td class='hit'>0</td><td class='stop'>0</td><td>33</td><td>0</td><td class='pos'>0.75</td><td></td></tr>
+  </table>
+  <script>
+    new Chart(document.getElementById('nav'), {
+      type: 'line',
+      data: {
+        labels: ["2026-05-27"],
+        datasets: [{
+          label: 'NAV (等权日度再平衡)',
+          data: [1.0075],
+          borderColor: '#58a6ff', backgroundColor: 'rgba(88,166,255,.1)',
+          fill: true, tension: .25, pointRadius: 2,
+        }]
+      },
+      options: {
+        plugins: { legend: { labels: { color: '#e6e6e6' } } },
+        scales: {
+          x: { ticks: { color: '#8a8f98' }, grid: { color: '#21262d' } },
+          y: { ticks: { color: '#8a8f98' }, grid: { color: '#21262d' } }
+        }
+      }
+    });
+  </script>
+</body>
+</html>
