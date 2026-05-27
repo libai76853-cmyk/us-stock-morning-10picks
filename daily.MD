@@ -38,6 +38,12 @@
 
 **未来**：今天起 cohort 历史从 0 累积，曲线慢慢长。可选：用已 commit 的 v7 篮子（5/25 那 33 只）+ yfinance 历史回填 5/25 cohort 让曲线一上来有几天数据。
 
+**当天后续迭代**：
+- **GitHub Pages 开启**：`gh api -X POST repos/.../pages -f 'source[branch]=main' -f 'source[path]=/docs'`，URL = https://libai76853-cmyk.github.io/us-stock-morning-10picks/
+- **回填 5/25 cohort**（用户「回填，后面自然累积」）：纯 JSON 把 v7 篮子塞进 `tracking/cohorts.json`，CI run 从 yfinance 补 closes。注意 **5/25 是 Memorial Day 美股休市**，所以 5/25 cohort 实际入场是 5/26 open，tracking 从 5/26 起（日期标签和首个交易日差一天）。
+- **可展开明细**（用户「没有详情」）：dashboard 点 cohort 行展开那 33 只逐只表（# / 票 / 行业 / 状态 / 入场 / 现价 / P/L% / 止损 / 目标），`function tg(id)` toggle 隐藏行。状态标签：持有 / 🎯目标 / 🛑止损 / 待锁。
+- **规模确认**：稳态 ~10 活跃 cohort × 33 = ~330 持仓记录，去重 ~100-180 只（同一票可在多个 cohort 各有不同 entry，设计如此）。
+
 ---
 
 ## 2026-05-26 — v7 周度跟踪模式（picks 周一锁定 + 全周 P/L 监测）（已被 v8 取代）
