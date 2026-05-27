@@ -45,6 +45,10 @@
         {
           "date": "2026-05-26",
           "close": 159.32
+        },
+        {
+          "date": "2026-05-27",
+          "close": 158.01
         }
       ],
       "reason": "默认池：基本面 +22 · 动量 +23 · 技术 +27"
@@ -91,6 +95,10 @@
         {
           "date": "2026-05-26",
           "close": 139.37
+        },
+        {
+          "date": "2026-05-27",
+          "close": 140.62
         }
       ],
       "reason": "默认池：基本面 +32 · 动量 +10 · 技术 +21"
@@ -137,6 +145,10 @@
         {
           "date": "2026-05-26",
           "close": 213.67
+        },
+        {
+          "date": "2026-05-27",
+          "close": 214.86
         }
       ],
       "reason": "默认池：基本面 +32 · 动量 +7 · 技术 +18"
@@ -183,6 +195,10 @@
         {
           "date": "2026-05-26",
           "close": 143.39
+        },
+        {
+          "date": "2026-05-27",
+          "close": 139.56
         }
       ],
       "reason": "默认池：基本面 +22 · 动量 +14 · 技术 +20"
@@ -229,6 +245,10 @@
         {
           "date": "2026-05-26",
           "close": 63.98
+        },
+        {
+          "date": "2026-05-27",
+          "close": 64.36
         }
       ],
       "reason": "默认池：基本面 +14 · 动量 +18 · 技术 +22"
@@ -271,7 +291,12 @@
       "status": "HOLD",
       "exit_price": null,
       "exit_date": null,
-      "daily_closes": [],
+      "daily_closes": [
+        {
+          "date": "2026-05-27",
+          "close": 111.61
+        }
+      ],
       "reason": "默认池：基本面 +24 · 动量 +13 · 技术 +15"
     },
     {
@@ -312,7 +337,12 @@
       "status": "HOLD",
       "exit_price": null,
       "exit_date": null,
-      "daily_closes": [],
+      "daily_closes": [
+        {
+          "date": "2026-05-27",
+          "close": 17.1
+        }
+      ],
       "reason": "默认池：基本面 +21 · 动量 +23 · 技术 +7"
     },
     {
@@ -353,7 +383,12 @@
       "status": "HOLD",
       "exit_price": null,
       "exit_date": null,
-      "daily_closes": [],
+      "daily_closes": [
+        {
+          "date": "2026-05-27",
+          "close": 301.57
+        }
+      ],
       "reason": "默认池：基本面 +20 · 动量 +23 · 技术 +7"
     },
     {
@@ -394,7 +429,12 @@
       "status": "HOLD",
       "exit_price": null,
       "exit_date": null,
-      "daily_closes": [],
+      "daily_closes": [
+        {
+          "date": "2026-05-27",
+          "close": 267.71
+        }
+      ],
       "reason": "默认池：基本面 +24 · 动量 +18 · 技术 +8"
     },
     {
@@ -435,7 +475,12 @@
       "status": "HOLD",
       "exit_price": null,
       "exit_date": null,
-      "daily_closes": [],
+      "daily_closes": [
+        {
+          "date": "2026-05-27",
+          "close": 97.1
+        }
+      ],
       "reason": "默认池：基本面 +32 · 动量 +5 · 技术 +12"
     },
     {
@@ -476,7 +521,12 @@
       "status": "HOLD",
       "exit_price": null,
       "exit_date": null,
-      "daily_closes": [],
+      "daily_closes": [
+        {
+          "date": "2026-05-27",
+          "close": 37.5
+        }
+      ],
       "reason": "默认池：基本面 +26 · 动量 +7 · 技术 +14"
     },
     {
@@ -517,7 +567,12 @@
       "status": "HOLD",
       "exit_price": null,
       "exit_date": null,
-      "daily_closes": [],
+      "daily_closes": [
+        {
+          "date": "2026-05-27",
+          "close": 400.09
+        }
+      ],
       "reason": "默认池：基本面 +21 · 动量 +7 · 技术 +19"
     },
     {
@@ -558,7 +613,12 @@
       "status": "HOLD",
       "exit_price": null,
       "exit_date": null,
-      "daily_closes": [],
+      "daily_closes": [
+        {
+          "date": "2026-05-27",
+          "close": 1064.74
+        }
+      ],
       "reason": "默认池：基本面 +27 · 动量 +6 · 技术 +13"
     },
     {
@@ -599,7 +659,12 @@
       "status": "HOLD",
       "exit_price": null,
       "exit_date": null,
-      "daily_closes": [],
+      "daily_closes": [
+        {
+          "date": "2026-05-27",
+          "close": 105.92
+        }
+      ],
       "reason": "默认池：基本面 +21 · 动量 +10 · 技术 +15"
     },
     {
@@ -640,7 +705,12 @@
       "status": "HOLD",
       "exit_price": null,
       "exit_date": null,
-      "daily_closes": [],
+      "daily_closes": [
+        {
+          "date": "2026-05-27",
+          "close": 164.56
+        }
+      ],
       "reason": "默认池：基本面 +27 · 动量 +10 · 技术 +8"
     },
     {
@@ -681,7 +751,12 @@
       "status": "HOLD",
       "exit_price": null,
       "exit_date": null,
-      "daily_closes": [],
+      "daily_closes": [
+        {
+          "date": "2026-05-27",
+          "close": 116.82
+        }
+      ],
       "reason": "默认池：基本面 +23 · 动量 +5 · 技术 +16"
     },
     {
@@ -722,7 +797,12 @@
       "status": "HOLD",
       "exit_price": null,
       "exit_date": null,
-      "daily_closes": [],
+      "daily_closes": [
+        {
+          "date": "2026-05-27",
+          "close": 861.41
+        }
+      ],
       "reason": "默认池：基本面 +19 · 动量 +10 · 技术 +15"
     },
     {
@@ -763,7 +843,12 @@
       "status": "HOLD",
       "exit_price": null,
       "exit_date": null,
-      "daily_closes": [],
+      "daily_closes": [
+        {
+          "date": "2026-05-27",
+          "close": 1883.56
+        }
+      ],
       "reason": "默认池：基本面 +16 · 动量 +13 · 技术 +15"
     },
     {
@@ -804,7 +889,12 @@
       "status": "HOLD",
       "exit_price": null,
       "exit_date": null,
-      "daily_closes": [],
+      "daily_closes": [
+        {
+          "date": "2026-05-27",
+          "close": 136.2
+        }
+      ],
       "reason": "默认池：基本面 +20 · 动量 +5 · 技术 +18"
     },
     {
@@ -845,7 +935,12 @@
       "status": "HOLD",
       "exit_price": null,
       "exit_date": null,
-      "daily_closes": [],
+      "daily_closes": [
+        {
+          "date": "2026-05-27",
+          "close": 135.36
+        }
+      ],
       "reason": "默认池：基本面 +22 · 动量 +5 · 技术 +16"
     },
     {
@@ -886,7 +981,12 @@
       "status": "HOLD",
       "exit_price": null,
       "exit_date": null,
-      "daily_closes": [],
+      "daily_closes": [
+        {
+          "date": "2026-05-27",
+          "close": 16.42
+        }
+      ],
       "reason": "默认池：基本面 +21 · 动量 +5 · 技术 +17"
     },
     {
@@ -927,7 +1027,12 @@
       "status": "HOLD",
       "exit_price": null,
       "exit_date": null,
-      "daily_closes": [],
+      "daily_closes": [
+        {
+          "date": "2026-05-27",
+          "close": 306.74
+        }
+      ],
       "reason": "默认池：基本面 +17 · 动量 +5 · 技术 +19"
     },
     {
@@ -968,7 +1073,12 @@
       "status": "HOLD",
       "exit_price": null,
       "exit_date": null,
-      "daily_closes": [],
+      "daily_closes": [
+        {
+          "date": "2026-05-27",
+          "close": 80.46
+        }
+      ],
       "reason": "默认池：基本面 +18 · 动量 +5 · 技术 +18"
     },
     {
@@ -1009,7 +1119,12 @@
       "status": "HOLD",
       "exit_price": null,
       "exit_date": null,
-      "daily_closes": [],
+      "daily_closes": [
+        {
+          "date": "2026-05-27",
+          "close": 384.84
+        }
+      ],
       "reason": "默认池：基本面 +22 · 动量 +5 · 技术 +13"
     },
     {
@@ -1050,7 +1165,12 @@
       "status": "HOLD",
       "exit_price": null,
       "exit_date": null,
-      "daily_closes": [],
+      "daily_closes": [
+        {
+          "date": "2026-05-27",
+          "close": 612.34
+        }
+      ],
       "reason": "默认池：基本面 +32 · 动量 +7 · 技术 +1"
     },
     {
@@ -1091,7 +1211,12 @@
       "status": "HOLD",
       "exit_price": null,
       "exit_date": null,
-      "daily_closes": [],
+      "daily_closes": [
+        {
+          "date": "2026-05-27",
+          "close": 295.5
+        }
+      ],
       "reason": "默认池：基本面 +27 · 动量 +5 · 技术 +7"
     },
     {
@@ -1132,7 +1257,12 @@
       "status": "HOLD",
       "exit_price": null,
       "exit_date": null,
-      "daily_closes": [],
+      "daily_closes": [
+        {
+          "date": "2026-05-27",
+          "close": 514.24
+        }
+      ],
       "reason": "默认池：基本面 +27 · 动量 +0 · 技术 +12"
     },
     {
@@ -1173,7 +1303,12 @@
       "status": "HOLD",
       "exit_price": null,
       "exit_date": null,
-      "daily_closes": [],
+      "daily_closes": [
+        {
+          "date": "2026-05-27",
+          "close": 75.87
+        }
+      ],
       "reason": "默认池：基本面 +13 · 动量 +7 · 技术 +19"
     },
     {
@@ -1214,7 +1349,12 @@
       "status": "HOLD",
       "exit_price": null,
       "exit_date": null,
-      "daily_closes": [],
+      "daily_closes": [
+        {
+          "date": "2026-05-27",
+          "close": 64.55
+        }
+      ],
       "reason": "默认池：基本面 +18 · 动量 +7 · 技术 +14"
     },
     {
@@ -1255,7 +1395,12 @@
       "status": "HOLD",
       "exit_price": null,
       "exit_date": null,
-      "daily_closes": [],
+      "daily_closes": [
+        {
+          "date": "2026-05-27",
+          "close": 46.82
+        }
+      ],
       "reason": "默认池：基本面 +24 · 动量 +7 · 技术 +5"
     },
     {
@@ -1296,7 +1441,12 @@
       "status": "HOLD",
       "exit_price": null,
       "exit_date": null,
-      "daily_closes": [],
+      "daily_closes": [
+        {
+          "date": "2026-05-27",
+          "close": 23.82
+        }
+      ],
       "reason": "默认池：基本面 +8 · 动量 +5 · 技术 +18"
     },
     {
@@ -1337,7 +1487,12 @@
       "status": "HOLD",
       "exit_price": null,
       "exit_date": null,
-      "daily_closes": [],
+      "daily_closes": [
+        {
+          "date": "2026-05-27",
+          "close": 129.76
+        }
+      ],
       "reason": "默认池：基本面 +25 · 动量 +4 · 技术 +1"
     },
     {
@@ -1378,7 +1533,12 @@
       "status": "HOLD",
       "exit_price": null,
       "exit_date": null,
-      "daily_closes": [],
+      "daily_closes": [
+        {
+          "date": "2026-05-27",
+          "close": 184.95
+        }
+      ],
       "reason": "默认池：基本面 +16 · 动量 -2 · 技术 +14"
     }
   ],
@@ -1386,6 +1546,6 @@
     "target_hit": 0,
     "stopped_out": 0,
     "holding": 33,
-    "avg_pnl_pct": 1.08
+    "avg_pnl_pct": -0.01
   }
 }
