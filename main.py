@@ -1393,25 +1393,73 @@ def _cohort_summary(store: dict) -> list[dict]:
     return rows
 
 
+def _pick_detail_rows_html(picks: list[dict]) -> str:
+    """Per-pick rows for a cohort's expandable detail table."""
+    tag_map = {
+        "HOLD": ("持有", ""),
+        "TARGET_HIT": ("🎯目标", "hit"),
+        "STOPPED": ("🛑止损", "stop"),
+        "PENDING": ("待锁", ""),
+    }
+    out = []
+    for p in sorted(picks, key=lambda x: x.get("rank", 999)):
+        status = p.get("status", "PENDING")
+        entry = p.get("entry_price")
+        if status in ("TARGET_HIT", "STOPPED"):
+            latest = p.get("exit_price")
+        elif p.get("closes"):
+            latest = p["closes"][-1]["close"]
+        else:
+            latest = None
+        pnl = ((latest / entry - 1) * 100) if (entry and latest) else None
+        label, cls = tag_map.get(status, (status, ""))
+        pnl_cls = "pos" if (pnl or 0) >= 0 else "neg"
+        out.append(
+            f"<tr><td>{p.get('rank','')}</td><td>{p['ticker']}</td>"
+            f"<td>{p.get('sector','')}</td><td class='{cls}'>{label}</td>"
+            f"<td>{('$%.2f' % entry) if entry else '—'}</td>"
+            f"<td>{('$%.2f' % latest) if latest else '—'}</td>"
+            f"<td class='{pnl_cls}'>{('%+.1f%%' % pnl) if pnl is not None else '—'}</td>"
+            f"<td>{('$%.2f' % p['stop_price']) if p.get('stop_price') else '—'}</td>"
+            f"<td>{('$%.2f' % p['target_price']) if p.get('target_price') else '—'}</td></tr>"
+        )
+    return "".join(out)
+
+
 def generate_dashboard_html(store: dict, equity: dict) -> str:
-    """Self-contained HTML (Chart.js via CDN): NAV curve + cohort table."""
-    summary = _cohort_summary(store)
+    """Self-contained HTML (Chart.js via CDN): NAV curve + expandable cohorts."""
+    summary = {r["pick_date"]: r for r in _cohort_summary(store)}
     labels = [s["date"] for s in equity["series"]]
     navs = [s["nav"] for s in equity["series"]]
     updated = equity["updated_at"]
     latest_nav = equity["latest_nav"]
     total_ret = (latest_nav - 1) * 100
 
-    rows_html = "\n".join(
-        f"<tr><td>{r['pick_date']}</td><td>{r['n']}</td>"
-        f"<td class='hit'>{r['target_hit']}</td>"
-        f"<td class='stop'>{r['stopped']}</td>"
-        f"<td>{r['holding']}</td><td>{r['pending']}</td>"
-        f"<td class='{'pos' if (r['avg_pnl_pct'] or 0) >= 0 else 'neg'}'>"
-        f"{r['avg_pnl_pct'] if r['avg_pnl_pct'] is not None else '—'}</td>"
-        f"<td>{'✓' if r['retired'] else ''}</td></tr>"
-        for r in summary
-    )
+    row_parts = []
+    for idx, d_iso in enumerate(sorted(store["cohorts"], reverse=True)):
+        r = summary.get(d_iso)
+        if not r:
+            continue
+        cid = f"c{idx}"
+        avg = r["avg_pnl_pct"]
+        row_parts.append(
+            f"<tr class='ch' onclick=\"tg('{cid}')\">"
+            f"<td>▸ {r['pick_date']}</td><td>{r['n']}</td>"
+            f"<td class='hit'>{r['target_hit']}</td>"
+            f"<td class='stop'>{r['stopped']}</td>"
+            f"<td>{r['holding']}</td><td>{r['pending']}</td>"
+            f"<td class='{'pos' if (avg or 0) >= 0 else 'neg'}'>"
+            f"{avg if avg is not None else '—'}</td>"
+            f"<td>{'✓' if r['retired'] else ''}</td></tr>"
+        )
+        detail = _pick_detail_rows_html(store["cohorts"][d_iso]["picks"])
+        row_parts.append(
+            f"<tr id='{cid}' class='dt' style='display:none'><td colspan='8'>"
+            f"<table class='inner'><tr><th>#</th><th>票</th><th>行业</th><th>状态</th>"
+            f"<th>入场</th><th>现价</th><th>P/L%</th><th>止损</th><th>目标</th></tr>"
+            f"{detail}</table></td></tr>"
+        )
+    rows_html = "\n".join(row_parts)
 
     return f"""<!DOCTYPE html>
 <html lang="zh">
@@ -1433,6 +1481,12 @@ def generate_dashboard_html(store: dict, equity: dict) -> str:
   th, td {{ padding: 6px 8px; text-align: right; border-bottom: 1px solid #21262d; }}
   th:first-child, td:first-child {{ text-align: left; }}
   th {{ color: #8a8f98; font-weight: 600; }}
+  tr.ch {{ cursor: pointer; }}
+  tr.ch:hover {{ background: #161b22; }}
+  tr.dt > td {{ padding: 0 0 0 12px; }}
+  table.inner {{ font-size: 12px; margin: 4px 0 10px; }}
+  table.inner th {{ color: #6e7681; font-weight: 500; }}
+  table.inner td, table.inner th {{ padding: 3px 6px; border-bottom: 1px solid #1a1f26; }}
 </style>
 </head>
 <body>
@@ -1443,13 +1497,17 @@ def generate_dashboard_html(store: dict, equity: dict) -> str:
   </div>
   <div class="sub">{equity['method']} · 累计跟踪 {equity['total_positions_tracked']} 个持仓</div>
   <canvas id="nav" height="120"></canvas>
-  <h1>各 Cohort 战绩</h1>
+  <h1>各 Cohort 战绩 <span style="font-size:12px;color:#8a8f98">（点行展开 33 只明细）</span></h1>
   <table>
     <tr><th>推送日</th><th>只数</th><th>🎯目标</th><th>🛑止损</th>
         <th>持有</th><th>待锁</th><th>均 P/L%</th><th>退休</th></tr>
     {rows_html}
   </table>
   <script>
+    function tg(id) {{
+      var e = document.getElementById(id);
+      e.style.display = (e.style.display === 'none') ? 'table-row' : 'none';
+    }}
     new Chart(document.getElementById('nav'), {{
       type: 'line',
       data: {{
