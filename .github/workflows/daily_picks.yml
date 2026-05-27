@@ -58,19 +58,20 @@ jobs:
       # Auto-commit the updated weekly tracking JSON back to the repo so the
       # next day's run can read this week's locked entries + accumulated
       # daily_closes. stats.md may also have been appended on Friday close.
-      - name: Commit weekly tracking updates
+      - name: Commit tracking + dashboard updates
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           # Add each path conditionally — a single `git add a b` aborts on
           # the first missing pathspec and silently skips the others, even
           # with `|| true` (seen 2026-05-26 when stats.md didn't exist yet).
+          [ -d tracking ] && git add tracking/
+          [ -d docs ] && git add docs/
           [ -d weekly ] && git add weekly/
-          [ -f stats.md ] && git add stats.md
           if git diff --staged --quiet; then
-            echo "No weekly file changes to commit."
+            echo "No tracking changes to commit."
           else
-            git commit -m "Auto: weekly tracking $(date -u +%Y-%m-%d)"
+            git commit -m "Auto: cohort tracking $(date -u +%Y-%m-%d)"
             # Retry push once on transient failure (same flavor as checkout retry).
             git push || (sleep 30 && git push)
           fi

@@ -29,7 +29,10 @@ MIN_DOLLAR_VOL = float(os.getenv("MIN_DOLLAR_VOL_M", "5")) * 1e6
 MAX_PER_SECTOR = int(os.getenv("MAX_PER_SECTOR", "3"))
 ENRICH_POOL = int(os.getenv("ENRICH_POOL", "50"))
 CACHE_DIR = os.getenv("CACHE_DIR", "cache")
-WEEKLY_DIR = os.getenv("WEEKLY_DIR", "weekly")  # committed to repo, not in cache/
+WEEKLY_DIR = os.getenv("WEEKLY_DIR", "weekly")  # legacy v7 artifact dir (kept)
+TRACKING_DIR = os.getenv("TRACKING_DIR", "tracking")  # v8 rolling cohorts, committed
+DOCS_DIR = os.getenv("DOCS_DIR", "docs")  # v8 HTML dashboard for GitHub Pages
+TRACKING_WINDOW = int(os.getenv("TRACKING_WINDOW", "10"))  # trading days per cohort
 FALLBACK_MIN = int(os.getenv("FALLBACK_MIN", "5"))
 ATR_STOP_MULT = float(os.getenv("ATR_STOP_MULT", "1.5"))
 ATR_TARGET_MULT = float(os.getenv("ATR_TARGET_MULT", "3.0"))
@@ -1108,55 +1111,61 @@ async def send_telegram(text: str) -> bool:
 
 
 # ============================================================================
-# Weekly tracking (v7, 2026-05-26) — see daily.MD for design rationale.
+# Rolling cohort tracking (v8, 2026-05-27) — see daily.MD for design.
 #
-# Lifecycle per week:
-#   Mon 12:30 UTC  (pre-market):  GENERATE — write weekly file, entries=null
-#   Tue 12:30 UTC                 LOCK     — fetch Mon's open → entry/stop/target
-#                                            then TRACK Day 1
-#   Wed-Fri 12:30 UTC             TRACK    — refresh latest, P/L, detect hits
+# Each weekday the picker pushes a FRESH Top-N to Telegram (daily-fresh, like
+# v6). That day's batch is recorded as a "cohort" keyed by pick date, then
+# tracked forward TRACKING_WINDOW trading days:
+#   entry = open(pick_date)              (lockable once that day has traded)
+#   closes = close(pick_date .. +window) (capped at TRACKING_WINDOW)
+#   status flips to TARGET_HIT / STOPPED when a close crosses the level
+#   cohort retires after TRACKING_WINDOW trading dates elapse
 #
-# All days commit the updated weekly/weekly_picks_<Monday>.json back to repo.
+# Each run RECOMPUTES every active cohort from a single yfinance history pull,
+# so it's idempotent and self-heals across missed cron ticks. State lives in
+# tracking/cohorts.json; tracking/equity.json + docs/index.html (Chart.js NAV
+# curve) are regenerated each run for GitHub Pages.
 # ============================================================================
 
 
-def _this_monday(today: date) -> date:
-    """Return the Monday of the week containing `today` (Mon=0 ... Sun=6)."""
-    return today - timedelta(days=today.weekday())
+def _cohorts_path() -> str:
+    os.makedirs(TRACKING_DIR, exist_ok=True)
+    return os.path.join(TRACKING_DIR, "cohorts.json")
 
 
-def _weekly_path(monday: date) -> str:
-    os.makedirs(WEEKLY_DIR, exist_ok=True)
-    return os.path.join(WEEKLY_DIR, f"weekly_picks_{monday.isoformat()}.json")
+def _equity_path() -> str:
+    os.makedirs(TRACKING_DIR, exist_ok=True)
+    return os.path.join(TRACKING_DIR, "equity.json")
 
 
-def load_weekly_picks(monday: date) -> dict | None:
-    path = _weekly_path(monday)
+def load_cohorts() -> dict:
+    path = _cohorts_path()
     if not os.path.exists(path):
-        return None
+        return {"updated_at": None, "tracking_window": TRACKING_WINDOW, "cohorts": {}}
     try:
         with open(path) as f:
             return json.load(f)
     except Exception as e:
-        print(f"  Weekly load failed: {e}")
-        return None
+        print(f"  Cohorts load failed: {e}")
+        return {"updated_at": None, "tracking_window": TRACKING_WINDOW, "cohorts": {}}
 
 
-def save_weekly_picks(monday: date, data: dict) -> None:
-    path = _weekly_path(monday)
+def save_cohorts(store: dict) -> None:
+    store["updated_at"] = datetime.now(timezone.utc).isoformat()
     try:
-        with open(path, "w") as f:
-            json.dump(data, f, ensure_ascii=False, indent=2)
+        with open(_cohorts_path(), "w") as f:
+            json.dump(store, f, ensure_ascii=False, indent=2)
     except Exception as e:
-        print(f"  Weekly save failed: {e}")
+        print(f"  Cohorts save failed: {e}")
 
 
-def build_weekly_schema(monday: date, picks: list[dict]) -> dict:
-    """Convert in-memory picks into JSON-safe weekly schema (entries=null)."""
+def build_cohort(pick_date: date, picks: list[dict]) -> dict:
+    """Convert in-memory picks into a JSON-safe cohort record (entries=null)."""
     return {
-        "week_start": monday.isoformat(),
+        "pick_date": pick_date.isoformat(),
         "generated_at": datetime.now(timezone.utc).isoformat(),
-        "entries_locked_at": None,
+        "entries_locked": False,
+        "retired": False,
         "picks": [
             {
                 "rank": i,
@@ -1169,56 +1178,30 @@ def build_weekly_schema(monday: date, picks: list[dict]) -> dict:
                     "mom": p.get("mom_score", 0),
                     "tech": p.get("tech_score", 0),
                 },
-                "signals": {
-                    "ret_1d": p.get("ret_1d"),
-                    "ret_5d": p.get("ret_5d"),
-                    "vol_ratio": p.get("vol_ratio"),
-                    "near_high": p.get("near_high"),
-                    "dist_52w": p.get("dist_52w"),
-                    "ma200_pos": p.get("ma200_pos"),
-                    "rsi14": p.get("rsi14"),
-                    "macd_state": p.get("macd_state"),
-                },
-                "fundamentals": {
-                    "market_cap": p.get("market_cap"),
-                    "trailing_pe": p.get("trailing_pe"),
-                    "forward_pe": p.get("forward_pe"),
-                    "peg": p.get("peg"),
-                    "roe": p.get("roe"),
-                    "revenue_growth": p.get("revenue_growth"),
-                    "earnings_growth_q": p.get("earnings_growth_q"),
-                },
-                "preview_close": p.get("last_close"),  # Friday close at gen time
+                "screen_close": p.get("last_close"),  # close the screen ranked on
                 "entry_atr": p.get("atr"),
-                "entry_price": None,
+                "entry_price": None,   # locked next run = open(pick_date)
                 "stop_price": None,
                 "target_price": None,
                 "status": "PENDING",
                 "exit_price": None,
                 "exit_date": None,
-                "daily_closes": [],
-                "reason": make_reason(p),
+                "closes": [],          # [{date, close}], pick_date .. +window
             }
             for i, p in enumerate(picks, 1)
         ],
-        "weekly_stats": {
-            "target_hit": 0,
-            "stopped_out": 0,
-            "holding": len(picks),
-            "avg_pnl_pct": None,
-        },
     }
 
 
-def fetch_monday_opens(tickers: list[str], monday: date) -> dict[str, float]:
-    """Batch-fetch Monday's open price via yfinance bulk download."""
+def fetch_ohlc_since(tickers: list[str], start: date) -> dict[str, dict[str, dict]]:
+    """Bulk yfinance pull. Returns {ticker: {date_iso: {"open":, "close":}}}."""
     import yfinance as yf
 
-    end = monday + timedelta(days=3)  # buffer for weekends/holidays
+    end = datetime.now(timezone.utc).astimezone().date() + timedelta(days=1)
     try:
         df = yf.download(
             tickers=tickers,
-            start=monday.isoformat(),
+            start=start.isoformat(),
             end=end.isoformat(),
             group_by="ticker",
             threads=True,
@@ -1226,258 +1209,279 @@ def fetch_monday_opens(tickers: list[str], monday: date) -> dict[str, float]:
             auto_adjust=False,
         )
     except Exception as e:
-        print(f"  yf bulk download failed: {e}")
+        print(f"  yf OHLC download failed: {e}")
         return {}
 
-    opens: dict[str, float] = {}
+    out: dict[str, dict[str, dict]] = {}
     for t in tickers:
         try:
-            if len(tickers) > 1:
-                td = df[t]
-            else:
-                td = df
-            # First trading day on/after Monday
-            if td.empty:
+            td = df[t] if len(tickers) > 1 else df
+            if td is None or td.empty:
                 continue
-            monday_rows = td[td.index.date >= monday]
-            if monday_rows.empty:
-                continue
-            opens[t] = float(monday_rows["Open"].iloc[0])
+            series: dict[str, dict] = {}
+            for idx, row in td.iterrows():
+                o, c = row.get("Open"), row.get("Close")
+                if c != c:  # NaN close → skip
+                    continue
+                series[idx.date().isoformat()] = {
+                    "open": float(o) if o == o else None,
+                    "close": float(c),
+                }
+            if series:
+                out[t] = series
         except Exception as e:
-            print(f"  fetch_monday_opens[{t}]: {e}")
-    return opens
+            print(f"  fetch_ohlc_since[{t}]: {e}")
+    return out
 
 
-def lock_weekly_entries(weekly: dict) -> bool:
-    """Set entry_price (Monday open), stop_price, target_price for each PENDING pick.
-    Returns True if at least one pick was locked.
+def update_all_cohorts(store: dict) -> None:
+    """Recompute every non-retired cohort from one yfinance history pull.
+
+    Idempotent + gap-tolerant: re-derives entry, closes, status from scratch
+    each run, so a missed cron tick just self-corrects next time.
     """
-    monday = date.fromisoformat(weekly["week_start"])
-    pending_tickers = [p["ticker"] for p in weekly["picks"] if p["status"] == "PENDING"]
-    if not pending_tickers:
-        return False
-
-    print(f"  Locking entries from {monday} open for {len(pending_tickers)} tickers")
-    opens = fetch_monday_opens(pending_tickers, monday)
-    if not opens:
-        print(f"  No Monday open prices retrieved — not locking yet")
-        return False
-
-    locked = 0
-    for p in weekly["picks"]:
-        if p["status"] != "PENDING":
-            continue
-        entry = opens.get(p["ticker"])
-        if entry is None or entry <= 0:
-            continue
-        atr = p.get("entry_atr") or 0
-        p["entry_price"] = round(entry, 2)
-        if atr > 0:
-            p["stop_price"] = round(entry - ATR_STOP_MULT * atr, 2)
-            p["target_price"] = round(entry + ATR_TARGET_MULT * atr, 2)
-        p["status"] = "HOLD"
-        locked += 1
-
-    weekly["entries_locked_at"] = datetime.now(timezone.utc).isoformat()
-    print(f"  Locked {locked}/{len(pending_tickers)} entries")
-    return locked > 0
-
-
-async def update_weekly_tracking(weekly: dict) -> None:
-    """Refresh latest close, append daily snapshot, detect target/stop events."""
-    active = [p for p in weekly["picks"] if p["status"] == "HOLD"]
+    today = datetime.now(timezone.utc).astimezone().date()
+    active = {d: c for d, c in store["cohorts"].items() if not c.get("retired")}
     if not active:
-        print(f"  No HOLD picks to track")
-        _aggregate_weekly_stats(weekly)
+        print("  No active cohorts to update")
         return
 
-    tickers = [p["ticker"] for p in active]
-    print(f"  Refreshing latest close for {len(tickers)} HOLD picks via yfinance")
-    enrichments = await enrich_candidates(tickers, use_cache=False)
+    all_tickers = sorted({p["ticker"] for c in active.values() for p in c["picks"]})
+    earliest = min(date.fromisoformat(d) for d in active)
+    print(f"  Updating {len(active)} cohorts, {len(all_tickers)} tickers since {earliest}")
+    hist = fetch_ohlc_since(all_tickers, earliest)
 
-    today_iso = datetime.now(timezone.utc).astimezone().date().isoformat()
+    for d_iso, c in active.items():
+        pick_date = date.fromisoformat(d_iso)
+        # Count trading dates available since pick_date (for retire decision).
+        trading_dates_seen = 0
+        for p in c["picks"]:
+            series = hist.get(p["ticker"], {})
+            dates = sorted(dt for dt in series if date.fromisoformat(dt) >= pick_date)
+            trading_dates_seen = max(trading_dates_seen, len(dates))
 
-    for p in active:
-        e = enrichments.get(p["ticker"])
-        if not e:
-            continue
-        last = float(e.get("last_close") or 0)
-        if last <= 0:
-            continue
-        # Append today's close (idempotent: replace if already present for today)
-        p["daily_closes"] = [
-            dc for dc in p["daily_closes"] if dc.get("date") != today_iso
-        ]
-        p["daily_closes"].append({"date": today_iso, "close": round(last, 2)})
+            # Lock entry = open(pick_date) once that bar exists.
+            if not p.get("entry_price"):
+                bar = series.get(pick_date.isoformat())
+                o = bar.get("open") if bar else None
+                if o and o > 0:
+                    atr = p.get("entry_atr") or 0
+                    p["entry_price"] = round(o, 2)
+                    if atr > 0:
+                        p["stop_price"] = round(o - ATR_STOP_MULT * atr, 2)
+                        p["target_price"] = round(o + ATR_TARGET_MULT * atr, 2)
+                    if p["status"] == "PENDING":
+                        p["status"] = "HOLD"
 
-        # Event detection
-        target = p.get("target_price")
-        stop = p.get("stop_price")
-        if target and last >= target:
-            p["status"] = "TARGET_HIT"
-            p["exit_price"] = round(last, 2)
-            p["exit_date"] = today_iso
-        elif stop and last <= stop:
-            p["status"] = "STOPPED"
-            p["exit_price"] = round(last, 2)
-            p["exit_date"] = today_iso
+            # Rebuild closes + detect first target/stop crossing (close-based).
+            closes: list[dict] = []
+            status = "HOLD" if p.get("entry_price") else "PENDING"
+            exit_price = exit_date = None
+            for dt in dates[:TRACKING_WINDOW]:
+                cl = series[dt].get("close")
+                if cl is None:
+                    continue
+                closes.append({"date": dt, "close": round(cl, 2)})
+                if status == "HOLD" and p.get("target_price") and cl >= p["target_price"]:
+                    status, exit_price, exit_date = "TARGET_HIT", round(cl, 2), dt
+                    break
+                if status == "HOLD" and p.get("stop_price") and cl <= p["stop_price"]:
+                    status, exit_price, exit_date = "STOPPED", round(cl, 2), dt
+                    break
+            p["closes"] = closes
+            if p.get("entry_price"):
+                p["status"] = status
+                p["exit_price"] = exit_price
+                p["exit_date"] = exit_date
 
-    _aggregate_weekly_stats(weekly)
+        c["entries_locked"] = all(p.get("entry_price") for p in c["picks"])
+        if trading_dates_seen >= TRACKING_WINDOW:
+            c["retired"] = True
+            print(f"  Cohort {d_iso} retired ({trading_dates_seen} trading days elapsed)")
 
 
-def _aggregate_weekly_stats(weekly: dict) -> None:
-    """Recompute the weekly_stats summary block in-place."""
-    target_hit = stopped = holding = 0
-    pnl_pcts: list[float] = []
-    for p in weekly["picks"]:
-        s = p.get("status")
-        entry = p.get("entry_price")
-        if s == "TARGET_HIT":
-            target_hit += 1
-            if entry and p.get("exit_price"):
-                pnl_pcts.append((p["exit_price"] / entry - 1) * 100)
-        elif s == "STOPPED":
-            stopped += 1
-            if entry and p.get("exit_price"):
-                pnl_pcts.append((p["exit_price"] / entry - 1) * 100)
-        elif s == "HOLD":
-            holding += 1
-            if entry and p.get("daily_closes"):
-                latest = p["daily_closes"][-1].get("close")
-                if latest:
-                    pnl_pcts.append((latest / entry - 1) * 100)
-    weekly["weekly_stats"] = {
-        "target_hit": target_hit,
-        "stopped_out": stopped,
-        "holding": holding,
-        "avg_pnl_pct": round(sum(pnl_pcts) / len(pnl_pcts), 2) if pnl_pcts else None,
+# ----- Equity curve + dashboard --------------------------------------------
+
+
+def compute_equity(store: dict) -> dict:
+    """Daily-rebalanced equal-weight NAV across all positions in their window.
+
+    For each position the price path is [(pick_date, entry_open), (date, close)...].
+    Day-over-day returns are attributed to the later date; each trading day's
+    return = mean of every active position's return that day; NAV compounds
+    from 1.0. This is a standard equal-weight strategy NAV.
+    """
+    from collections import defaultdict
+
+    returns_by_date: dict[str, list[float]] = defaultdict(list)
+    positions = 0
+    for c in store["cohorts"].values():
+        for p in c["picks"]:
+            entry = p.get("entry_price")
+            closes = p.get("closes") or []
+            if not entry or not closes:
+                continue
+            positions += 1
+            # path: entry(open) then each close; consecutive ratio returns
+            path = [(c["pick_date"], entry)] + [(d["date"], d["close"]) for d in closes]
+            for (_, prev_px), (cur_date, cur_px) in zip(path, path[1:]):
+                if prev_px and prev_px > 0:
+                    returns_by_date[cur_date].append(cur_px / prev_px - 1)
+
+    series = []
+    nav = 1.0
+    for d in sorted(returns_by_date):
+        rets = returns_by_date[d]
+        daily = sum(rets) / len(rets) if rets else 0.0
+        nav *= 1 + daily
+        series.append(
+            {
+                "date": d,
+                "nav": round(nav, 4),
+                "daily_return_pct": round(daily * 100, 3),
+                "positions": len(rets),
+            }
+        )
+
+    last = series[-1] if series else None
+    return {
+        "updated_at": datetime.now(timezone.utc).isoformat(),
+        "method": "daily-rebalanced equal-weight NAV, "
+        f"{TRACKING_WINDOW}-trading-day hold per cohort",
+        "total_positions_tracked": positions,
+        "latest_nav": last["nav"] if last else 1.0,
+        "series": series,
     }
 
 
-# ----- Tracking-mode Telegram formatting ------------------------------------
+def _cohort_summary(store: dict) -> list[dict]:
+    """Per-cohort roll-up: counts + avg current/exit P/L. Newest first."""
+    rows = []
+    for d_iso in sorted(store["cohorts"], reverse=True):
+        c = store["cohorts"][d_iso]
+        hit = stop = hold = pending = 0
+        pnls: list[float] = []
+        for p in c["picks"]:
+            s = p.get("status")
+            entry = p.get("entry_price")
+            if s == "TARGET_HIT":
+                hit += 1
+            elif s == "STOPPED":
+                stop += 1
+            elif s == "HOLD":
+                hold += 1
+            elif s == "PENDING":
+                pending += 1
+            if entry:
+                ref = p.get("exit_price")
+                if ref is None and p.get("closes"):
+                    ref = p["closes"][-1]["close"]
+                if ref:
+                    pnls.append((ref / entry - 1) * 100)
+        rows.append(
+            {
+                "pick_date": d_iso,
+                "retired": c.get("retired", False),
+                "n": len(c["picks"]),
+                "target_hit": hit,
+                "stopped": stop,
+                "holding": hold,
+                "pending": pending,
+                "avg_pnl_pct": round(sum(pnls) / len(pnls), 2) if pnls else None,
+            }
+        )
+    return rows
 
 
-def _tracking_pick_block(rank: int, p: dict) -> list[str]:
-    ticker = p["ticker"]
-    sector = p.get("sector", "")
-    sec_tag = f" · {sector}" if sector and sector != "Unknown" else ""
-    status = p.get("status", "PENDING")
-    entry = p.get("entry_price") or 0
-    target = p.get("target_price") or 0
-    stop = p.get("stop_price") or 0
-    latest = (
-        p["daily_closes"][-1]["close"] if p.get("daily_closes") else p.get("preview_close") or 0
+def generate_dashboard_html(store: dict, equity: dict) -> str:
+    """Self-contained HTML (Chart.js via CDN): NAV curve + cohort table."""
+    summary = _cohort_summary(store)
+    labels = [s["date"] for s in equity["series"]]
+    navs = [s["nav"] for s in equity["series"]]
+    updated = equity["updated_at"]
+    latest_nav = equity["latest_nav"]
+    total_ret = (latest_nav - 1) * 100
+
+    rows_html = "\n".join(
+        f"<tr><td>{r['pick_date']}</td><td>{r['n']}</td>"
+        f"<td class='hit'>{r['target_hit']}</td>"
+        f"<td class='stop'>{r['stopped']}</td>"
+        f"<td>{r['holding']}</td><td>{r['pending']}</td>"
+        f"<td class='{'pos' if (r['avg_pnl_pct'] or 0) >= 0 else 'neg'}'>"
+        f"{r['avg_pnl_pct'] if r['avg_pnl_pct'] is not None else '—'}</td>"
+        f"<td>{'✓' if r['retired'] else ''}</td></tr>"
+        for r in summary
     )
 
-    status_tag = {
-        "HOLD": "[HOLD]",
-        "TARGET_HIT": "[🎯 TARGET]",
-        "STOPPED": "[🛑 STOP]",
-        "PENDING": "[PENDING]",
-    }.get(status, "[?]")
-
-    pnl_str = ""
-    if entry and latest:
-        pnl_pct = (latest / entry - 1) * 100
-        pnl_str = f"  {pnl_pct:+.1f}%"
-
-    lines = [f"{rank}. *{ticker}* {status_tag}{sec_tag}{pnl_str}"]
-
-    if status == "HOLD" and entry > 0:
-        stop_d = (stop - latest) / latest * 100 if latest and stop else 0
-        tgt_d = (target - latest) / latest * 100 if latest and target else 0
-        lines.append(
-            f"   Entry ${entry:.2f} → ${latest:.2f} · "
-            f"Stop ${stop:.2f} ({stop_d:+.1f}%) · "
-            f"Target ${target:.2f} ({tgt_d:+.1f}%)"
-        )
-    elif status in ("TARGET_HIT", "STOPPED"):
-        exit_p = p.get("exit_price") or 0
-        exit_d = p.get("exit_date") or "?"
-        lines.append(
-            f"   Entry ${entry:.2f} → Exit ${exit_p:.2f} on {exit_d}"
-        )
-    elif status == "PENDING":
-        lines.append(
-            f"   Preview ${p.get('preview_close') or 0:.2f} · 周一开盘后锁定入场价"
-        )
-
-    return lines
-
-
-def format_tracking_messages(weekly: dict, today: date) -> list[str]:
-    """Telegram messages for LOCK/TRACK mode (Day 1+)."""
-    monday = date.fromisoformat(weekly["week_start"])
-    day_n = (today - monday).days + 1  # 1 = Monday, 5 = Friday
-    stats = weekly["weekly_stats"]
-    avg_pnl = (
-        f"{stats['avg_pnl_pct']:+.1f}%" if stats.get("avg_pnl_pct") is not None else "—"
-    )
-
-    header = [
-        f"📈 *本周 Picks 状态* — Day {day_n} ({today.isoformat()})",
-        f"持仓 {stats['holding']} · 🎯 {stats['target_hit']} hit · "
-        f"🛑 {stats['stopped_out']} stop · 平均 P/L {avg_pnl}",
-        "",
-    ]
-    footer = ["", "⚠️ 每周一开盘价锁定入场点；基于公开免费数据源，仅供参考。"]
-
-    blocks = [_tracking_pick_block(i, p) for i, p in enumerate(weekly["picks"], 1)]
-    return _pack_into_messages(header, blocks, footer, day_n)
-
-
-def format_preview_messages(weekly: dict, partial: str = "") -> list[str]:
-    """Telegram for pre-market Monday: list candidates, entries still null."""
-    monday = date.fromisoformat(weekly["week_start"])
-    header = [
-        f"📈 *本周 Picks 预览* — {monday.isoformat()} (Mon)",
-        "",
-    ]
-    if partial:
-        header.append(f"_{partial}_")
-        header.append("")
-    header.append("入场价将在周二（盘后能拿到周一 Open 后）锁定。")
-    header.append("")
-    footer = ["", "⚠️ 基于公开免费数据源，仅供参考，不构成投资建议。"]
-    blocks = [_tracking_pick_block(i, p) for i, p in enumerate(weekly["picks"], 1)]
-    return _pack_into_messages(header, blocks, footer, 0)
+    return f"""<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>每日选股 — 滚动追踪</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4"></script>
+<style>
+  body {{ font-family: -apple-system, system-ui, sans-serif; margin: 0; padding: 16px;
+         background: #0f1115; color: #e6e6e6; }}
+  h1 {{ font-size: 18px; margin: 0 0 4px; }}
+  .sub {{ color: #8a8f98; font-size: 12px; margin-bottom: 16px; }}
+  .nav-big {{ font-size: 28px; font-weight: 700; }}
+  .pos {{ color: #3fb950; }} .neg {{ color: #f85149; }}
+  .hit {{ color: #3fb950; }} .stop {{ color: #f85149; }}
+  canvas {{ background: #161b22; border-radius: 8px; padding: 8px; margin-bottom: 20px; }}
+  table {{ width: 100%; border-collapse: collapse; font-size: 13px; }}
+  th, td {{ padding: 6px 8px; text-align: right; border-bottom: 1px solid #21262d; }}
+  th:first-child, td:first-child {{ text-align: left; }}
+  th {{ color: #8a8f98; font-weight: 600; }}
+</style>
+</head>
+<body>
+  <h1>每日选股 · 滚动 Cohort 追踪</h1>
+  <div class="sub">每日推送一批，跟踪 {TRACKING_WINDOW} 个交易日 · 更新 {updated}</div>
+  <div class="nav-big {'pos' if total_ret >= 0 else 'neg'}">
+    NAV {latest_nav:.4f} <span style="font-size:14px">({total_ret:+.2f}%)</span>
+  </div>
+  <div class="sub">{equity['method']} · 累计跟踪 {equity['total_positions_tracked']} 个持仓</div>
+  <canvas id="nav" height="120"></canvas>
+  <h1>各 Cohort 战绩</h1>
+  <table>
+    <tr><th>推送日</th><th>只数</th><th>🎯目标</th><th>🛑止损</th>
+        <th>持有</th><th>待锁</th><th>均 P/L%</th><th>退休</th></tr>
+    {rows_html}
+  </table>
+  <script>
+    new Chart(document.getElementById('nav'), {{
+      type: 'line',
+      data: {{
+        labels: {json.dumps(labels)},
+        datasets: [{{
+          label: 'NAV (等权日度再平衡)',
+          data: {json.dumps(navs)},
+          borderColor: '#58a6ff', backgroundColor: 'rgba(88,166,255,.1)',
+          fill: true, tension: .25, pointRadius: 2,
+        }}]
+      }},
+      options: {{
+        plugins: {{ legend: {{ labels: {{ color: '#e6e6e6' }} }} }},
+        scales: {{
+          x: {{ ticks: {{ color: '#8a8f98' }}, grid: {{ color: '#21262d' }} }},
+          y: {{ ticks: {{ color: '#8a8f98' }}, grid: {{ color: '#21262d' }} }}
+        }}
+      }}
+    }});
+  </script>
+</body>
+</html>
+"""
 
 
-def _pack_into_messages(
-    header_first: list[str],
-    blocks: list[list[str]],
-    footer: list[str],
-    day_n: int,
-) -> list[str]:
-    """Shared packer: same byte-budget logic as format_messages()."""
-    footer_chars = sum(len(s) + 1 for s in footer)
-    placeholder_h = sum(len(s) + 1 for s in header_first)
-    slots: list[list[list[str]]] = [[]]
-    cur = placeholder_h
-    for b in blocks:
-        bc = sum(len(s) + 1 for s in b)
-        if slots[-1] and cur + bc + footer_chars > TELEGRAM_BUDGET:
-            slots.append([])
-            cur = placeholder_h
-        slots[-1].append(b)
-        cur += bc
-
-    total = len(slots)
-    messages: list[str] = []
-    for idx, slot in enumerate(slots, 1):
-        if idx == 1 or total == 1:
-            head = list(header_first)
-            if total > 1 and idx == 1:
-                head[0] = head[0] + f" (1/{total})"
-        else:
-            head = [f"📈 *本周 Picks 状态 — Day {day_n}* ({idx}/{total})", ""]
-        lines = head[:]
-        for b in slot:
-            lines.extend(b)
-        if idx == total:
-            lines.extend(footer)
-        messages.append("\n".join(lines))
-    return messages
+def write_dashboard(store: dict, equity: dict) -> None:
+    os.makedirs(DOCS_DIR, exist_ok=True)
+    try:
+        with open(os.path.join(DOCS_DIR, "index.html"), "w") as f:
+            f.write(generate_dashboard_html(store, equity))
+    except Exception as e:
+        print(f"  Dashboard write failed: {e}")
 
 
 async def _generate_picks_pipeline() -> tuple[list[dict], str]:
@@ -1579,57 +1583,55 @@ async def _generate_picks_pipeline() -> tuple[list[dict], str]:
 
 
 async def run() -> int:
-    """Weekly-tracker entry: dispatch GENERATE / LOCK / TRACK based on file state."""
-    print(f"Starting picker (weekly mode) — {datetime.now(timezone.utc).isoformat()}")
-
+    """v8 entry: push fresh daily picks + roll the cohort tracker + dashboard."""
+    print(f"Starting picker (v8 daily + cohort tracking) — {datetime.now(timezone.utc).isoformat()}")
     today = datetime.now(timezone.utc).astimezone().date()
-    monday = _this_monday(today)
-    print(f"  Today: {today}, week_start (Monday): {monday}, day_of_week: {today.weekday()}")
+    today_iso = today.isoformat()
 
-    weekly = load_weekly_picks(monday)
-    is_monday_pre_market = (today == monday)
-    partial = ""
+    # ---- 1. Generate today's fresh Top-N (daily-fresh Telegram, v6 behavior) ----
+    picks, partial = await _generate_picks_pipeline()
 
-    if weekly is None:
-        # ---- GENERATE ----
-        print(f"[mode=GENERATE] No file for week {monday}; running picker pipeline")
-        picks, partial = await _generate_picks_pipeline()
-        if not picks:
-            await send_telegram(
-                f"⚠️ 今日生成 picks 失败\n时间：{datetime.now(timezone.utc).isoformat()}\n"
-                f"{partial}"
-            )
-            return 1
-        weekly = build_weekly_schema(monday, picks)
-        save_weekly_picks(monday, weekly)
-        print(f"  Wrote {_weekly_path(monday)}")
+    telegram_ok = True
+    if not picks:
+        await send_telegram(
+            f"⚠️ 今日候选经筛选后无合格股票。\n时间：{datetime.now(timezone.utc).isoformat()}\n{partial}"
+        )
+        telegram_ok = False
     else:
-        print(f"[mode=LOAD] Found existing file for week {monday}")
+        msgs = format_messages(picks, partial)
+        for i, m in enumerate(msgs, 1):
+            ok = await send_telegram(m)
+            print(f"Telegram send {i}/{len(msgs)} ({len(m)} chars): {'OK' if ok else 'FAILED'}")
+            telegram_ok = telegram_ok and ok
 
-    # ---- LOCK (if Monday already past and entries still null) ----
-    if weekly["entries_locked_at"] is None and not is_monday_pre_market:
-        print(f"[mode=LOCK] Fetching Monday's opens to lock entries")
-        if lock_weekly_entries(weekly):
-            save_weekly_picks(monday, weekly)
+    # ---- 2. Record today's cohort (idempotent: replace if re-run same day) ----
+    store = load_cohorts()
+    if picks:
+        if today_iso in store["cohorts"]:
+            print(f"  Cohort {today_iso} already exists; overwriting with fresh picks")
+        store["cohorts"][today_iso] = build_cohort(today, picks)
+        print(f"  Recorded cohort {today_iso} ({len(picks)} picks)")
 
-    # ---- TRACK (if entries locked) ----
-    if weekly["entries_locked_at"] is not None:
-        print(f"[mode=TRACK] Refreshing latest closes + event detection")
-        await update_weekly_tracking(weekly)
-        save_weekly_picks(monday, weekly)
-        msgs = format_tracking_messages(weekly, today)
-    else:
-        # Pre-market Monday preview only
-        print(f"[mode=PREVIEW] Entries not yet locked; sending preview list")
-        msgs = format_preview_messages(weekly, partial=partial)
+    # ---- 3. Roll forward all active cohorts (lock entries, closes, exits) ----
+    update_all_cohorts(store)
+    save_cohorts(store)
 
-    all_ok = True
-    for i, m in enumerate(msgs, 1):
-        ok = await send_telegram(m)
-        print(f"Telegram send {i}/{len(msgs)} ({len(m)} chars): {'OK' if ok else 'FAILED'}")
-        if not ok:
-            all_ok = False
-    return 0 if all_ok else 1
+    # ---- 4. Recompute equity curve + regenerate dashboard ----
+    equity = compute_equity(store)
+    try:
+        with open(_equity_path(), "w") as f:
+            json.dump(equity, f, ensure_ascii=False, indent=2)
+    except Exception as e:
+        print(f"  Equity save failed: {e}")
+    write_dashboard(store, equity)
+    print(
+        f"  Equity NAV={equity['latest_nav']:.4f} "
+        f"({(equity['latest_nav']-1)*100:+.2f}%), "
+        f"{len(equity['series'])} days, "
+        f"{equity['total_positions_tracked']} positions tracked"
+    )
+
+    return 0 if telegram_ok else 1
 
 
 if __name__ == "__main__":

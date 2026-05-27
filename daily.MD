@@ -6,7 +6,41 @@
 
 ---
 
-## 2026-05-26 — v7 周度跟踪模式（picks 周一锁定 + 全周 P/L 监测）
+## 2026-05-27 — v8 滚动 cohort 追踪 + HTML 权益曲线（撤销 v7 周锁）
+
+**Commit**: 本次推送
+
+**症状/动机**：用户原话「这样，每天还是推送不一样，每天推送的在本地监测一周或者两周，每天统计进一个excel表或者html。还做一个线型来看走势」。即撤销 v7「整周锁同一篮子」，回到每日新鲜 picks，但把每天那批作为 cohort 往后跟踪 2 周，统计进 dashboard 看走势。
+
+**用户拍板的 3 个决策**（AskUserQuestion）：
+- 跟踪窗口：**2 周（10 个交易日）**
+- 输出格式：**HTML（GitHub Pages 手机可看）**
+- 折线图：**累计权益曲线（等权日度再平衡 NAV）**
+
+**架构**：
+- **Telegram 回到每日新鲜 Top 33**（复用 v6 的 `format_messages`），撤掉 v7 的 preview/tracking 消息模板
+- **滚动 cohort 模型** `tracking/cohorts.json`：每天一个 cohort（按推送日 keyed），跟踪 `TRACKING_WINDOW=10` 个交易日后 `retired=true`
+  - entry = 推送当日 open（次日起可从 yfinance 锁定）
+  - stop = entry − 1.5×ATR, target = entry + 3×ATR
+  - closes 从 pick_date 起逐日（capped 10），首次 close 穿越 target/stop → 标记 exit
+- **幂等重算设计**：每次 run 用单次 `fetch_ohlc_since(all_tickers, earliest)` 把所有活跃 cohort 从历史全量重算，**对 cron 漏拍免疫**（不再依赖每天增量 append）
+- **权益曲线** `tracking/equity.json`：每个持仓价格路径 = [(pick_date, entry_open), (date, close)...]，日度收益归到后一天，每个交易日 NAV 收益 = 所有活跃持仓当日收益均值，从 1.0 链式复利
+- **Dashboard** `docs/index.html`：自包含页面 + Chart.js CDN 折线图 + 各 cohort 战绩表，暗色手机友好
+
+**重构**：
+- `main.py`：v7 weekly 模块整体换成 v8 cohort 模块（`load_cohorts`/`save_cohorts`/`build_cohort`/`fetch_ohlc_since`/`update_all_cohorts`/`compute_equity`/`_cohort_summary`/`generate_dashboard_html`/`write_dashboard`），`run()` 重写为：生成今日 picks → 发 Telegram → 记录 cohort → 重算所有 cohort → 重算 equity + 重生成 dashboard
+- `.github/workflows/daily_picks.yml`：commit step 改为 add `tracking/` + `docs/` + `weekly/`
+- 新目录 `tracking/`（cohorts.json + equity.json）、`docs/`（index.html）
+
+**本地验证**（合成数据）：equity 链式复利数学手算核对正确（止损后的持仓正确从次日剔除）；dashboard HTML 含 Chart.js + canvas 正常生成。
+
+**GitHub Pages**：需开启 main 分支 /docs 目录（部署后操作）。
+
+**未来**：今天起 cohort 历史从 0 累积，曲线慢慢长。可选：用已 commit 的 v7 篮子（5/25 那 33 只）+ yfinance 历史回填 5/25 cohort 让曲线一上来有几天数据。
+
+---
+
+## 2026-05-26 — v7 周度跟踪模式（picks 周一锁定 + 全周 P/L 监测）（已被 v8 取代）
 
 **Commit**: 本次推送
 
