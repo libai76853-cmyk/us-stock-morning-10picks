@@ -1466,6 +1466,10 @@ def generate_dashboard_html(store: dict, equity: dict) -> str:
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Expires" content="0">
+<meta http-equiv="refresh" content="600">
 <title>每日选股 — 滚动追踪</title>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4"></script>
 <style>
