@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-05-28T12:31:40.816906+00:00",
+  "updated_at": "2026-05-28T14:47:05.970428+00:00",
   "tracking_window": 10,
   "cohorts": {
     "2026-05-27": {
@@ -31,6 +31,10 @@
             {
               "date": "2026-05-27",
               "close": 140.24
+            },
+            {
+              "date": "2026-05-28",
+              "close": 144.71
             }
           ]
         },
@@ -57,6 +61,10 @@
             {
               "date": "2026-05-27",
               "close": 138.83
+            },
+            {
+              "date": "2026-05-28",
+              "close": 143.26
             }
           ]
         },
@@ -83,6 +91,10 @@
             {
               "date": "2026-05-27",
               "close": 329.24
+            },
+            {
+              "date": "2026-05-28",
+              "close": 329.72
             }
           ]
         },
@@ -109,6 +121,10 @@
             {
               "date": "2026-05-27",
               "close": 154.31
+            },
+            {
+              "date": "2026-05-28",
+              "close": 153.77
             }
           ]
         },
@@ -135,6 +151,10 @@
             {
               "date": "2026-05-27",
               "close": 376.23
+            },
+            {
+              "date": "2026-05-28",
+              "close": 374.95
             }
           ]
         },
@@ -161,6 +181,10 @@
             {
               "date": "2026-05-27",
               "close": 406.09
+            },
+            {
+              "date": "2026-05-28",
+              "close": 409.99
             }
           ]
         },
@@ -187,6 +211,10 @@
             {
               "date": "2026-05-27",
               "close": 63.63
+            },
+            {
+              "date": "2026-05-28",
+              "close": 63.93
             }
           ]
         },
@@ -213,6 +241,10 @@
             {
               "date": "2026-05-27",
               "close": 43.68
+            },
+            {
+              "date": "2026-05-28",
+              "close": 42.97
             }
           ]
         },
@@ -239,6 +271,10 @@
             {
               "date": "2026-05-27",
               "close": 97.34
+            },
+            {
+              "date": "2026-05-28",
+              "close": 97.1
             }
           ]
         },
@@ -265,6 +301,10 @@
             {
               "date": "2026-05-27",
               "close": 275.17
+            },
+            {
+              "date": "2026-05-28",
+              "close": 278.9
             }
           ]
         },
@@ -291,6 +331,10 @@
             {
               "date": "2026-05-27",
               "close": 162.88
+            },
+            {
+              "date": "2026-05-28",
+              "close": 169.99
             }
           ]
         },
@@ -317,6 +361,10 @@
             {
               "date": "2026-05-27",
               "close": 77.0
+            },
+            {
+              "date": "2026-05-28",
+              "close": 77.82
             }
           ]
         },
@@ -343,6 +391,10 @@
             {
               "date": "2026-05-27",
               "close": 1082.92
+            },
+            {
+              "date": "2026-05-28",
+              "close": 1136.99
             }
           ]
         },
@@ -369,6 +421,10 @@
             {
               "date": "2026-05-27",
               "close": 201.61
+            },
+            {
+              "date": "2026-05-28",
+              "close": 202.65
             }
           ]
         },
@@ -395,6 +451,10 @@
             {
               "date": "2026-05-27",
               "close": 258.02
+            },
+            {
+              "date": "2026-05-28",
+              "close": 259.94
             }
           ]
         },
@@ -421,6 +481,10 @@
             {
               "date": "2026-05-27",
               "close": 635.26
+            },
+            {
+              "date": "2026-05-28",
+              "close": 636.09
             }
           ]
         },
@@ -447,6 +511,10 @@
             {
               "date": "2026-05-27",
               "close": 112.62
+            },
+            {
+              "date": "2026-05-28",
+              "close": 114.41
             }
           ]
         },
@@ -473,6 +541,10 @@
             {
               "date": "2026-05-27",
               "close": 160.15
+            },
+            {
+              "date": "2026-05-28",
+              "close": 161.51
             }
           ]
         },
@@ -499,6 +571,10 @@
             {
               "date": "2026-05-27",
               "close": 996.47
+            },
+            {
+              "date": "2026-05-28",
+              "close": 989.85
             }
           ]
         },
@@ -525,6 +601,10 @@
             {
               "date": "2026-05-27",
               "close": 24.51
+            },
+            {
+              "date": "2026-05-28",
+              "close": 24.73
             }
           ]
         },
@@ -551,6 +631,10 @@
             {
               "date": "2026-05-27",
               "close": 177.47
+            },
+            {
+              "date": "2026-05-28",
+              "close": 177.26
             }
           ]
         },
@@ -577,6 +661,10 @@
             {
               "date": "2026-05-27",
               "close": 83.2
+            },
+            {
+              "date": "2026-05-28",
+              "close": 82.67
             }
           ]
         },
@@ -603,6 +691,10 @@
             {
               "date": "2026-05-27",
               "close": 74.85
+            },
+            {
+              "date": "2026-05-28",
+              "close": 74.22
             }
           ]
         },
@@ -629,6 +721,10 @@
             {
               "date": "2026-05-27",
               "close": 147.74
+            },
+            {
+              "date": "2026-05-28",
+              "close": 147.41
             }
           ]
         },
@@ -655,6 +751,10 @@
             {
               "date": "2026-05-27",
               "close": 47.55
+            },
+            {
+              "date": "2026-05-28",
+              "close": 47.13
             }
           ]
         },
@@ -681,6 +781,10 @@
             {
               "date": "2026-05-27",
               "close": 16.53
+            },
+            {
+              "date": "2026-05-28",
+              "close": 16.47
             }
           ]
         },
@@ -707,6 +811,10 @@
             {
               "date": "2026-05-27",
               "close": 91.26
+            },
+            {
+              "date": "2026-05-28",
+              "close": 90.26
             }
           ]
         },
@@ -733,6 +841,10 @@
             {
               "date": "2026-05-27",
               "close": 94.7
+            },
+            {
+              "date": "2026-05-28",
+              "close": 93.37
             }
           ]
         },
@@ -759,6 +871,10 @@
             {
               "date": "2026-05-27",
               "close": 36.62
+            },
+            {
+              "date": "2026-05-28",
+              "close": 36.71
             }
           ]
         },
@@ -785,6 +901,10 @@
             {
               "date": "2026-05-27",
               "close": 567.83
+            },
+            {
+              "date": "2026-05-28",
+              "close": 593.63
             }
           ]
         },
@@ -811,6 +931,10 @@
             {
               "date": "2026-05-27",
               "close": 32.22
+            },
+            {
+              "date": "2026-05-28",
+              "close": 32.04
             }
           ]
         },
@@ -837,6 +961,10 @@
             {
               "date": "2026-05-27",
               "close": 130.15
+            },
+            {
+              "date": "2026-05-28",
+              "close": 126.6
             }
           ]
         },
@@ -863,6 +991,10 @@
             {
               "date": "2026-05-27",
               "close": 62.19
+            },
+            {
+              "date": "2026-05-28",
+              "close": 62.38
             }
           ]
         }
@@ -902,6 +1034,10 @@
             {
               "date": "2026-05-27",
               "close": 154.31
+            },
+            {
+              "date": "2026-05-28",
+              "close": 153.77
             }
           ]
         },
@@ -932,6 +1068,10 @@
             {
               "date": "2026-05-27",
               "close": 138.83
+            },
+            {
+              "date": "2026-05-28",
+              "close": 143.26
             }
           ]
         },
@@ -962,6 +1102,10 @@
             {
               "date": "2026-05-27",
               "close": 212.6
+            },
+            {
+              "date": "2026-05-28",
+              "close": 211.74
             }
           ]
         },
@@ -992,6 +1136,10 @@
             {
               "date": "2026-05-27",
               "close": 140.24
+            },
+            {
+              "date": "2026-05-28",
+              "close": 144.71
             }
           ]
         },
@@ -1022,6 +1170,10 @@
             {
               "date": "2026-05-27",
               "close": 63.63
+            },
+            {
+              "date": "2026-05-28",
+              "close": 63.93
             }
           ]
         },
@@ -1052,6 +1204,10 @@
             {
               "date": "2026-05-27",
               "close": 107.23
+            },
+            {
+              "date": "2026-05-28",
+              "close": 106.69
             }
           ]
         },
@@ -1082,6 +1238,10 @@
             {
               "date": "2026-05-27",
               "close": 18.15
+            },
+            {
+              "date": "2026-05-28",
+              "close": 18.34
             }
           ]
         },
@@ -1112,6 +1272,10 @@
             {
               "date": "2026-05-27",
               "close": 288.68
+            },
+            {
+              "date": "2026-05-28",
+              "close": 286.68
             }
           ]
         },
@@ -1142,6 +1306,10 @@
             {
               "date": "2026-05-27",
               "close": 275.17
+            },
+            {
+              "date": "2026-05-28",
+              "close": 278.9
             }
           ]
         },
@@ -1172,6 +1340,10 @@
             {
               "date": "2026-05-27",
               "close": 97.34
+            },
+            {
+              "date": "2026-05-28",
+              "close": 97.1
             }
           ]
         },
@@ -1202,6 +1374,10 @@
             {
               "date": "2026-05-27",
               "close": 36.62
+            },
+            {
+              "date": "2026-05-28",
+              "close": 36.71
             }
           ]
         },
@@ -1232,6 +1408,10 @@
             {
               "date": "2026-05-27",
               "close": 406.09
+            },
+            {
+              "date": "2026-05-28",
+              "close": 409.99
             }
           ]
         },
@@ -1262,6 +1442,10 @@
             {
               "date": "2026-05-27",
               "close": 1082.92
+            },
+            {
+              "date": "2026-05-28",
+              "close": 1136.99
             }
           ]
         },
@@ -1292,6 +1476,10 @@
             {
               "date": "2026-05-27",
               "close": 112.62
+            },
+            {
+              "date": "2026-05-28",
+              "close": 114.41
             }
           ]
         },
@@ -1322,6 +1510,10 @@
             {
               "date": "2026-05-27",
               "close": 160.15
+            },
+            {
+              "date": "2026-05-28",
+              "close": 161.51
             }
           ]
         },
@@ -1341,9 +1533,9 @@
           "entry_price": 117.0,
           "stop_price": 114.08,
           "target_price": 122.83,
-          "status": "HOLD",
-          "exit_price": null,
-          "exit_date": null,
+          "status": "STOPPED",
+          "exit_price": 113.63,
+          "exit_date": "2026-05-28",
           "closes": [
             {
               "date": "2026-05-26",
@@ -1352,6 +1544,10 @@
             {
               "date": "2026-05-27",
               "close": 114.85
+            },
+            {
+              "date": "2026-05-28",
+              "close": 113.63
             }
           ]
         },
@@ -1382,6 +1578,10 @@
             {
               "date": "2026-05-27",
               "close": 855.26
+            },
+            {
+              "date": "2026-05-28",
+              "close": 848.0
             }
           ]
         },
@@ -1412,6 +1612,10 @@
             {
               "date": "2026-05-27",
               "close": 1867.09
+            },
+            {
+              "date": "2026-05-28",
+              "close": 1830.46
             }
           ]
         },
@@ -1442,6 +1646,10 @@
             {
               "date": "2026-05-27",
               "close": 134.3
+            },
+            {
+              "date": "2026-05-28",
+              "close": 134.56
             }
           ]
         },
@@ -1502,6 +1710,10 @@
             {
               "date": "2026-05-27",
               "close": 16.53
+            },
+            {
+              "date": "2026-05-28",
+              "close": 16.47
             }
           ]
         },
@@ -1521,9 +1733,9 @@
           "entry_price": 308.49,
           "stop_price": 299.24,
           "target_price": 327.0,
-          "status": "HOLD",
-          "exit_price": null,
-          "exit_date": null,
+          "status": "STOPPED",
+          "exit_price": 298.33,
+          "exit_date": "2026-05-28",
           "closes": [
             {
               "date": "2026-05-26",
@@ -1532,6 +1744,10 @@
             {
               "date": "2026-05-27",
               "close": 299.28
+            },
+            {
+              "date": "2026-05-28",
+              "close": 298.33
             }
           ]
         },
@@ -1562,6 +1778,10 @@
             {
               "date": "2026-05-27",
               "close": 81.62
+            },
+            {
+              "date": "2026-05-28",
+              "close": 80.85
             }
           ]
         },
@@ -1592,6 +1812,10 @@
             {
               "date": "2026-05-27",
               "close": 384.83
+            },
+            {
+              "date": "2026-05-28",
+              "close": 385.28
             }
           ]
         },
@@ -1622,6 +1846,10 @@
             {
               "date": "2026-05-27",
               "close": 635.26
+            },
+            {
+              "date": "2026-05-28",
+              "close": 636.09
             }
           ]
         },
@@ -1652,6 +1880,10 @@
             {
               "date": "2026-05-27",
               "close": 295.63
+            },
+            {
+              "date": "2026-05-28",
+              "close": 302.46
             }
           ]
         },
@@ -1682,6 +1914,10 @@
             {
               "date": "2026-05-27",
               "close": 567.83
+            },
+            {
+              "date": "2026-05-28",
+              "close": 593.63
             }
           ]
         },
@@ -1712,6 +1948,10 @@
             {
               "date": "2026-05-27",
               "close": 77.0
+            },
+            {
+              "date": "2026-05-28",
+              "close": 77.82
             }
           ]
         },
@@ -1742,6 +1982,10 @@
             {
               "date": "2026-05-27",
               "close": 64.69
+            },
+            {
+              "date": "2026-05-28",
+              "close": 64.05
             }
           ]
         },
@@ -1772,6 +2016,10 @@
             {
               "date": "2026-05-27",
               "close": 47.55
+            },
+            {
+              "date": "2026-05-28",
+              "close": 47.13
             }
           ]
         },
@@ -1802,6 +2050,10 @@
             {
               "date": "2026-05-27",
               "close": 24.51
+            },
+            {
+              "date": "2026-05-28",
+              "close": 24.73
             }
           ]
         },
@@ -1832,6 +2084,10 @@
             {
               "date": "2026-05-27",
               "close": 130.15
+            },
+            {
+              "date": "2026-05-28",
+              "close": 126.6
             }
           ]
         },
@@ -1862,6 +2118,10 @@
             {
               "date": "2026-05-27",
               "close": 184.98
+            },
+            {
+              "date": "2026-05-28",
+              "close": 187.41
             }
           ]
         }
@@ -1869,138 +2129,116 @@
     },
     "2026-05-28": {
       "pick_date": "2026-05-28",
-      "generated_at": "2026-05-28T12:31:39.163835+00:00",
-      "entries_locked": false,
+      "generated_at": "2026-05-28T14:47:02.657351+00:00",
+      "entries_locked": true,
       "retired": false,
       "picks": [
         {
           "rank": 1,
-          "ticker": "APH",
-          "sector": "Technology",
-          "score": 84.0,
-          "components": {
-            "heat": 20,
-            "fund": 27.0,
-            "mom": 17.0,
-            "tech": 20.0
-          },
-          "screen_close": 140.24000549316406,
-          "entry_atr": 6.039285387311663,
-          "entry_price": null,
-          "stop_price": null,
-          "target_price": null,
-          "status": "PENDING",
-          "exit_price": null,
-          "exit_date": null,
-          "closes": []
-        },
-        {
-          "rank": 2,
-          "ticker": "MU",
-          "sector": "Technology",
-          "score": 84.0,
-          "components": {
-            "heat": 20,
-            "fund": 32.0,
-            "mom": 21.0,
-            "tech": 11.0
-          },
-          "screen_close": 928.4099731445312,
-          "entry_atr": 68.19571794782367,
-          "entry_price": null,
-          "stop_price": null,
-          "target_price": null,
-          "status": "PENDING",
-          "exit_price": null,
-          "exit_date": null,
-          "closes": []
-        },
-        {
-          "rank": 3,
           "ticker": "TPR",
           "sector": "Consumer Cyclical",
-          "score": 81.0,
-          "components": {
-            "heat": 20,
-            "fund": 32.0,
-            "mom": 12.0,
-            "tech": 17.0
-          },
-          "screen_close": 138.8300018310547,
-          "entry_atr": 5.900715419224331,
-          "entry_price": null,
-          "stop_price": null,
-          "target_price": null,
-          "status": "PENDING",
-          "exit_price": null,
-          "exit_date": null,
-          "closes": []
-        },
-        {
-          "rank": 4,
-          "ticker": "META",
-          "sector": "Communication Services",
-          "score": 80.0,
+          "score": 85.0,
           "components": {
             "heat": 20,
             "fund": 32.0,
             "mom": 16.0,
-            "tech": 12.0
+            "tech": 17.0
           },
-          "screen_close": 635.260009765625,
-          "entry_atr": 13.300000871930804,
-          "entry_price": null,
-          "stop_price": null,
-          "target_price": null,
-          "status": "PENDING",
+          "screen_close": 143.25999450683594,
+          "entry_atr": 4.953571864536831,
+          "entry_price": 137.62,
+          "stop_price": 130.19,
+          "target_price": 152.48,
+          "status": "HOLD",
           "exit_price": null,
           "exit_date": null,
-          "closes": []
+          "closes": [
+            {
+              "date": "2026-05-28",
+              "close": 143.26
+            }
+          ]
         },
         {
-          "rank": 5,
-          "ticker": "NXPI",
+          "rank": 2,
+          "ticker": "APH",
+          "sector": "Technology",
+          "score": 83.0,
+          "components": {
+            "heat": 20,
+            "fund": 22.0,
+            "mom": 21.0,
+            "tech": 20.0
+          },
+          "screen_close": 144.64999389648438,
+          "entry_atr": 6.067428043910435,
+          "entry_price": 141.02,
+          "stop_price": 131.92,
+          "target_price": 159.22,
+          "status": "HOLD",
+          "exit_price": null,
+          "exit_date": null,
+          "closes": [
+            {
+              "date": "2026-05-28",
+              "close": 144.71
+            }
+          ]
+        },
+        {
+          "rank": 3,
+          "ticker": "QCOM",
           "sector": "Technology",
           "score": 80.0,
           "components": {
             "heat": 20,
-            "fund": 29.0,
-            "mom": 15.0,
+            "fund": 21.0,
+            "mom": 23.0,
             "tech": 16.0
           },
-          "screen_close": 329.239990234375,
-          "entry_atr": 13.126425606863839,
-          "entry_price": null,
-          "stop_price": null,
-          "target_price": null,
-          "status": "PENDING",
+          "screen_close": 239.4499969482422,
+          "entry_atr": 19.087134225027903,
+          "entry_price": 236.1,
+          "stop_price": 207.47,
+          "target_price": 293.36,
+          "status": "HOLD",
           "exit_price": null,
           "exit_date": null,
-          "closes": []
+          "closes": [
+            {
+              "date": "2026-05-28",
+              "close": 239.85
+            }
+          ]
         },
         {
-          "rank": 6,
-          "ticker": "DAL",
-          "sector": "Industrials",
-          "score": 77.0,
+          "rank": 4,
+          "ticker": "MU",
+          "sector": "Technology",
+          "score": 78.0,
           "components": {
             "heat": 20,
-            "fund": 20.0,
-            "mom": 21.0,
-            "tech": 16.0
+            "fund": 32.0,
+            "mom": 15.0,
+            "tech": 11.0
           },
-          "screen_close": 81.80000305175781,
-          "entry_atr": 2.662855965750558,
-          "entry_price": null,
-          "stop_price": null,
-          "target_price": null,
-          "status": "PENDING",
+          "screen_close": 936.9099731445312,
+          "entry_atr": 67.67992728097099,
+          "entry_price": 930.22,
+          "stop_price": 828.7,
+          "target_price": 1133.26,
+          "status": "HOLD",
           "exit_price": null,
           "exit_date": null,
-          "closes": []
+          "closes": [
+            {
+              "date": "2026-05-28",
+              "close": 935.48
+            }
+          ]
         },
         {
-          "rank": 7,
+          "rank": 5,
           "ticker": "RL",
           "sector": "Consumer Cyclical",
           "score": 75.0,
@@ -2010,60 +2248,49 @@
             "mom": 15.0,
             "tech": 19.0
           },
-          "screen_close": 376.2300109863281,
-          "entry_atr": 15.261428833007812,
-          "entry_price": null,
-          "stop_price": null,
-          "target_price": null,
-          "status": "PENDING",
+          "screen_close": 374.5199890136719,
+          "entry_atr": 14.338570731026786,
+          "entry_price": 372.01,
+          "stop_price": 350.5,
+          "target_price": 415.03,
+          "status": "HOLD",
           "exit_price": null,
           "exit_date": null,
-          "closes": []
+          "closes": [
+            {
+              "date": "2026-05-28",
+              "close": 374.95
+            }
+          ]
         },
         {
-          "rank": 8,
-          "ticker": "RCL",
-          "sector": "Consumer Cyclical",
-          "score": 72.0,
-          "components": {
-            "heat": 20,
-            "fund": 24.0,
-            "mom": 21.0,
-            "tech": 7.0
-          },
-          "screen_close": 275.1700134277344,
-          "entry_atr": 11.690706525530134,
-          "entry_price": null,
-          "stop_price": null,
-          "target_price": null,
-          "status": "PENDING",
-          "exit_price": null,
-          "exit_date": null,
-          "closes": []
-        },
-        {
-          "rank": 9,
+          "rank": 6,
           "ticker": "TPL",
           "sector": "Energy",
-          "score": 72.0,
+          "score": 70.0,
           "components": {
             "heat": 20,
             "fund": 21.0,
-            "mom": 10.0,
-            "tech": 21.0
+            "mom": 7.0,
+            "tech": 22.0
           },
-          "screen_close": 406.0899963378906,
-          "entry_atr": 18.847856794084823,
-          "entry_price": null,
-          "stop_price": null,
-          "target_price": null,
-          "status": "PENDING",
+          "screen_close": 410.1499938964844,
+          "entry_atr": 15.347143990652901,
+          "entry_price": 407.02,
+          "stop_price": 384.0,
+          "target_price": 453.06,
+          "status": "HOLD",
           "exit_price": null,
           "exit_date": null,
-          "closes": []
+          "closes": [
+            {
+              "date": "2026-05-28",
+              "close": 409.99
+            }
+          ]
         },
         {
-          "rank": 10,
+          "rank": 7,
           "ticker": "VST",
           "sector": "Utilities",
           "score": 70.0,
@@ -2073,18 +2300,49 @@
             "mom": 15.0,
             "tech": 8.0
           },
-          "screen_close": 160.14999389648438,
-          "entry_atr": 7.281354631696429,
-          "entry_price": null,
-          "stop_price": null,
-          "target_price": null,
-          "status": "PENDING",
+          "screen_close": 161.42269897460938,
+          "entry_atr": 6.537069048200335,
+          "entry_price": 158.84,
+          "stop_price": 149.03,
+          "target_price": 178.45,
+          "status": "HOLD",
           "exit_price": null,
           "exit_date": null,
-          "closes": []
+          "closes": [
+            {
+              "date": "2026-05-28",
+              "close": 161.51
+            }
+          ]
         },
         {
-          "rank": 11,
+          "rank": 8,
+          "ticker": "INCY",
+          "sector": "Healthcare",
+          "score": 69.0,
+          "components": {
+            "heat": 20,
+            "fund": 32.0,
+            "mom": 5.0,
+            "tech": 12.0
+          },
+          "screen_close": 97.13999938964844,
+          "entry_atr": 2.3892860412597656,
+          "entry_price": 97.32,
+          "stop_price": 93.74,
+          "target_price": 104.49,
+          "status": "HOLD",
+          "exit_price": null,
+          "exit_date": null,
+          "closes": [
+            {
+              "date": "2026-05-28",
+              "close": 97.1
+            }
+          ]
+        },
+        {
+          "rank": 9,
           "ticker": "FCX",
           "sector": "Basic Materials",
           "score": 68.0,
@@ -2094,165 +2352,283 @@
             "mom": 12.0,
             "tech": 22.0
           },
-          "screen_close": 63.630001068115234,
-          "entry_atr": 2.741429192679269,
-          "entry_price": null,
-          "stop_price": null,
-          "target_price": null,
-          "status": "PENDING",
+          "screen_close": 63.98659896850586,
+          "entry_atr": 2.679600851876395,
+          "entry_price": 63.23,
+          "stop_price": 59.21,
+          "target_price": 71.27,
+          "status": "HOLD",
           "exit_price": null,
           "exit_date": null,
-          "closes": []
+          "closes": [
+            {
+              "date": "2026-05-28",
+              "close": 63.93
+            }
+          ]
         },
         {
-          "rank": 12,
-          "ticker": "HWM",
+          "rank": 10,
+          "ticker": "UAL",
           "sector": "Industrials",
           "score": 68.0,
           "components": {
             "heat": 20,
-            "fund": 20.0,
-            "mom": 7.0,
-            "tech": 21.0
+            "fund": 21.0,
+            "mom": 11.0,
+            "tech": 16.0
           },
-          "screen_close": 258.0199890136719,
-          "entry_atr": 9.065006801060267,
-          "entry_price": null,
-          "stop_price": null,
-          "target_price": null,
-          "status": "PENDING",
+          "screen_close": 114.30999755859375,
+          "entry_atr": 4.6254070826939175,
+          "entry_price": 109.83,
+          "stop_price": 102.89,
+          "target_price": 123.71,
+          "status": "HOLD",
           "exit_price": null,
           "exit_date": null,
-          "closes": []
+          "closes": [
+            {
+              "date": "2026-05-28",
+              "close": 114.41
+            }
+          ]
         },
         {
-          "rank": 13,
-          "ticker": "INCY",
-          "sector": "Healthcare",
+          "rank": 11,
+          "ticker": "APP",
+          "sector": "Communication Services",
+          "score": 67.0,
+          "components": {
+            "heat": 20,
+            "fund": 22.0,
+            "mom": 14.0,
+            "tech": 11.0
+          },
+          "screen_close": 593.614990234375,
+          "entry_atr": 35.271044049944194,
+          "entry_price": 562.16,
+          "stop_price": 509.25,
+          "target_price": 667.97,
+          "status": "HOLD",
+          "exit_price": null,
+          "exit_date": null,
+          "closes": [
+            {
+              "date": "2026-05-28",
+              "close": 593.63
+            }
+          ]
+        },
+        {
+          "rank": 12,
+          "ticker": "META",
+          "sector": "Communication Services",
           "score": 67.0,
           "components": {
             "heat": 20,
             "fund": 32.0,
-            "mom": 5.0,
-            "tech": 10.0
+            "mom": 3.0,
+            "tech": 12.0
           },
-          "screen_close": 97.33999633789062,
-          "entry_atr": 2.497142791748047,
-          "entry_price": null,
-          "stop_price": null,
-          "target_price": null,
-          "status": "PENDING",
+          "screen_close": 636.6199951171875,
+          "entry_atr": 13.41357421875,
+          "entry_price": 639.98,
+          "stop_price": 619.86,
+          "target_price": 680.22,
+          "status": "HOLD",
           "exit_price": null,
           "exit_date": null,
-          "closes": []
+          "closes": [
+            {
+              "date": "2026-05-28",
+              "close": 636.09
+            }
+          ]
         },
         {
-          "rank": 14,
-          "ticker": "UAL",
-          "sector": "Industrials",
+          "rank": 13,
+          "ticker": "NCLH",
+          "sector": "Consumer Cyclical",
           "score": 67.0,
           "components": {
             "heat": 20,
             "fund": 21.0,
-            "mom": 10.0,
-            "tech": 16.0
+            "mom": 18.0,
+            "tech": 8.0
           },
-          "screen_close": 112.62000274658203,
-          "entry_atr": 4.514285496303013,
-          "entry_price": null,
-          "stop_price": null,
-          "target_price": null,
-          "status": "PENDING",
+          "screen_close": 18.368999481201172,
+          "entry_atr": 0.8557141848972866,
+          "entry_price": 17.63,
+          "stop_price": 16.35,
+          "target_price": 20.2,
+          "status": "HOLD",
           "exit_price": null,
           "exit_date": null,
-          "closes": []
+          "closes": [
+            {
+              "date": "2026-05-28",
+              "close": 18.34
+            }
+          ]
         },
         {
-          "rank": 15,
-          "ticker": "IFF",
-          "sector": "Basic Materials",
-          "score": 66.0,
-          "components": {
-            "heat": 20,
-            "fund": 13.0,
-            "mom": 15.0,
-            "tech": 18.0
-          },
-          "screen_close": 77.0,
-          "entry_atr": 2.873570578438895,
-          "entry_price": null,
-          "stop_price": null,
-          "target_price": null,
-          "status": "PENDING",
-          "exit_price": null,
-          "exit_date": null,
-          "closes": []
-        },
-        {
-          "rank": 16,
-          "ticker": "LLY",
-          "sector": "Healthcare",
-          "score": 66.0,
-          "components": {
-            "heat": 20,
-            "fund": 27.0,
-            "mom": 6.0,
-            "tech": 13.0
-          },
-          "screen_close": 1082.9200439453125,
-          "entry_atr": 29.514290945870535,
-          "entry_price": null,
-          "stop_price": null,
-          "target_price": null,
-          "status": "PENDING",
-          "exit_price": null,
-          "exit_date": null,
-          "closes": []
-        },
-        {
-          "rank": 17,
-          "ticker": "WY",
-          "sector": "Real Estate",
+          "rank": 14,
+          "ticker": "EME",
+          "sector": "Industrials",
           "score": 64.0,
           "components": {
             "heat": 20,
-            "fund": 8.0,
-            "mom": 16.0,
-            "tech": 20.0
+            "fund": 19.0,
+            "mom": 7.0,
+            "tech": 18.0
           },
-          "screen_close": 24.510000228881836,
-          "entry_atr": 0.5385716302054269,
-          "entry_price": null,
-          "stop_price": null,
-          "target_price": null,
-          "status": "PENDING",
+          "screen_close": 848.0800170898438,
+          "entry_atr": 27.662854875837052,
+          "entry_price": 856.07,
+          "stop_price": 814.58,
+          "target_price": 939.06,
+          "status": "HOLD",
           "exit_price": null,
           "exit_date": null,
-          "closes": []
+          "closes": [
+            {
+              "date": "2026-05-28",
+              "close": 848.0
+            }
+          ]
         },
         {
-          "rank": 18,
-          "ticker": "APP",
-          "sector": "Communication Services",
+          "rank": 15,
+          "ticker": "ALGN",
+          "sector": "Healthcare",
           "score": 63.0,
           "components": {
             "heat": 20,
-            "fund": 22.0,
-            "mom": 12.0,
-            "tech": 9.0
+            "fund": 18.0,
+            "mom": 11.0,
+            "tech": 14.0
           },
-          "screen_close": 567.8300170898438,
-          "entry_atr": 37.58514840262277,
-          "entry_price": null,
-          "stop_price": null,
-          "target_price": null,
-          "status": "PENDING",
+          "screen_close": 169.99000549316406,
+          "entry_atr": 5.880712236676898,
+          "entry_price": 162.88,
+          "stop_price": 154.06,
+          "target_price": 180.52,
+          "status": "HOLD",
           "exit_price": null,
           "exit_date": null,
-          "closes": []
+          "closes": [
+            {
+              "date": "2026-05-28",
+              "close": 169.99
+            }
+          ]
+        },
+        {
+          "rank": 16,
+          "ticker": "ALNY",
+          "sector": "Healthcare",
+          "score": 63.0,
+          "components": {
+            "heat": 20,
+            "fund": 27.0,
+            "mom": 11.0,
+            "tech": 5.0
+          },
+          "screen_close": 302.1449890136719,
+          "entry_atr": 9.117852347237724,
+          "entry_price": 293.0,
+          "stop_price": 279.32,
+          "target_price": 320.35,
+          "status": "HOLD",
+          "exit_price": null,
+          "exit_date": null,
+          "closes": [
+            {
+              "date": "2026-05-28",
+              "close": 302.46
+            }
+          ]
+        },
+        {
+          "rank": 17,
+          "ticker": "CHRW",
+          "sector": "Industrials",
+          "score": 63.0,
+          "components": {
+            "heat": 20,
+            "fund": 13.0,
+            "mom": 7.0,
+            "tech": 23.0
+          },
+          "screen_close": 174.38999938964844,
+          "entry_atr": 6.484642028808594,
+          "entry_price": 174.96,
+          "stop_price": 165.23,
+          "target_price": 194.41,
+          "status": "HOLD",
+          "exit_price": null,
+          "exit_date": null,
+          "closes": [
+            {
+              "date": "2026-05-28",
+              "close": 174.29
+            }
+          ]
+        },
+        {
+          "rank": 18,
+          "ticker": "IFF",
+          "sector": "Basic Materials",
+          "score": 63.0,
+          "components": {
+            "heat": 20,
+            "fund": 13.0,
+            "mom": 10.0,
+            "tech": 20.0
+          },
+          "screen_close": 77.83000183105469,
+          "entry_atr": 2.5928562709263394,
+          "entry_price": 76.48,
+          "stop_price": 72.59,
+          "target_price": 84.26,
+          "status": "HOLD",
+          "exit_price": null,
+          "exit_date": null,
+          "closes": [
+            {
+              "date": "2026-05-28",
+              "close": 77.82
+            }
+          ]
         },
         {
           "rank": 19,
+          "ticker": "NEM",
+          "sector": "Basic Materials",
+          "score": 63.0,
+          "components": {
+            "heat": 20,
+            "fund": 24.0,
+            "mom": 7.0,
+            "tech": 12.0
+          },
+          "screen_close": 106.87000274658203,
+          "entry_atr": 4.3264280046735495,
+          "entry_price": 105.25,
+          "stop_price": 98.76,
+          "target_price": 118.23,
+          "status": "HOLD",
+          "exit_price": null,
+          "exit_date": null,
+          "closes": [
+            {
+              "date": "2026-05-28",
+              "close": 106.69
+            }
+          ]
+        },
+        {
+          "rank": 20,
           "ticker": "PCG",
           "sector": "Utilities",
           "score": 63.0,
@@ -2262,60 +2638,101 @@
             "mom": 5.0,
             "tech": 17.0
           },
-          "screen_close": 16.530000686645508,
-          "entry_atr": 0.46214314869471956,
-          "entry_price": null,
-          "stop_price": null,
-          "target_price": null,
-          "status": "PENDING",
+          "screen_close": 16.46500015258789,
+          "entry_atr": 0.45332179750714985,
+          "entry_price": 16.52,
+          "stop_price": 15.84,
+          "target_price": 17.88,
+          "status": "HOLD",
           "exit_price": null,
           "exit_date": null,
-          "closes": []
-        },
-        {
-          "rank": 20,
-          "ticker": "MET",
-          "sector": "Financial Services",
-          "score": 62.0,
-          "components": {
-            "heat": 20,
-            "fund": 18.0,
-            "mom": 5.0,
-            "tech": 19.0
-          },
-          "screen_close": 83.19999694824219,
-          "entry_atr": 1.8199991498674666,
-          "entry_price": null,
-          "stop_price": null,
-          "target_price": null,
-          "status": "PENDING",
-          "exit_price": null,
-          "exit_date": null,
-          "closes": []
+          "closes": [
+            {
+              "date": "2026-05-28",
+              "close": 16.47
+            }
+          ]
         },
         {
           "rank": 21,
-          "ticker": "HIG",
-          "sector": "Financial Services",
-          "score": 61.0,
+          "ticker": "BKR",
+          "sector": "Energy",
+          "score": 62.0,
           "components": {
             "heat": 20,
-            "fund": 22.0,
-            "mom": 5.0,
-            "tech": 14.0
+            "fund": 14.0,
+            "mom": 7.0,
+            "tech": 21.0
           },
-          "screen_close": 131.69000244140625,
-          "entry_atr": 2.459284101213728,
-          "entry_price": null,
-          "stop_price": null,
-          "target_price": null,
-          "status": "PENDING",
+          "screen_close": 63.599998474121094,
+          "entry_atr": 1.8246429988316126,
+          "entry_price": 63.86,
+          "stop_price": 61.12,
+          "target_price": 69.33,
+          "status": "HOLD",
           "exit_price": null,
           "exit_date": null,
-          "closes": []
+          "closes": [
+            {
+              "date": "2026-05-28",
+              "close": 63.7
+            }
+          ]
         },
         {
           "rank": 22,
+          "ticker": "OKE",
+          "sector": "Energy",
+          "score": 62.0,
+          "components": {
+            "heat": 20,
+            "fund": 17.0,
+            "mom": 7.0,
+            "tech": 18.0
+          },
+          "screen_close": 88.2699966430664,
+          "entry_atr": 2.302855900355748,
+          "entry_price": 89.25,
+          "stop_price": 85.8,
+          "target_price": 96.16,
+          "status": "HOLD",
+          "exit_price": null,
+          "exit_date": null,
+          "closes": [
+            {
+              "date": "2026-05-28",
+              "close": 88.34
+            }
+          ]
+        },
+        {
+          "rank": 23,
+          "ticker": "CFG",
+          "sector": "Financial Services",
+          "score": 60.0,
+          "components": {
+            "heat": 20,
+            "fund": 16.0,
+            "mom": 5.0,
+            "tech": 19.0
+          },
+          "screen_close": 62.459999084472656,
+          "entry_atr": 1.4292861393519811,
+          "entry_price": 63.7,
+          "stop_price": 61.56,
+          "target_price": 67.99,
+          "status": "HOLD",
+          "exit_price": null,
+          "exit_date": null,
+          "closes": [
+            {
+              "date": "2026-05-28",
+              "close": 62.47
+            }
+          ]
+        },
+        {
+          "rank": 24,
           "ticker": "GOOG",
           "sector": "Communication Services",
           "score": 60.0,
@@ -2325,207 +2742,179 @@
             "mom": 5.0,
             "tech": 13.0
           },
-          "screen_close": 384.8299865722656,
-          "entry_atr": 9.012069702148438,
-          "entry_price": null,
-          "stop_price": null,
-          "target_price": null,
-          "status": "PENDING",
+          "screen_close": 385.739990234375,
+          "entry_atr": 8.880996704101562,
+          "entry_price": 383.88,
+          "stop_price": 370.56,
+          "target_price": 410.52,
+          "status": "HOLD",
           "exit_price": null,
           "exit_date": null,
-          "closes": []
-        },
-        {
-          "rank": 23,
-          "ticker": "PPG",
-          "sector": "Basic Materials",
-          "score": 60.0,
-          "components": {
-            "heat": 20,
-            "fund": 12.0,
-            "mom": 14.0,
-            "tech": 14.0
-          },
-          "screen_close": 112.87999725341797,
-          "entry_atr": 3.257143293108259,
-          "entry_price": null,
-          "stop_price": null,
-          "target_price": null,
-          "status": "PENDING",
-          "exit_price": null,
-          "exit_date": null,
-          "closes": []
-        },
-        {
-          "rank": 24,
-          "ticker": "ALNY",
-          "sector": "Healthcare",
-          "score": 59.0,
-          "components": {
-            "heat": 20,
-            "fund": 27.0,
-            "mom": 5.0,
-            "tech": 7.0
-          },
-          "screen_close": 295.6300048828125,
-          "entry_atr": 9.025708879743304,
-          "entry_price": null,
-          "stop_price": null,
-          "target_price": null,
-          "status": "PENDING",
-          "exit_price": null,
-          "exit_date": null,
-          "closes": []
+          "closes": [
+            {
+              "date": "2026-05-28",
+              "close": 385.28
+            }
+          ]
         },
         {
           "rank": 25,
           "ticker": "C",
           "sector": "Financial Services",
-          "score": 59.0,
+          "score": 58.0,
           "components": {
             "heat": 20,
             "fund": 21.0,
             "mom": 5.0,
-            "tech": 13.0
+            "tech": 12.0
           },
-          "screen_close": 125.38999938964844,
-          "entry_atr": 3.2399984087262834,
-          "entry_price": null,
-          "stop_price": null,
-          "target_price": null,
-          "status": "PENDING",
+          "screen_close": 124.04000091552734,
+          "entry_atr": 3.096069880894252,
+          "entry_price": 124.47,
+          "stop_price": 119.83,
+          "target_price": 133.76,
+          "status": "HOLD",
           "exit_price": null,
           "exit_date": null,
-          "closes": []
+          "closes": [
+            {
+              "date": "2026-05-28",
+              "close": 123.89
+            }
+          ]
         },
         {
           "rank": 26,
-          "ticker": "OKE",
-          "sector": "Energy",
-          "score": 59.0,
+          "ticker": "DG",
+          "sector": "Consumer Defensive",
+          "score": 58.0,
           "components": {
             "heat": 20,
             "fund": 17.0,
-            "mom": 4.0,
-            "tech": 18.0
+            "mom": 14.0,
+            "tech": 7.0
           },
-          "screen_close": 88.20999908447266,
-          "entry_atr": 2.349999019077846,
-          "entry_price": null,
-          "stop_price": null,
-          "target_price": null,
-          "status": "PENDING",
+          "screen_close": 110.16999816894531,
+          "entry_atr": 4.682857513427734,
+          "entry_price": 111.0,
+          "stop_price": 103.98,
+          "target_price": 125.05,
+          "status": "HOLD",
           "exit_price": null,
           "exit_date": null,
-          "closes": []
+          "closes": [
+            {
+              "date": "2026-05-28",
+              "close": 110.07
+            }
+          ]
         },
         {
           "rank": 27,
-          "ticker": "PEP",
-          "sector": "Consumer Defensive",
-          "score": 59.0,
+          "ticker": "PNC",
+          "sector": "Financial Services",
+          "score": 58.0,
           "components": {
             "heat": 20,
-            "fund": 21.0,
-            "mom": 10.0,
-            "tech": 8.0
+            "fund": 13.0,
+            "mom": 5.0,
+            "tech": 20.0
           },
-          "screen_close": 147.74000549316406,
-          "entry_atr": 3.2728587559291293,
-          "entry_price": null,
-          "stop_price": null,
-          "target_price": null,
-          "status": "PENDING",
+          "screen_close": 220.5800018310547,
+          "entry_atr": 4.095484052385602,
+          "entry_price": 219.94,
+          "stop_price": 213.8,
+          "target_price": 232.23,
+          "status": "HOLD",
           "exit_price": null,
           "exit_date": null,
-          "closes": []
+          "closes": [
+            {
+              "date": "2026-05-28",
+              "close": 220.27
+            }
+          ]
         },
         {
           "rank": 28,
-          "ticker": "SRE",
+          "ticker": "PEG",
           "sector": "Utilities",
-          "score": 59.0,
+          "score": 56.0,
           "components": {
             "heat": 20,
-            "fund": 15.0,
+            "fund": 13.0,
             "mom": 5.0,
-            "tech": 19.0
+            "tech": 18.0
           },
-          "screen_close": 91.26000213623047,
-          "entry_atr": 1.9992855616978236,
-          "entry_price": null,
-          "stop_price": null,
-          "target_price": null,
-          "status": "PENDING",
+          "screen_close": 79.58999633789062,
+          "entry_atr": 1.3425004141671317,
+          "entry_price": 79.71,
+          "stop_price": 77.7,
+          "target_price": 83.74,
+          "status": "HOLD",
           "exit_price": null,
           "exit_date": null,
-          "closes": []
+          "closes": [
+            {
+              "date": "2026-05-28",
+              "close": 79.6
+            }
+          ]
         },
         {
           "rank": 29,
-          "ticker": "APA",
-          "sector": "Energy",
-          "score": 58.0,
-          "components": {
-            "heat": 20,
-            "fund": 26.0,
-            "mom": 1.0,
-            "tech": 11.0
-          },
-          "screen_close": 36.619998931884766,
-          "entry_atr": 1.677142824445452,
-          "entry_price": null,
-          "stop_price": null,
-          "target_price": null,
-          "status": "PENDING",
-          "exit_price": null,
-          "exit_date": null,
-          "closes": []
-        },
-        {
-          "rank": 30,
-          "ticker": "MKC",
-          "sector": "Consumer Defensive",
-          "score": 58.0,
-          "components": {
-            "heat": 20,
-            "fund": 24.0,
-            "mom": 10.0,
-            "tech": 4.0
-          },
-          "screen_close": 47.54999923706055,
-          "entry_atr": 1.3528570447649275,
-          "entry_price": null,
-          "stop_price": null,
-          "target_price": null,
-          "status": "PENDING",
-          "exit_price": null,
-          "exit_date": null,
-          "closes": []
-        },
-        {
-          "rank": 31,
-          "ticker": "DLTR",
+          "ticker": "PEP",
           "sector": "Consumer Defensive",
           "score": 56.0,
           "components": {
             "heat": 20,
-            "fund": 16.0,
-            "mom": 16.0,
-            "tech": 4.0
+            "fund": 21.0,
+            "mom": 7.0,
+            "tech": 8.0
           },
-          "screen_close": 95.87000274658203,
-          "entry_atr": 4.005000523158482,
-          "entry_price": null,
-          "stop_price": null,
-          "target_price": null,
-          "status": "PENDING",
+          "screen_close": 147.38999938964844,
+          "entry_atr": 3.2228589739118303,
+          "entry_price": 147.77,
+          "stop_price": 142.94,
+          "target_price": 157.44,
+          "status": "HOLD",
           "exit_price": null,
           "exit_date": null,
-          "closes": []
+          "closes": [
+            {
+              "date": "2026-05-28",
+              "close": 147.41
+            }
+          ]
         },
         {
-          "rank": 32,
+          "rank": 30,
+          "ticker": "PG",
+          "sector": "Consumer Defensive",
+          "score": 56.0,
+          "components": {
+            "heat": 20,
+            "fund": 13.0,
+            "mom": 5.0,
+            "tech": 18.0
+          },
+          "screen_close": 146.07000732421875,
+          "entry_atr": 2.8918631417410716,
+          "entry_price": 146.7,
+          "stop_price": 142.36,
+          "target_price": 155.38,
+          "status": "HOLD",
+          "exit_price": null,
+          "exit_date": null,
+          "closes": [
+            {
+              "date": "2026-05-28",
+              "close": 146.05
+            }
+          ]
+        },
+        {
+          "rank": 31,
           "ticker": "CBRE",
           "sector": "Real Estate",
           "score": 53.0,
@@ -2535,36 +2924,72 @@
             "mom": 4.0,
             "tech": 4.0
           },
-          "screen_close": 130.14999389648438,
-          "entry_atr": 4.6771409170968195,
-          "entry_price": null,
-          "stop_price": null,
-          "target_price": null,
-          "status": "PENDING",
+          "screen_close": 126.51499938964844,
+          "entry_atr": 4.670712062290737,
+          "entry_price": 128.58,
+          "stop_price": 121.57,
+          "target_price": 142.59,
+          "status": "HOLD",
           "exit_price": null,
           "exit_date": null,
-          "closes": []
+          "closes": [
+            {
+              "date": "2026-05-28",
+              "close": 126.6
+            }
+          ]
         },
         {
-          "rank": 33,
+          "rank": 32,
           "ticker": "O",
           "sector": "Real Estate",
-          "score": 50.0,
+          "score": 53.0,
           "components": {
             "heat": 20,
             "fund": 8.0,
             "mom": 5.0,
-            "tech": 17.0
+            "tech": 20.0
           },
-          "screen_close": 62.189998626708984,
-          "entry_atr": 0.9371425083705357,
-          "entry_price": null,
-          "stop_price": null,
-          "target_price": null,
-          "status": "PENDING",
+          "screen_close": 62.369998931884766,
+          "entry_atr": 0.7971352168491909,
+          "entry_price": 62.1,
+          "stop_price": 60.9,
+          "target_price": 64.49,
+          "status": "HOLD",
           "exit_price": null,
           "exit_date": null,
-          "closes": []
+          "closes": [
+            {
+              "date": "2026-05-28",
+              "close": 62.38
+            }
+          ]
+        },
+        {
+          "rank": 33,
+          "ticker": "WY",
+          "sector": "Real Estate",
+          "score": 51.0,
+          "components": {
+            "heat": 20,
+            "fund": 8.0,
+            "mom": 3.0,
+            "tech": 20.0
+          },
+          "screen_close": 24.725000381469727,
+          "entry_atr": 0.5332144328526088,
+          "entry_price": 24.58,
+          "stop_price": 23.78,
+          "target_price": 26.18,
+          "status": "HOLD",
+          "exit_price": null,
+          "exit_date": null,
+          "closes": [
+            {
+              "date": "2026-05-28",
+              "close": 24.73
+            }
+          ]
         }
       ]
     }
