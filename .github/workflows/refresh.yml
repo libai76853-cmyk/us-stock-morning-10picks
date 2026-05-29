@@ -1,0 +1,52 @@
+name: Refresh Tracking
+
+# Intraday refresh of the rolling-cohort tracker (no pick generation, no
+# Telegram). Triggered by the Cloudflare Worker every 15 min during market
+# hours so the freshest cohort locks its entry once it opens and live P/L +
+# the dashboard NAV update through the session. If a tick fails, the next
+# 15-min tick self-corrects (update_all_cohorts is idempotent).
+on:
+  workflow_dispatch:
+
+# Avoid piling up overlapping refreshes if one runs long.
+concurrency:
+  group: refresh-tracking
+  cancel-in-progress: true
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          set-safe-directory: true
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: "pip"
+
+      - name: Install deps
+        run: pip install -r requirements.txt
+
+      - name: Refresh tracking (no picks / no Telegram)
+        env:
+          MODE: refresh
+        run: python main.py
+
+      - name: Commit tracking + dashboard updates
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          [ -d tracking ] && git add tracking/
+          [ -d docs ] && git add docs/
+          if git diff --staged --quiet; then
+            echo "No tracking changes to commit."
+          else
+            git commit -m "Auto: intraday refresh $(date -u +%Y-%m-%dT%H:%MZ)"
+            git pull --rebase --autostash || true
+            git push || (sleep 20 && git push)
+          fi

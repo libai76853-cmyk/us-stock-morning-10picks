@@ -1682,11 +1682,23 @@ async def run() -> int:
         store["cohorts"][today_iso] = build_cohort(today, picks)
         print(f"  Recorded cohort {today_iso} ({len(picks)} picks)")
 
-    # ---- 3. Roll forward all active cohorts (lock entries, closes, exits) ----
+    # ---- 3-4. Roll cohorts + recompute equity + regenerate dashboard ----
+    refresh_tracking(store)
+
+    return 0 if telegram_ok else 1
+
+
+def refresh_tracking(store: dict) -> dict:
+    """Roll active cohorts forward, recompute equity, regenerate dashboard.
+
+    Shared by the full daily run() and the intraday refresh_only() path —
+    update_all_cohorts is idempotent, so calling it intraday just re-fetches
+    the latest prices (locking entries once a pick_date has opened) without
+    touching pick generation or Telegram.
+    """
     update_all_cohorts(store)
     save_cohorts(store)
 
-    # ---- 4. Recompute equity curve + regenerate dashboard ----
     equity = compute_equity(store)
     try:
         with open(_equity_path(), "w") as f:
@@ -1700,9 +1712,27 @@ async def run() -> int:
         f"{len(equity['series'])} days, "
         f"{equity['total_positions_tracked']} positions tracked"
     )
+    return equity
 
-    return 0 if telegram_ok else 1
+
+def refresh_only() -> int:
+    """Intraday refresh: re-pull prices for active cohorts + rebuild dashboard.
+
+    No pick generation, no Telegram. Triggered every 15 min during market
+    hours so the freshest cohort locks its entry once it opens and live P/L
+    flows through the dashboard.
+    """
+    print(f"Refreshing cohort tracking (no picks/Telegram) — {datetime.now(timezone.utc).isoformat()}")
+    store = load_cohorts()
+    if not store["cohorts"]:
+        print("  No cohorts yet; nothing to refresh")
+        return 0
+    refresh_tracking(store)
+    return 0
 
 
 if __name__ == "__main__":
+    mode = os.getenv("MODE", "daily").strip().lower()
+    if mode == "refresh":
+        sys.exit(refresh_only())
     sys.exit(asyncio.run(run()))
