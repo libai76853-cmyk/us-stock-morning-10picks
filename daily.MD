@@ -135,6 +135,23 @@ fatal: unable to access '...': The requested URL returned error: 403
 
 ---
 
+## 2026-05-29 — 盘中 15 分钟刷新行情（修复「今日 cohort 无数据」）
+
+**Commit**: b5b93a7 (main.py + refresh.yml) + CF Worker version 26646f69
+
+**动机**：用户「能做成定时刷行情新数据吗？每隔15分钟刷新一下？」。今日 cohort 一直显示「待锁」无数据，因为入场价 = 推送当日开盘价，而推送是盘前（12:30 UTC，开盘前 1 小时），当时 yfinance 还没有当日 Open。
+
+**实现**：
+- `main.py` 加 `MODE=refresh` 路径（`refresh_only()` → `refresh_tracking()`）：只 `update_all_cohorts` + 重算 NAV + 重生成 dashboard，**不选股、不发 Telegram**。`update_all_cohorts` 本来就幂等，盘中重跑就是重新拉最新价（当日开盘后能锁定当日 cohort 入场价）。
+- 新 workflow `.github/workflows/refresh.yml`：`MODE=refresh python main.py` + commit，`concurrency: cancel-in-progress` 防堆积，timeout 8min。
+- CF Worker v3（version 26646f69）：cron 改 `["30 12 * * 1-5", "*/15 13-20 * * 1-5"]`。scheduled() 智能分流：今天**没有**成功 daily-picks run → dispatch `daily_picks.yml`（生成，也顺带兜底漏拍的 12:30）；**已有** → dispatch `refresh.yml`（盘中刷新）。
+
+**效果**：开盘后第一个 */15 tick 就给当日 cohort 锁入场价 + 显示实时 P/L，整个交易时段每 15 分钟更新一次 NAV/dashboard。验证：5/29 cohort 盘中 refresh 后 33/33 locked（TPR entry 145.66），refresh.yml run 26646880944 success。
+
+**副作用提醒**：盘中每 15 分钟一次 commit（~26 次/交易日），repo 历史会有较多 "Auto: intraday refresh" commit。可接受（数据仓库）；嫌多可改 30 分钟。
+
+---
+
 ## 2026-05-29 — 运维：CF cron 第 2 次漏拍（又是周五）
 
 **Commit**: 无代码改动（运维）
