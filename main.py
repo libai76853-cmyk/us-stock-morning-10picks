@@ -1414,11 +1414,17 @@ def _pick_detail_rows_html(picks: list[dict]) -> str:
         pnl = ((latest / entry - 1) * 100) if (entry and latest) else None
         label, cls = tag_map.get(status, (status, ""))
         pnl_cls = "pos" if (pnl or 0) >= 0 else "neg"
+        # PENDING picks have no locked entry yet (locks next session); show the
+        # screen-close as a muted reference so the row isn't all dashes.
+        if status == "PENDING" and latest is None and p.get("screen_close"):
+            price_cell = f"<td class='muted'>${p['screen_close']:.2f}<span class='ref'>参考</span></td>"
+        else:
+            price_cell = f"<td>{('$%.2f' % latest) if latest else '—'}</td>"
         out.append(
             f"<tr><td>{p.get('rank','')}</td><td>{p['ticker']}</td>"
             f"<td>{p.get('sector','')}</td><td class='{cls}'>{label}</td>"
             f"<td>{('$%.2f' % entry) if entry else '—'}</td>"
-            f"<td>{('$%.2f' % latest) if latest else '—'}</td>"
+            f"{price_cell}"
             f"<td class='{pnl_cls}'>{('%+.1f%%' % pnl) if pnl is not None else '—'}</td>"
             f"<td>{('$%.2f' % p['stop_price']) if p.get('stop_price') else '—'}</td>"
             f"<td>{('$%.2f' % p['target_price']) if p.get('target_price') else '—'}</td></tr>"
@@ -1491,6 +1497,8 @@ def generate_dashboard_html(store: dict, equity: dict) -> str:
   table.inner {{ font-size: 12px; margin: 4px 0 10px; }}
   table.inner th {{ color: #6e7681; font-weight: 500; }}
   table.inner td, table.inner th {{ padding: 3px 6px; border-bottom: 1px solid #1a1f26; }}
+  .muted {{ color: #6e7681; }}
+  .ref {{ font-size: 10px; color: #565d66; margin-left: 4px; }}
 </style>
 </head>
 <body>
