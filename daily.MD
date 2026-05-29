@@ -143,7 +143,14 @@ fatal: unable to access '...': The requested URL returned error: 403
 
 **修复**：curl `/?key=...` 手动补 → run [26639154673](https://github.com/libai76853-cmyk/us-stock-morning-10picks/actions/runs/26639154673)（Telegram 4/4 OK，cohort 2026-05-29 记录，commit a6cebb5）+ `wrangler deploy` 重注册 cron（版本 547b99da）。
 
-**Pattern 警觉**：CF cron 漏拍 5/22 + 5/29 **两次都是周五**。n=2 证据弱，可能 CF 周五负载高 / 纯巧合。playbook 不变（curl 补 + redeploy）。如果再发生在周五，考虑加冗余：CF Worker 加第 2 个 cron tick（如 `40 12 * * 5` 周五备份），但需先给 Worker 加幂等护栏（dispatch 前查 GitHub 当天是否已有成功 run），否则双触发 = 重复 Telegram。
+**Pattern 警觉**：CF cron 漏拍 5/22 + 5/29 **两次都是周五**。n=2 证据弱，可能 CF 周五负载高 / 纯巧合。
+
+**当天根治（方案 2，已上线）**：CF Worker 升级 v2（version 80761686）：
+- **冗余 cron**：`["30 12 * * 1-5", "0 13 * * 1-5", "0 14 * * 1-5"]` — 12:30 主 + 13:00/14:00 备份（都在盘前到开盘后半小时内）
+- **幂等护栏**：每个 tick dispatch 前先 `GET .../runs?per_page=20`，若今天(UTC)已有 queued/in_progress/success 的 run 就 no-op。失败的 run 不算 → 备份会重试。API 出错时 fail-open（照常 dispatch，宁可重复不可漏）
+- **效果**：主 tick 正常→备份跳过（无重复 Telegram）；主 tick 漏→备份补；今天 run 失败→备份重试
+- **手动端点**：`?key=` 仍强制 dispatch（显式意图）；加 `?guard=1` 可走幂等检查
+- **验证**：今天已有成功 run，curl `?key=...&guard=1` 返回 "today already handled; skipped"，未创建新 run ✓
 
 ---
 
