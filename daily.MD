@@ -135,6 +135,18 @@ fatal: unable to access '...': The requested URL returned error: 403
 
 ---
 
+## 2026-05-29 — 运维：CF cron 第 2 次漏拍（又是周五）
+
+**Commit**: 无代码改动（运维）
+
+**症状**：用户「今天没有推送」。5/29 12:30 UTC cron 应触发但 0 个 run（最近 run 停在 5/28）。
+
+**修复**：curl `/?key=...` 手动补 → run [26639154673](https://github.com/libai76853-cmyk/us-stock-morning-10picks/actions/runs/26639154673)（Telegram 4/4 OK，cohort 2026-05-29 记录，commit a6cebb5）+ `wrangler deploy` 重注册 cron（版本 547b99da）。
+
+**Pattern 警觉**：CF cron 漏拍 5/22 + 5/29 **两次都是周五**。n=2 证据弱，可能 CF 周五负载高 / 纯巧合。playbook 不变（curl 补 + redeploy）。如果再发生在周五，考虑加冗余：CF Worker 加第 2 个 cron tick（如 `40 12 * * 5` 周五备份），但需先给 Worker 加幂等护栏（dispatch 前查 GitHub 当天是否已有成功 run），否则双触发 = 重复 Telegram。
+
+---
+
 ## 2026-05-22 — v6 评分重平衡：罚顶部 + 奖回调
 
 **Commit**: 见本次推送
