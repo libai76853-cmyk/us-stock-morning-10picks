@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-06-02T20:46:03.417594+00:00",
+  "updated_at": "2026-06-03T12:32:02.891962+00:00",
   "tracking_window": 10,
   "cohorts": {
     "2026-05-27": {
@@ -7978,6 +7978,707 @@
               "close": 33.66
             }
           ]
+        }
+      ]
+    },
+    "2026-06-03": {
+      "pick_date": "2026-06-03",
+      "generated_at": "2026-06-03T12:31:57.567560+00:00",
+      "entries_locked": false,
+      "retired": false,
+      "picks": [
+        {
+          "rank": 1,
+          "ticker": "TPR",
+          "sector": "Consumer Cyclical",
+          "score": 76.0,
+          "components": {
+            "heat": 20,
+            "fund": 32.0,
+            "mom": 7.0,
+            "tech": 17.0
+          },
+          "screen_close": 138.64999389648438,
+          "entry_atr": 4.691430228097098,
+          "entry_price": null,
+          "stop_price": null,
+          "target_price": null,
+          "status": "PENDING",
+          "exit_price": null,
+          "exit_date": null,
+          "closes": []
+        },
+        {
+          "rank": 2,
+          "ticker": "LLY",
+          "sector": "Healthcare",
+          "score": 72.0,
+          "components": {
+            "heat": 20,
+            "fund": 27.0,
+            "mom": 7.0,
+            "tech": 18.0
+          },
+          "screen_close": 1064.1500244140625,
+          "entry_atr": 32.213570731026785,
+          "entry_price": null,
+          "stop_price": null,
+          "target_price": null,
+          "status": "PENDING",
+          "exit_price": null,
+          "exit_date": null,
+          "closes": []
+        },
+        {
+          "rank": 3,
+          "ticker": "NVDA",
+          "sector": "Technology",
+          "score": 71.0,
+          "components": {
+            "heat": 20,
+            "fund": 32.0,
+            "mom": 5.0,
+            "tech": 14.0
+          },
+          "screen_close": 222.82000732421875,
+          "entry_atr": 8.337854657854352,
+          "entry_price": null,
+          "stop_price": null,
+          "target_price": null,
+          "status": "PENDING",
+          "exit_price": null,
+          "exit_date": null,
+          "closes": []
+        },
+        {
+          "rank": 4,
+          "ticker": "CPAY",
+          "sector": "Technology",
+          "score": 70.0,
+          "components": {
+            "heat": 20,
+            "fund": 32.0,
+            "mom": 5.0,
+            "tech": 13.0
+          },
+          "screen_close": 359.82000732421875,
+          "entry_atr": 11.680712018694196,
+          "entry_price": null,
+          "stop_price": null,
+          "target_price": null,
+          "status": "PENDING",
+          "exit_price": null,
+          "exit_date": null,
+          "closes": []
+        },
+        {
+          "rank": 5,
+          "ticker": "APH",
+          "sector": "Technology",
+          "score": 69.0,
+          "components": {
+            "heat": 20,
+            "fund": 22.0,
+            "mom": 13.0,
+            "tech": 14.0
+          },
+          "screen_close": 148.39999389648438,
+          "entry_atr": 5.974997929164341,
+          "entry_price": null,
+          "stop_price": null,
+          "target_price": null,
+          "status": "PENDING",
+          "exit_price": null,
+          "exit_date": null,
+          "closes": []
+        },
+        {
+          "rank": 6,
+          "ticker": "PCG",
+          "sector": "Utilities",
+          "score": 68.0,
+          "components": {
+            "heat": 20,
+            "fund": 21.0,
+            "mom": 11.0,
+            "tech": 16.0
+          },
+          "screen_close": 16.56999969482422,
+          "entry_atr": 0.45071445192609516,
+          "entry_price": null,
+          "stop_price": null,
+          "target_price": null,
+          "status": "PENDING",
+          "exit_price": null,
+          "exit_date": null,
+          "closes": []
+        },
+        {
+          "rank": 7,
+          "ticker": "VRT",
+          "sector": "Industrials",
+          "score": 68.0,
+          "components": {
+            "heat": 20,
+            "fund": 22.0,
+            "mom": 13.0,
+            "tech": 13.0
+          },
+          "screen_close": 334.489990234375,
+          "entry_atr": 18.34663827078683,
+          "entry_price": null,
+          "stop_price": null,
+          "target_price": null,
+          "status": "PENDING",
+          "exit_price": null,
+          "exit_date": null,
+          "closes": []
+        },
+        {
+          "rank": 8,
+          "ticker": "OKE",
+          "sector": "Energy",
+          "score": 67.0,
+          "components": {
+            "heat": 20,
+            "fund": 17.0,
+            "mom": 13.0,
+            "tech": 17.0
+          },
+          "screen_close": 86.72000122070312,
+          "entry_atr": 2.5357137407575334,
+          "entry_price": null,
+          "stop_price": null,
+          "target_price": null,
+          "status": "PENDING",
+          "exit_price": null,
+          "exit_date": null,
+          "closes": []
+        },
+        {
+          "rank": 9,
+          "ticker": "EME",
+          "sector": "Industrials",
+          "score": 66.0,
+          "components": {
+            "heat": 20,
+            "fund": 24.0,
+            "mom": 4.0,
+            "tech": 18.0
+          },
+          "screen_close": 827.280029296875,
+          "entry_atr": 28.241428920200892,
+          "entry_price": null,
+          "stop_price": null,
+          "target_price": null,
+          "status": "PENDING",
+          "exit_price": null,
+          "exit_date": null,
+          "closes": []
+        },
+        {
+          "rank": 10,
+          "ticker": "ABNB",
+          "sector": "Consumer Cyclical",
+          "score": 65.0,
+          "components": {
+            "heat": 20,
+            "fund": 19.0,
+            "mom": 7.0,
+            "tech": 19.0
+          },
+          "screen_close": 134.35000610351562,
+          "entry_atr": 4.516714913504464,
+          "entry_price": null,
+          "stop_price": null,
+          "target_price": null,
+          "status": "PENDING",
+          "exit_price": null,
+          "exit_date": null,
+          "closes": []
+        },
+        {
+          "rank": 11,
+          "ticker": "APP",
+          "sector": "Communication Services",
+          "score": 65.0,
+          "components": {
+            "heat": 20,
+            "fund": 22.0,
+            "mom": 15.0,
+            "tech": 8.0
+          },
+          "screen_close": 605.6300048828125,
+          "entry_atr": 35.914576939174104,
+          "entry_price": null,
+          "stop_price": null,
+          "target_price": null,
+          "status": "PENDING",
+          "exit_price": null,
+          "exit_date": null,
+          "closes": []
+        },
+        {
+          "rank": 12,
+          "ticker": "HUBB",
+          "sector": "Industrials",
+          "score": 64.0,
+          "components": {
+            "heat": 20,
+            "fund": 18.0,
+            "mom": 13.0,
+            "tech": 13.0
+          },
+          "screen_close": 480.4599914550781,
+          "entry_atr": 13.030929565429688,
+          "entry_price": null,
+          "stop_price": null,
+          "target_price": null,
+          "status": "PENDING",
+          "exit_price": null,
+          "exit_date": null,
+          "closes": []
+        },
+        {
+          "rank": 13,
+          "ticker": "NEM",
+          "sector": "Basic Materials",
+          "score": 64.0,
+          "components": {
+            "heat": 20,
+            "fund": 24.0,
+            "mom": 10.0,
+            "tech": 10.0
+          },
+          "screen_close": 109.5,
+          "entry_atr": 4.39642824445452,
+          "entry_price": null,
+          "stop_price": null,
+          "target_price": null,
+          "status": "PENDING",
+          "exit_price": null,
+          "exit_date": null,
+          "closes": []
+        },
+        {
+          "rank": 14,
+          "ticker": "RL",
+          "sector": "Consumer Cyclical",
+          "score": 64.0,
+          "components": {
+            "heat": 20,
+            "fund": 21.0,
+            "mom": 7.0,
+            "tech": 16.0
+          },
+          "screen_close": 363.510009765625,
+          "entry_atr": 13.40142822265625,
+          "entry_price": null,
+          "stop_price": null,
+          "target_price": null,
+          "status": "PENDING",
+          "exit_price": null,
+          "exit_date": null,
+          "closes": []
+        },
+        {
+          "rank": 15,
+          "ticker": "WAT",
+          "sector": "Healthcare",
+          "score": 64.0,
+          "components": {
+            "heat": 20,
+            "fund": 14.0,
+            "mom": 10.0,
+            "tech": 20.0
+          },
+          "screen_close": 371.92999267578125,
+          "entry_atr": 12.38785879952567,
+          "entry_price": null,
+          "stop_price": null,
+          "target_price": null,
+          "status": "PENDING",
+          "exit_price": null,
+          "exit_date": null,
+          "closes": []
+        },
+        {
+          "rank": 16,
+          "ticker": "APA",
+          "sector": "Energy",
+          "score": 63.0,
+          "components": {
+            "heat": 20,
+            "fund": 26.0,
+            "mom": 7.0,
+            "tech": 10.0
+          },
+          "screen_close": 37.810001373291016,
+          "entry_atr": 1.5400000980922155,
+          "entry_price": null,
+          "stop_price": null,
+          "target_price": null,
+          "status": "PENDING",
+          "exit_price": null,
+          "exit_date": null,
+          "closes": []
+        },
+        {
+          "rank": 17,
+          "ticker": "BAC",
+          "sector": "Financial Services",
+          "score": 63.0,
+          "components": {
+            "heat": 20,
+            "fund": 15.0,
+            "mom": 8.0,
+            "tech": 20.0
+          },
+          "screen_close": 52.47999954223633,
+          "entry_atr": 1.0107146671840124,
+          "entry_price": null,
+          "stop_price": null,
+          "target_price": null,
+          "status": "PENDING",
+          "exit_price": null,
+          "exit_date": null,
+          "closes": []
+        },
+        {
+          "rank": 18,
+          "ticker": "C",
+          "sector": "Financial Services",
+          "score": 63.0,
+          "components": {
+            "heat": 20,
+            "fund": 21.0,
+            "mom": 1.0,
+            "tech": 21.0
+          },
+          "screen_close": 131.25999450683594,
+          "entry_atr": 3.0357148306710378,
+          "entry_price": null,
+          "stop_price": null,
+          "target_price": null,
+          "status": "PENDING",
+          "exit_price": null,
+          "exit_date": null,
+          "closes": []
+        },
+        {
+          "rank": 19,
+          "ticker": "IBKR",
+          "sector": "Financial Services",
+          "score": 63.0,
+          "components": {
+            "heat": 20,
+            "fund": 12.0,
+            "mom": 10.0,
+            "tech": 21.0
+          },
+          "screen_close": 88.72000122070312,
+          "entry_atr": 3.25,
+          "entry_price": null,
+          "stop_price": null,
+          "target_price": null,
+          "status": "PENDING",
+          "exit_price": null,
+          "exit_date": null,
+          "closes": []
+        },
+        {
+          "rank": 20,
+          "ticker": "VST",
+          "sector": "Utilities",
+          "score": 63.0,
+          "components": {
+            "heat": 20,
+            "fund": 27.0,
+            "mom": 11.0,
+            "tech": 5.0
+          },
+          "screen_close": 157.97000122070312,
+          "entry_atr": 6.755495343889509,
+          "entry_price": null,
+          "stop_price": null,
+          "target_price": null,
+          "status": "PENDING",
+          "exit_price": null,
+          "exit_date": null,
+          "closes": []
+        },
+        {
+          "rank": 21,
+          "ticker": "VLO",
+          "sector": "Energy",
+          "score": 61.0,
+          "components": {
+            "heat": 20,
+            "fund": 9.0,
+            "mom": 16.0,
+            "tech": 16.0
+          },
+          "screen_close": 258.260009765625,
+          "entry_atr": 8.84785897391183,
+          "entry_price": null,
+          "stop_price": null,
+          "target_price": null,
+          "status": "PENDING",
+          "exit_price": null,
+          "exit_date": null,
+          "closes": []
+        },
+        {
+          "rank": 22,
+          "ticker": "BG",
+          "sector": "Consumer Defensive",
+          "score": 60.0,
+          "components": {
+            "heat": 20,
+            "fund": 9.0,
+            "mom": 10.0,
+            "tech": 21.0
+          },
+          "screen_close": 129.1300048828125,
+          "entry_atr": 3.804283687046596,
+          "entry_price": null,
+          "stop_price": null,
+          "target_price": null,
+          "status": "PENDING",
+          "exit_price": null,
+          "exit_date": null,
+          "closes": []
+        },
+        {
+          "rank": 23,
+          "ticker": "CBRE",
+          "sector": "Real Estate",
+          "score": 59.0,
+          "components": {
+            "heat": 20,
+            "fund": 25.0,
+            "mom": 10.0,
+            "tech": 4.0
+          },
+          "screen_close": 127.86000061035156,
+          "entry_atr": 4.921425410679409,
+          "entry_price": null,
+          "stop_price": null,
+          "target_price": null,
+          "status": "PENDING",
+          "exit_price": null,
+          "exit_date": null,
+          "closes": []
+        },
+        {
+          "rank": 24,
+          "ticker": "DVA",
+          "sector": "Healthcare",
+          "score": 59.0,
+          "components": {
+            "heat": 20,
+            "fund": 26.0,
+            "mom": 7.0,
+            "tech": 6.0
+          },
+          "screen_close": 187.88999938964844,
+          "entry_atr": 5.10857173374721,
+          "entry_price": null,
+          "stop_price": null,
+          "target_price": null,
+          "status": "PENDING",
+          "exit_price": null,
+          "exit_date": null,
+          "closes": []
+        },
+        {
+          "rank": 25,
+          "ticker": "NEE",
+          "sector": "Utilities",
+          "score": 59.0,
+          "components": {
+            "heat": 20,
+            "fund": 13.0,
+            "mom": 13.0,
+            "tech": 13.0
+          },
+          "screen_close": 85.68000030517578,
+          "entry_atr": 2.424286433628627,
+          "entry_price": null,
+          "stop_price": null,
+          "target_price": null,
+          "status": "PENDING",
+          "exit_price": null,
+          "exit_date": null,
+          "closes": []
+        },
+        {
+          "rank": 26,
+          "ticker": "GOOG",
+          "sector": "Communication Services",
+          "score": 58.0,
+          "components": {
+            "heat": 20,
+            "fund": 27.0,
+            "mom": -1.0,
+            "tech": 12.0
+          },
+          "screen_close": 358.3900146484375,
+          "entry_atr": 10.101715087890625,
+          "entry_price": null,
+          "stop_price": null,
+          "target_price": null,
+          "status": "PENDING",
+          "exit_price": null,
+          "exit_date": null,
+          "closes": []
+        },
+        {
+          "rank": 27,
+          "ticker": "GOOGL",
+          "sector": "Communication Services",
+          "score": 58.0,
+          "components": {
+            "heat": 20,
+            "fund": 27.0,
+            "mom": -1.0,
+            "tech": 12.0
+          },
+          "screen_close": 361.8500061035156,
+          "entry_atr": 10.284288678850446,
+          "entry_price": null,
+          "stop_price": null,
+          "target_price": null,
+          "status": "PENDING",
+          "exit_price": null,
+          "exit_date": null,
+          "closes": []
+        },
+        {
+          "rank": 28,
+          "ticker": "CF",
+          "sector": "Basic Materials",
+          "score": 57.0,
+          "components": {
+            "heat": 20,
+            "fund": 21.0,
+            "mom": 4.0,
+            "tech": 12.0
+          },
+          "screen_close": 113.4800033569336,
+          "entry_atr": 4.553571428571429,
+          "entry_price": null,
+          "stop_price": null,
+          "target_price": null,
+          "status": "PENDING",
+          "exit_price": null,
+          "exit_date": null,
+          "closes": []
+        },
+        {
+          "rank": 29,
+          "ticker": "DLTR",
+          "sector": "Consumer Defensive",
+          "score": 55.0,
+          "components": {
+            "heat": 20,
+            "fund": 16.0,
+            "mom": 15.0,
+            "tech": 4.0
+          },
+          "screen_close": 109.38999938964844,
+          "entry_atr": 5.545713697160993,
+          "entry_price": null,
+          "stop_price": null,
+          "target_price": null,
+          "status": "PENDING",
+          "exit_price": null,
+          "exit_date": null,
+          "closes": []
+        },
+        {
+          "rank": 30,
+          "ticker": "MDLZ",
+          "sector": "Consumer Defensive",
+          "score": 55.0,
+          "components": {
+            "heat": 20,
+            "fund": 18.0,
+            "mom": 5.0,
+            "tech": 12.0
+          },
+          "screen_close": 61.06999969482422,
+          "entry_atr": 1.1771422794886999,
+          "entry_price": null,
+          "stop_price": null,
+          "target_price": null,
+          "status": "PENDING",
+          "exit_price": null,
+          "exit_date": null,
+          "closes": []
+        },
+        {
+          "rank": 31,
+          "ticker": "CTVA",
+          "sector": "Basic Materials",
+          "score": 53.0,
+          "components": {
+            "heat": 20,
+            "fund": 13.0,
+            "mom": 7.0,
+            "tech": 13.0
+          },
+          "screen_close": 77.56999969482422,
+          "entry_atr": 1.6272871834891183,
+          "entry_price": null,
+          "stop_price": null,
+          "target_price": null,
+          "status": "PENDING",
+          "exit_price": null,
+          "exit_date": null,
+          "closes": []
+        },
+        {
+          "rank": 32,
+          "ticker": "FRT",
+          "sector": "Real Estate",
+          "score": 51.0,
+          "components": {
+            "heat": 20,
+            "fund": 8.0,
+            "mom": 5.0,
+            "tech": 18.0
+          },
+          "screen_close": 119.31999969482422,
+          "entry_atr": 1.7949981689453125,
+          "entry_price": null,
+          "stop_price": null,
+          "target_price": null,
+          "status": "PENDING",
+          "exit_price": null,
+          "exit_date": null,
+          "closes": []
+        },
+        {
+          "rank": 33,
+          "ticker": "IRM",
+          "sector": "Real Estate",
+          "score": 49.0,
+          "components": {
+            "heat": 20,
+            "fund": 7.0,
+            "mom": 8.0,
+            "tech": 14.0
+          },
+          "screen_close": 128.4600067138672,
+          "entry_atr": 3.0878573826381137,
+          "entry_price": null,
+          "stop_price": null,
+          "target_price": null,
+          "status": "PENDING",
+          "exit_price": null,
+          "exit_date": null,
+          "closes": []
         }
       ]
     }
