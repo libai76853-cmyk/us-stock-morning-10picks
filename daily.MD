@@ -135,6 +135,25 @@ fatal: unable to access '...': The requested URL returned error: 403
 
 ---
 
+## 2026-06-05 (订正) — 真正根因：CF cron 星期约定 `1-5`=周日~周四，不是周一~周五
+
+**这条订正推翻了下面「第 3 次漏拍 / flaky」的诊断。** 用户一句「是不是从周日就开始推送的问题」点破。
+
+**铁证**（拉 3 周 run 历史，按 UTC 星期几分类）：
+- **周日 5/24、5/31 的 12:30 都触发了**（那两天 GH schedule 还没加回来，只有 CF Worker 能触发 → 铁定是 CF cron）
+- **周五 5/22、5/29、6/5 全没触发**
+- 周一~周四全部正常触发
+
+→ CF Workers 的 cron 星期字段把 `1-5` 解释成 **1=周日, 2=周一, ..., 5=周四**（即 1=Sun 的约定），所以 `30 12 * * 1-5` 实际跑的是**周日~周四，周五根本没被排进去**。这是**确定性的 off-by-one，不是随机丢 tick**。之前说的「flaky、n=3 周五巧合」全错。
+
+**修复**：CF cron `1-5` → `2-6`（在 CF 约定下 = 周一~周五），`wrangler.toml` 已改。GitHub Actions 用标准 cron（0=Sun），所以 GH 备份保持 `1-5` = 正确的周一~周五，两个 provider 现在都对齐周一~周五。
+
+**部署受阻**：wrangler OAuth 会话过期（5/19 登录，约 7 天失效），`wrangler deploy` 报 `Authentication error 10000`。需用户重新 `npx wrangler login` 后再 `npx wrangler deploy`。**但周五覆盖已由 GH 原生 schedule 备份兜住**（commit c060b1c，标准约定，周五会触发只是迟到 1-3h），所以即使 CF 暂未重新部署，下周五也不会漏，只是可能晚点。
+
+**教训**：连续 3 个「周五漏拍」我一直当成 CF flaky 随机丢 tick，加冗余 cron / redeploy 治标。其实只要早点把 run 历史**按星期几列出来**就会看到「周日在跑、周五不跑」这个确定性信号。**面对疑似随机的周期性故障，先把事件按周期维度（星期/小时）摊开看分布，再下"随机"结论。** 用户的观察比我快。
+
+---
+
 ## 2026-06-05 — CF cron 第 3 次漏拍（又周五）→ 加 GH 原生 schedule 备份 + 当日幂等
 
 **Commit**: c060b1c
