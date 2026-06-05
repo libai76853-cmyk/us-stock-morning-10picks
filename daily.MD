@@ -135,6 +135,30 @@ fatal: unable to access '...': The requested URL returned error: 403
 
 ---
 
+## 2026-06-05 — CF cron 第 3 次漏拍（又周五）→ 加 GH 原生 schedule 备份 + 当日幂等
+
+**Commit**: c060b1c
+
+**症状**：用户「今天怎么又不推送了」。6/5（周五）12:30 生成 tick **和** 盘中 `*/15` 兜底 tick **全部没触发**（13:12 时今天 0 个 run）。这是第 3 次漏拍，**5/22 / 5/29 / 6/5 全是周五**（n=3，pattern 已硬）。
+
+**关键认知**：v2/v3 的 `*/15` 兜底这次也失效，因为 CF 在这些周五是**整个 cron 服务对该 worker 全 drop**——再堆 CF cron 没用（都依赖同一个 flaky 的 CF 调度器）。必须加**独立触发源**。
+
+**修复**：
+1. 手动 `gh workflow run` 补今天推送（run 27016972934，Telegram 4/4 OK，cohort 6/5 记录）。
+2. **重新启用 GitHub 原生 `schedule:`**（`30 12 * * 1-5`，2026-05-19 曾因延迟移除）作为**独立备份 provider**——它延迟 1-3h 但不依赖 CF，CF 全 drop 时仍能兜底（迟到总比没有强）。
+3. **main.py 加当日幂等护栏**（`run()` step 0）：先 load cohorts，若今天 cohort 的 `generated_at` 已是今天 → 跳过选股 + Telegram，只 refresh_tracking。这样 CF 和 GH 两个源谁先触发谁发 Telegram，后触发的只刷新 → **无重复推送**。
+
+**验证**：CI 再触发 run 27017228548 → 日志 "already generated today; skip pick-gen + Telegram, refresh only"，无 Telegram 发送，仅刷新 NAV ✓。
+
+**最终触发架构**（3 重冗余，全幂等）：
+- CF Worker cron 12:30（主，准时）
+- CF Worker cron `*/15 13-20`（盘中刷新 + 兜底漏拍的 12:30）
+- GH 原生 schedule 12:30（独立 provider 备份，延迟但 CF 全挂时兜底）
+
+`/tmp/trigger_key.txt` 在 Mac 重启后丢失（手动 curl worker `?key=` 失效），但 `gh workflow run` 不需要 key，仍是最快手动补救方式。
+
+---
+
 ## 2026-05-29 — 盘中 15 分钟刷新行情（修复「今日 cohort 无数据」）
 
 **Commit**: b5b93a7 (main.py + refresh.yml) + CF Worker version 26646f69
