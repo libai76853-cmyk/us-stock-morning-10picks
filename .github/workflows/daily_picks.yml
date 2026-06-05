@@ -1,10 +1,18 @@
 name: Daily Stock Picks
 
 on:
-  # Trigger via Cloudflare Worker cron (see cf-worker-trigger/) which calls
-  # this workflow's dispatch endpoint at 12:30 UTC Mon-Fri. We removed the
-  # native GitHub `schedule:` event on 2026-05-19 because it had drifted to
-  # +3.5h late under platform load — CF cron is reliable within ~1 min.
+  # Two INDEPENDENT trigger providers for resilience:
+  #   1. Cloudflare Worker cron (primary) — on-time 12:30 UTC + */15 intraday
+  #      refresh. Fast, but CF dropped ALL ticks on 3 straight Fridays
+  #      (5/22, 5/29, 6/5), so it can't be the only source.
+  #   2. GitHub-native schedule (backup, re-added 2026-06-05) — runs late
+  #      (+1-3h under platform load) but is a fully independent provider, so
+  #      a CF-wide cron outage still gets covered, just later in the morning.
+  # main.py has a same-day idempotency guard: whichever provider fires first
+  # generates + sends Telegram; the second sees today's cohort already
+  # generated and only refreshes tracking, so there's no duplicate push.
+  schedule:
+    - cron: "30 12 * * 1-5"
   workflow_dispatch:
 
 jobs:

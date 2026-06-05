@@ -1657,6 +1657,20 @@ async def run() -> int:
     print(f"Starting picker (v8 daily + cohort tracking) — {datetime.now(timezone.utc).isoformat()}")
     today = datetime.now(timezone.utc).astimezone().date()
     today_iso = today.isoformat()
+    today_utc = datetime.now(timezone.utc).date().isoformat()
+
+    # ---- 0. Same-day idempotency guard --------------------------------------
+    # Generation can now be triggered by multiple independent sources (CF Worker
+    # cron + GitHub-native schedule backup, added 2026-06-05 after CF dropped
+    # all ticks on 3 straight Fridays). If today's cohort was already generated
+    # today, this is a duplicate trigger: skip pick-gen + Telegram and just
+    # refresh tracking, so a late GH-schedule run never double-sends Telegram.
+    store = load_cohorts()
+    existing = store["cohorts"].get(today_iso)
+    if existing and (existing.get("generated_at", "")[:10] in (today_iso, today_utc)):
+        print(f"  Cohort {today_iso} already generated today; skip pick-gen + Telegram, refresh only")
+        refresh_tracking(store)
+        return 0
 
     # ---- 1. Generate today's fresh Top-N (daily-fresh Telegram, v6 behavior) ----
     picks, partial = await _generate_picks_pipeline()
@@ -1674,8 +1688,7 @@ async def run() -> int:
             print(f"Telegram send {i}/{len(msgs)} ({len(m)} chars): {'OK' if ok else 'FAILED'}")
             telegram_ok = telegram_ok and ok
 
-    # ---- 2. Record today's cohort (idempotent: replace if re-run same day) ----
-    store = load_cohorts()
+    # ---- 2. Record today's cohort (store already loaded in step 0) ----
     if picks:
         if today_iso in store["cohorts"]:
             print(f"  Cohort {today_iso} already exists; overwriting with fresh picks")
