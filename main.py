@@ -1670,7 +1670,17 @@ async def run() -> int:
     today_iso = today.isoformat()
     today_utc = datetime.now(timezone.utc).date().isoformat()
 
-    # ---- 0. Same-day idempotency guard --------------------------------------
+    # ---- 0a. Weekend guard --------------------------------------------------
+    # Never generate on Sat/Sun. The CF cron's weekday bug (1-5 = Sun-Thu under
+    # CF's convention) currently fires this on Sundays; until the 2-6 redeploy
+    # lands, this prevents a junk weekend cohort (market never opens → entry can
+    # never lock → 33 forever-PENDING rows, as happened with the 5/31 cohort)
+    # and a pointless Sunday Telegram push. Belt-and-suspenders after redeploy.
+    if today.weekday() >= 5:  # 5=Sat, 6=Sun
+        print(f"  {today_iso} is a weekend (market closed); skipping generation")
+        return 0
+
+    # ---- 0b. Same-day idempotency guard -------------------------------------
     # Generation can now be triggered by multiple independent sources (CF Worker
     # cron + GitHub-native schedule backup, added 2026-06-05 after CF dropped
     # all ticks on 3 straight Fridays). If today's cohort was already generated
