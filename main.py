@@ -1159,6 +1159,16 @@ def save_cohorts(store: dict) -> None:
         print(f"  Cohorts save failed: {e}")
 
 
+def _finite_or_none(x):
+    """Coerce NaN/inf/None to None so it never lands in JSON or the dashboard.
+    (yfinance occasionally returns NaN for a ticker's last_close — e.g. META on
+    2026-06-05 — and Python's json.dump writes a literal `NaN`, invalid JSON.)"""
+    try:
+        return float(x) if x is not None and math.isfinite(float(x)) else None
+    except (TypeError, ValueError):
+        return None
+
+
 def build_cohort(pick_date: date, picks: list[dict]) -> dict:
     """Convert in-memory picks into a JSON-safe cohort record (entries=null)."""
     return {
@@ -1178,7 +1188,7 @@ def build_cohort(pick_date: date, picks: list[dict]) -> dict:
                     "mom": p.get("mom_score", 0),
                     "tech": p.get("tech_score", 0),
                 },
-                "screen_close": p.get("last_close"),  # close the screen ranked on
+                "screen_close": _finite_or_none(p.get("last_close")),  # close the screen ranked on
                 "entry_atr": p.get("atr"),
                 "entry_price": None,   # locked next run = open(pick_date)
                 "stop_price": None,
@@ -1416,8 +1426,9 @@ def _pick_detail_rows_html(picks: list[dict]) -> str:
         pnl_cls = "pos" if (pnl or 0) >= 0 else "neg"
         # PENDING picks have no locked entry yet (locks next session); show the
         # screen-close as a muted reference so the row isn't all dashes.
-        if status == "PENDING" and latest is None and p.get("screen_close"):
-            price_cell = f"<td class='muted'>${p['screen_close']:.2f}<span class='ref'>参考</span></td>"
+        sc = _finite_or_none(p.get("screen_close"))
+        if status == "PENDING" and latest is None and sc:
+            price_cell = f"<td class='muted'>${sc:.2f}<span class='ref'>参考</span></td>"
         else:
             price_cell = f"<td>{('$%.2f' % latest) if latest else '—'}</td>"
         out.append(

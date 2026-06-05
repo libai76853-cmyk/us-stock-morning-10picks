@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-06-05T19:20:52.686152+00:00",
+  "updated_at": "2026-06-05T19:22:11.733222+00:00",
   "tracking_window": 10,
   "cohorts": {
     "2026-05-27": {
@@ -12842,7 +12842,7 @@
             "mom": 0.0,
             "tech": 6.0
           },
-          "screen_close": NaN,
+          "screen_close": null,
           "entry_atr": 16.355717250279017,
           "entry_price": 623.46,
           "stop_price": 598.93,
