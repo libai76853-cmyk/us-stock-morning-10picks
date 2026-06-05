@@ -152,6 +152,11 @@ fatal: unable to access '...': The requested URL returned error: 403
 
 **教训**：连续 3 个「周五漏拍」我一直当成 CF flaky 随机丢 tick，加冗余 cron / redeploy 治标。其实只要早点把 run 历史**按星期几列出来**就会看到「周日在跑、周五不跑」这个确定性信号。**面对疑似随机的周期性故障，先把事件按周期维度（星期/小时）摊开看分布，再下"随机"结论。** 用户的观察比我快。
 
+**两个连带 bug（CF Friday bug 的产物，同日修复）**：
+1. **6/5 全待锁**（用户「无数据」）：周五盘中 `*/15` 刷新 cron 也是 `1-5`（=周日~周四），周五不触发 → 没有盘中刷新来锁 6/5 入场价。手动 `gh workflow run "Refresh Tracking"`（run 27035299567，市场已开盘）→ 6/5 锁定 33/33（META 已止损）。CF redeploy 后周五自动刷新恢复。
+2. **META `$nan 参考`**：yfinance 在 META 选股日返回 NaN last_close，NaN 在 Python truthy 绕过判空，且 `NaN` 写进 JSON 非法。加 `_finite_or_none()` 在 build_cohort 源头 + 显示层双重 coerce（commit bd2f2c7）。
+3. **5/31 僵尸 cohort**：CF 周日误触发生成了 5/31（周日）cohort，但周日不开盘 → entry=open(5/31) 永远锁不上 → 33 个永久「待锁」污染 dashboard。加**周末护栏**（`run()` 周六日直接跳过生成，redeploy 前也防这周日 6/7 再造僵尸 + 周日推送）+ 删除 5/31（NAV 不变，僵尸不计入权益）（commit fd004be）。
+
 ---
 
 ## 2026-06-05 — CF cron 第 3 次漏拍（又周五）→ 加 GH 原生 schedule 备份 + 当日幂等
