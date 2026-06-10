@@ -5,6 +5,27 @@
 格式：日期 | commit | 摘要 + 影响 + 验证。
 
 ---
+## 2026-06-10 — Yahoo 盘前空 K 线毒化推送（$nan 大面积出现）
+
+**Commit**: 8ad7c1a
+
+**症状**：用户截图，当日推送大部分票显示 `$nan (+nan%)`、`ROE nan%`，且动量列清一色 +0（HUBB 等少数正常）。
+
+**根因**：盘前时段 Yahoo 给大部分 ticker 的 1y history 末尾**追加了当天尚未开盘的空 K 线**（OHLC 全 NaN）。`close.iloc[-1]` 取到 NaN → `last_close`/`ret_1d` 全 NaN → 动量桶比较全 False（+0）→ NaN 一路流进 Telegram 格式化。NaN 在 Python 是 truthy，`price or fallback`、`if roe:` 这类写法全部拦不住。与 6/5 META 单票 NaN 同族，但这次是几乎全量。
+
+**修复（三层）**：
+1. **根治**：`_enrich_sync` 拉到 history 后先 `hist = hist[hist["Close"].notna()]` 再算一切 → 盘前自动用昨收，信号恢复真实
+2. **显示防御**：`_pick_block` 的 price/change 过 `_finite_or_none`，价格未知渲染 `$—` 而不是格式化 NaN
+3. **fund_tag 防御**：`if roe:`/`if rg:` 改为先 coerce（裸 truthiness 检查放行了 NaN → "ROE nan%"）
+
+**处置**：删除被毒化的 6/10 cohort（动量清零下选出的）→ 重跑 run 27280332177 → 重发修正版推送（4 条，TPR/APA/CI/INCY/NVDA 领衔，全真实价格+动量），cohort 用干净信号重建。
+
+**单测**：构造全 NaN 毒化 pick 过 `_pick_block`，断言输出无独立 `nan` token（注意 "fi**nan**ce" 误报要用词边界正则）。
+
+**教训**：对外部数据源，**NaN 是 truthy** —— `x or default` / `if x:` 都不是判空。所有从 yfinance 进来的数值在使用/格式化前必须过 `_finite_or_none` 这类有限性检查；显示层要有最后一道格式化防御。
+
+---
+
 
 ## 2026-05-27 — v8 滚动 cohort 追踪 + HTML 权益曲线（撤销 v7 周锁）
 
