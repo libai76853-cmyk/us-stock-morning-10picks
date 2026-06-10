@@ -400,6 +400,11 @@ def _enrich_sync(ticker: str, max_retries: int = 3) -> dict | None:
             # 1y bar — covers 52w high/low, 200d MA, and gives MACD/RSI room
             # to stabilize. Single HTTP call same as 1mo.
             hist = t.history(period="1y", auto_adjust=False)
+            # Pre-market, Yahoo often appends today's not-yet-traded bar with
+            # NaN OHLC. That NaN close poisoned everything downstream on
+            # 2026-06-10 (last_close/ret_1d → nan, momentum zeroed, "$nan" in
+            # Telegram). Keep only rows with a real close.
+            hist = hist[hist["Close"].notna()]
             if hist.empty or len(hist) < 15:
                 return None
             high, low, close, volume = (
@@ -865,17 +870,19 @@ def apply_boosts(candidates: list[dict]) -> list[dict]:
 
 
 def fund_tag(c: dict) -> str:
+    # _finite_or_none everywhere: `if roe:` style checks let NaN through
+    # (NaN is truthy), which printed "ROE nan%" in the 2026-06-10 push.
     parts = []
-    pe = c.get("forward_pe") or c.get("trailing_pe") or 0
+    pe = _finite_or_none(c.get("forward_pe")) or _finite_or_none(c.get("trailing_pe")) or 0
     if pe > 0:
         parts.append(f"PE {pe:.0f}")
-    peg = c.get("peg") or 0
+    peg = _finite_or_none(c.get("peg")) or 0
     if peg > 0:
         parts.append(f"PEG {peg:.1f}")
-    roe = c.get("roe") or 0
+    roe = _finite_or_none(c.get("roe")) or 0
     if roe:
         parts.append(f"ROE {roe * 100:.0f}%")
-    rg = c.get("revenue_growth") or 0
+    rg = _finite_or_none(c.get("revenue_growth")) or 0
     if rg:
         parts.append(f"Rev {rg * 100:+.0f}%")
     return " · ".join(parts)
@@ -991,18 +998,21 @@ TELEGRAM_BUDGET = 3800  # leave headroom for Markdown + multibyte chars
 
 def _pick_block(i: int, c: dict) -> list[str]:
     ticker = c["ticker"]
-    price = c.get("last_close") or c["price"]
+    # NaN-proof: _finite_or_none rejects NaN/inf (NaN is truthy, so a bare
+    # `or` chain would happily format "$nan" — seen in the 2026-06-10 push).
+    price = _finite_or_none(c.get("last_close")) or _finite_or_none(c.get("price")) or 0
     # Scraper-provided live change first; fall back to yfinance close-to-close
     # ret_1d so the percentage column is meaningful even when Finviz/Nasdaq are
     # blocked from CI.
-    change = c.get("change") or c.get("ret_1d") or 0
+    change = _finite_or_none(c.get("change")) or _finite_or_none(c.get("ret_1d")) or 0
     sector = c.get("sector", "")
     sec_tag = f" · {sector}" if sector and sector != "Unknown" else ""
 
     reason = make_reason(c)
     reason_safe = reason.replace("*", "").replace("_", "").replace("[", "").replace("]", "")
 
-    block = [f"{i}. *{ticker}*  ${price:.2f}  ({change:+.1f}%){sec_tag}"]
+    price_str = f"${price:.2f}" if price > 0 else "$—"
+    block = [f"{i}. *{ticker}*  {price_str}  ({change:+.1f}%){sec_tag}"]
 
     atr = c.get("atr", 0)
     if atr > 0 and price > 0:
