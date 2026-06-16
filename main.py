@@ -1282,17 +1282,19 @@ def update_all_cohorts(store: dict) -> None:
             settled = [dt for dt in dates if date.fromisoformat(dt) < today]
             settled_seen = max(settled_seen, len(settled))
 
-            # Entry = open(pick_date), RECOMPUTED each run (not frozen) and only
-            # from a SETTLED bar (pick_date strictly before today). Rationale:
-            # pre-settlement, Yahoo returns the prior session's bar relabeled as
-            # today, so a same-day lock grabbed the wrong day's open and froze it
-            # (the 2026-06-15 cohort fossils: entry = the prior Friday's open).
-            # Recomputing from the settled bar self-heals those, and a same-day
-            # cohort stays PENDING until its open is final next session.
+            # Entry = open of the first SETTLED trading day on/after pick_date,
+            # RECOMPUTED each run (not frozen). Rationale: pre-settlement, Yahoo
+            # returns the prior session's bar relabeled as today, so a same-day
+            # lock grabbed the wrong day's open and froze it (the 2026-06-15
+            # cohort fossils: entry = the prior Friday's open). Recomputing from
+            # a settled bar self-heals those; a same-day cohort stays PENDING
+            # until its open is final next session. Using the first settled day
+            # (not exactly pick_date) also tolerates holidays / flaky missing
+            # same-day bars instead of staying PENDING forever.
             entry = stop = target = None
-            bar = series.get(pick_date.isoformat())
-            o = bar.get("open") if bar else None
-            if pick_date < today and o and o > 0:
+            entry_dt = settled[0] if settled else None
+            o = series[entry_dt].get("open") if entry_dt else None
+            if o and o > 0:
                 entry = round(o, 2)
                 atr = p.get("entry_atr") or 0
                 if atr > 0:
