@@ -1273,49 +1273,61 @@ def update_all_cohorts(store: dict) -> None:
 
     for d_iso, c in active.items():
         pick_date = date.fromisoformat(d_iso)
-        # Count trading dates available since pick_date (for retire decision).
-        trading_dates_seen = 0
+        # Settled trading dates since pick_date (exclude today's still-forming
+        # bar) — used for entry lock, exit detection, and retire counting.
+        settled_seen = 0
         for p in c["picks"]:
             series = hist.get(p["ticker"], {})
             dates = sorted(dt for dt in series if date.fromisoformat(dt) >= pick_date)
-            trading_dates_seen = max(trading_dates_seen, len(dates))
+            settled = [dt for dt in dates if date.fromisoformat(dt) < today]
+            settled_seen = max(settled_seen, len(settled))
 
-            # Lock entry = open(pick_date) once that bar exists.
-            if not p.get("entry_price"):
-                bar = series.get(pick_date.isoformat())
-                o = bar.get("open") if bar else None
-                if o and o > 0:
-                    atr = p.get("entry_atr") or 0
-                    p["entry_price"] = round(o, 2)
-                    if atr > 0:
-                        p["stop_price"] = round(o - ATR_STOP_MULT * atr, 2)
-                        p["target_price"] = round(o + ATR_TARGET_MULT * atr, 2)
-                    if p["status"] == "PENDING":
-                        p["status"] = "HOLD"
+            # Entry = open(pick_date), RECOMPUTED each run (not frozen) and only
+            # from a SETTLED bar (pick_date strictly before today). Rationale:
+            # pre-settlement, Yahoo returns the prior session's bar relabeled as
+            # today, so a same-day lock grabbed the wrong day's open and froze it
+            # (the 2026-06-15 cohort fossils: entry = the prior Friday's open).
+            # Recomputing from the settled bar self-heals those, and a same-day
+            # cohort stays PENDING until its open is final next session.
+            entry = stop = target = None
+            bar = series.get(pick_date.isoformat())
+            o = bar.get("open") if bar else None
+            if pick_date < today and o and o > 0:
+                entry = round(o, 2)
+                atr = p.get("entry_atr") or 0
+                if atr > 0:
+                    stop = round(entry - ATR_STOP_MULT * atr, 2)
+                    target = round(entry + ATR_TARGET_MULT * atr, 2)
+            p["entry_price"] = entry
+            p["stop_price"] = stop
+            p["target_price"] = target
 
-            # Rebuild closes + detect first target/stop crossing (close-based).
+            # Rebuild closes. Record every close (incl. today's live bar for
+            # intraday P/L display), but only DETECT target/stop crossings on
+            # settled closes so an intraday spike can't falsely mark an exit.
             closes: list[dict] = []
-            status = "HOLD" if p.get("entry_price") else "PENDING"
+            status = "HOLD" if entry else "PENDING"
             exit_price = exit_date = None
             for dt in dates[:TRACKING_WINDOW]:
                 cl = series[dt].get("close")
                 if cl is None:
                     continue
                 closes.append({"date": dt, "close": round(cl, 2)})
-                if status == "HOLD" and p.get("target_price") and cl >= p["target_price"]:
+                if status != "HOLD" or date.fromisoformat(dt) >= today:
+                    continue  # don't trigger exits on the unsettled live bar
+                if target and cl >= target:
                     status, exit_price, exit_date = "TARGET_HIT", round(cl, 2), dt
                     break
-                if status == "HOLD" and p.get("stop_price") and cl <= p["stop_price"]:
+                if stop and cl <= stop:
                     status, exit_price, exit_date = "STOPPED", round(cl, 2), dt
                     break
             p["closes"] = closes
-            if p.get("entry_price"):
-                p["status"] = status
-                p["exit_price"] = exit_price
-                p["exit_date"] = exit_date
+            p["status"] = status
+            p["exit_price"] = exit_price
+            p["exit_date"] = exit_date
 
         c["entries_locked"] = all(p.get("entry_price") for p in c["picks"])
-        if trading_dates_seen >= TRACKING_WINDOW:
+        if settled_seen >= TRACKING_WINDOW:
             c["retired"] = True
             print(f"  Cohort {d_iso} retired ({trading_dates_seen} trading days elapsed)")
 
