@@ -1282,17 +1282,19 @@ def update_all_cohorts(store: dict) -> None:
             settled = [dt for dt in dates if date.fromisoformat(dt) < today]
             settled_seen = max(settled_seen, len(settled))
 
-            # Entry = open of the first SETTLED trading day on/after pick_date,
-            # RECOMPUTED each run (not frozen). Rationale: pre-settlement, Yahoo
-            # returns the prior session's bar relabeled as today, so a same-day
-            # lock grabbed the wrong day's open and froze it (the 2026-06-15
-            # cohort fossils: entry = the prior Friday's open). Recomputing from
-            # a settled bar self-heals those; a same-day cohort stays PENDING
-            # until its open is final next session. Using the first settled day
-            # (not exactly pick_date) also tolerates holidays / flaky missing
-            # same-day bars instead of staying PENDING forever.
+            # Entry = open of the first AVAILABLE trading bar on/after pick_date
+            # (closest to the pick date; tolerates holidays + Yahoo's flaky
+            # skipped days — e.g. it dropped 6/15 for 25/33 of that cohort).
+            # RECOMPUTED every run, never frozen — that is what fixes the
+            # 2026-06-15 fossils (entry had locked once to a pre-settlement bar
+            # carrying the prior Friday's open and stuck there). With recompute,
+            # a transiently-stale open self-corrects on the next 15-min refresh,
+            # so we no longer need to wait for full settlement to lock — the
+            # cohort fills the same session once the market opens. (Exit
+            # detection below still uses settled closes only, so an intraday
+            # spike can't falsely trip a stop/target.)
             entry = stop = target = None
-            entry_dt = settled[0] if settled else None
+            entry_dt = dates[0] if dates else None
             o = series[entry_dt].get("open") if entry_dt else None
             if o and o > 0:
                 entry = round(o, 2)
