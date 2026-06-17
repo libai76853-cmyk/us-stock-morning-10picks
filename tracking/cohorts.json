@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-06-17T20:15:46.758797+00:00",
+  "updated_at": "2026-06-17T20:30:31.501394+00:00",
   "tracking_window": 10,
   "cohorts": {
     "2026-05-27": {
@@ -12204,7 +12204,7 @@
     "2026-06-04": {
       "pick_date": "2026-06-04",
       "generated_at": "2026-06-04T12:31:39.551039+00:00",
-      "entries_locked": true,
+      "entries_locked": false,
       "retired": false,
       "picks": [
         {
@@ -12316,54 +12316,13 @@
           },
           "screen_close": 139.61000061035156,
           "entry_atr": 4.710717337472098,
-          "entry_price": 139.07,
-          "stop_price": 132.0,
-          "target_price": 153.2,
-          "status": "HOLD",
+          "entry_price": null,
+          "stop_price": null,
+          "target_price": null,
+          "status": "PENDING",
           "exit_price": null,
           "exit_date": null,
-          "closes": [
-            {
-              "date": "2026-06-04",
-              "close": 140.47
-            },
-            {
-              "date": "2026-06-05",
-              "close": 140.1
-            },
-            {
-              "date": "2026-06-08",
-              "close": 140.9
-            },
-            {
-              "date": "2026-06-09",
-              "close": 145.62
-            },
-            {
-              "date": "2026-06-10",
-              "close": 140.92
-            },
-            {
-              "date": "2026-06-11",
-              "close": 145.39
-            },
-            {
-              "date": "2026-06-12",
-              "close": 147.42
-            },
-            {
-              "date": "2026-06-15",
-              "close": 150.99
-            },
-            {
-              "date": "2026-06-16",
-              "close": 149.39
-            },
-            {
-              "date": "2026-06-17",
-              "close": 145.87
-            }
-          ]
+          "closes": []
         },
         {
           "rank": 4,
@@ -12465,7 +12424,7 @@
             },
             {
               "date": "2026-06-17",
-              "close": 1111.66
+              "close": 1112.0
             }
           ]
         },
@@ -13841,7 +13800,7 @@
             },
             {
               "date": "2026-06-17",
-              "close": 46.15
+              "close": 46.14
             }
           ]
         },
@@ -13903,7 +13862,7 @@
             },
             {
               "date": "2026-06-17",
-              "close": 206.65
+              "close": 206.55
             }
           ]
         },
@@ -13974,7 +13933,7 @@
     "2026-06-05": {
       "pick_date": "2026-06-05",
       "generated_at": "2026-06-05T13:15:11.193320+00:00",
-      "entries_locked": true,
+      "entries_locked": false,
       "retired": false,
       "picks": [
         {
@@ -14250,50 +14209,13 @@
           },
           "screen_close": 140.47000122070312,
           "entry_atr": 4.664289202008929,
-          "entry_price": 138.36,
-          "stop_price": 131.36,
-          "target_price": 152.35,
-          "status": "HOLD",
+          "entry_price": null,
+          "stop_price": null,
+          "target_price": null,
+          "status": "PENDING",
           "exit_price": null,
           "exit_date": null,
-          "closes": [
-            {
-              "date": "2026-06-05",
-              "close": 140.1
-            },
-            {
-              "date": "2026-06-08",
-              "close": 140.9
-            },
-            {
-              "date": "2026-06-09",
-              "close": 145.62
-            },
-            {
-              "date": "2026-06-10",
-              "close": 140.92
-            },
-            {
-              "date": "2026-06-11",
-              "close": 145.39
-            },
-            {
-              "date": "2026-06-12",
-              "close": 147.42
-            },
-            {
-              "date": "2026-06-15",
-              "close": 150.99
-            },
-            {
-              "date": "2026-06-16",
-              "close": 149.39
-            },
-            {
-              "date": "2026-06-17",
-              "close": 145.87
-            }
-          ]
+          "closes": []
         },
         {
           "rank": 8,
@@ -14623,7 +14545,7 @@
             },
             {
               "date": "2026-06-17",
-              "close": 1111.66
+              "close": 1112.0
             }
           ]
         },
@@ -15551,7 +15473,7 @@
             },
             {
               "date": "2026-06-17",
-              "close": 46.15
+              "close": 46.14
             }
           ]
         },
@@ -15656,7 +15578,7 @@
     "2026-06-08": {
       "pick_date": "2026-06-08",
       "generated_at": "2026-06-08T12:31:32.702499+00:00",
-      "entries_locked": true,
+      "entries_locked": false,
       "retired": false,
       "picks": [
         {
@@ -15918,46 +15840,13 @@
           },
           "screen_close": 140.10000610351562,
           "entry_atr": 4.809289114815848,
-          "entry_price": 140.57,
-          "stop_price": 133.36,
-          "target_price": 155.0,
-          "status": "HOLD",
+          "entry_price": null,
+          "stop_price": null,
+          "target_price": null,
+          "status": "PENDING",
           "exit_price": null,
           "exit_date": null,
-          "closes": [
-            {
-              "date": "2026-06-08",
-              "close": 140.9
-            },
-            {
-              "date": "2026-06-09",
-              "close": 145.62
-            },
-            {
-              "date": "2026-06-10",
-              "close": 140.92
-            },
-            {
-              "date": "2026-06-11",
-              "close": 145.39
-            },
-            {
-              "date": "2026-06-12",
-              "close": 147.42
-            },
-            {
-              "date": "2026-06-15",
-              "close": 150.99
-            },
-            {
-              "date": "2026-06-16",
-              "close": 149.39
-            },
-            {
-              "date": "2026-06-17",
-              "close": 145.87
-            }
-          ]
+          "closes": []
         },
         {
           "rank": 7,
@@ -16837,7 +16726,7 @@
             },
             {
               "date": "2026-06-17",
-              "close": 69.05
+              "close": 69.06
             }
           ]
         },
@@ -17141,7 +17030,7 @@
             },
             {
               "date": "2026-06-17",
-              "close": 77.39
+              "close": 77.37
             }
           ]
         },
@@ -17366,7 +17255,7 @@
     "2026-06-09": {
       "pick_date": "2026-06-09",
       "generated_at": "2026-06-09T12:31:16.874762+00:00",
-      "entries_locked": true,
+      "entries_locked": false,
       "retired": false,
       "picks": [
         {
@@ -17684,42 +17573,13 @@
           },
           "screen_close": 140.89999389648438,
           "entry_atr": 4.630002702985491,
-          "entry_price": 143.01,
-          "stop_price": 136.06,
-          "target_price": 156.9,
-          "status": "HOLD",
+          "entry_price": null,
+          "stop_price": null,
+          "target_price": null,
+          "status": "PENDING",
           "exit_price": null,
           "exit_date": null,
-          "closes": [
-            {
-              "date": "2026-06-09",
-              "close": 145.62
-            },
-            {
-              "date": "2026-06-10",
-              "close": 140.92
-            },
-            {
-              "date": "2026-06-11",
-              "close": 145.39
-            },
-            {
-              "date": "2026-06-12",
-              "close": 147.42
-            },
-            {
-              "date": "2026-06-15",
-              "close": 150.99
-            },
-            {
-              "date": "2026-06-16",
-              "close": 149.39
-            },
-            {
-              "date": "2026-06-17",
-              "close": 145.87
-            }
-          ]
+          "closes": []
         },
         {
           "rank": 9,
@@ -17901,7 +17761,7 @@
             },
             {
               "date": "2026-06-17",
-              "close": 69.05
+              "close": 69.06
             }
           ]
         },
@@ -18665,7 +18525,7 @@
             },
             {
               "date": "2026-06-17",
-              "close": 77.39
+              "close": 77.37
             }
           ]
         },
@@ -18892,7 +18752,7 @@
     "2026-06-10": {
       "pick_date": "2026-06-10",
       "generated_at": "2026-06-10T13:40:06.818848+00:00",
-      "entries_locked": true,
+      "entries_locked": false,
       "retired": false,
       "picks": [
         {
@@ -18908,38 +18768,13 @@
           },
           "screen_close": 144.25999450683594,
           "entry_atr": 4.660509381975446,
-          "entry_price": 143.93,
-          "stop_price": 136.94,
-          "target_price": 157.91,
-          "status": "HOLD",
+          "entry_price": null,
+          "stop_price": null,
+          "target_price": null,
+          "status": "PENDING",
           "exit_price": null,
           "exit_date": null,
-          "closes": [
-            {
-              "date": "2026-06-10",
-              "close": 140.92
-            },
-            {
-              "date": "2026-06-11",
-              "close": 145.39
-            },
-            {
-              "date": "2026-06-12",
-              "close": 147.42
-            },
-            {
-              "date": "2026-06-15",
-              "close": 150.99
-            },
-            {
-              "date": "2026-06-16",
-              "close": 149.39
-            },
-            {
-              "date": "2026-06-17",
-              "close": 145.87
-            }
-          ]
+          "closes": []
         },
         {
           "rank": 2,
@@ -19407,7 +19242,7 @@
             },
             {
               "date": "2026-06-17",
-              "close": 1111.66
+              "close": 1112.0
             }
           ]
         },
@@ -20139,7 +19974,7 @@
             },
             {
               "date": "2026-06-17",
-              "close": 69.05
+              "close": 69.06
             }
           ]
         },
@@ -20374,7 +20209,7 @@
     "2026-06-11": {
       "pick_date": "2026-06-11",
       "generated_at": "2026-06-11T12:31:47.506804+00:00",
-      "entries_locked": true,
+      "entries_locked": false,
       "retired": false,
       "picks": [
         {
@@ -20588,34 +20423,13 @@
           },
           "screen_close": 140.9199981689453,
           "entry_atr": 4.858573913574219,
-          "entry_price": 142.53,
-          "stop_price": 135.24,
-          "target_price": 157.11,
-          "status": "HOLD",
+          "entry_price": null,
+          "stop_price": null,
+          "target_price": null,
+          "status": "PENDING",
           "exit_price": null,
           "exit_date": null,
-          "closes": [
-            {
-              "date": "2026-06-11",
-              "close": 145.39
-            },
-            {
-              "date": "2026-06-12",
-              "close": 147.42
-            },
-            {
-              "date": "2026-06-15",
-              "close": 150.99
-            },
-            {
-              "date": "2026-06-16",
-              "close": 149.39
-            },
-            {
-              "date": "2026-06-17",
-              "close": 145.87
-            }
-          ]
+          "closes": []
         },
         {
           "rank": 7,
@@ -20937,7 +20751,7 @@
             },
             {
               "date": "2026-06-17",
-              "close": 1111.66
+              "close": 1112.0
             }
           ]
         },
@@ -21711,7 +21525,7 @@
             },
             {
               "date": "2026-06-17",
-              "close": 77.39
+              "close": 77.37
             }
           ]
         }
@@ -21720,7 +21534,7 @@
     "2026-06-12": {
       "pick_date": "2026-06-12",
       "generated_at": "2026-06-12T12:32:24.600073+00:00",
-      "entries_locked": true,
+      "entries_locked": false,
       "retired": false,
       "picks": [
         {
@@ -21842,30 +21656,13 @@
           },
           "screen_close": 145.38999938964844,
           "entry_atr": 4.757145472935268,
-          "entry_price": 149.83,
-          "stop_price": 142.69,
-          "target_price": 164.1,
-          "status": "HOLD",
+          "entry_price": null,
+          "stop_price": null,
+          "target_price": null,
+          "status": "PENDING",
           "exit_price": null,
           "exit_date": null,
-          "closes": [
-            {
-              "date": "2026-06-12",
-              "close": 147.42
-            },
-            {
-              "date": "2026-06-15",
-              "close": 150.99
-            },
-            {
-              "date": "2026-06-16",
-              "close": 149.39
-            },
-            {
-              "date": "2026-06-17",
-              "close": 145.87
-            }
-          ]
+          "closes": []
         },
         {
           "rank": 5,
@@ -22970,7 +22767,7 @@
     "2026-06-15": {
       "pick_date": "2026-06-15",
       "generated_at": "2026-06-15T12:31:43.080067+00:00",
-      "entries_locked": true,
+      "entries_locked": false,
       "retired": false,
       "picks": [
         {
@@ -22986,26 +22783,13 @@
           },
           "screen_close": 147.4199981689453,
           "entry_atr": 4.937859671456473,
-          "entry_price": 150.13,
-          "stop_price": 142.72,
-          "target_price": 164.94,
-          "status": "HOLD",
+          "entry_price": null,
+          "stop_price": null,
+          "target_price": null,
+          "status": "PENDING",
           "exit_price": null,
           "exit_date": null,
-          "closes": [
-            {
-              "date": "2026-06-15",
-              "close": 150.99
-            },
-            {
-              "date": "2026-06-16",
-              "close": 149.39
-            },
-            {
-              "date": "2026-06-17",
-              "close": 145.87
-            }
-          ]
+          "closes": []
         },
         {
           "rank": 2,
@@ -23403,7 +23187,7 @@
             },
             {
               "date": "2026-06-17",
-              "close": 1111.66
+              "close": 1112.0
             }
           ]
         },
@@ -23777,7 +23561,7 @@
             },
             {
               "date": "2026-06-17",
-              "close": 69.05
+              "close": 69.06
             }
           ]
         },
@@ -23913,7 +23697,7 @@
             },
             {
               "date": "2026-06-17",
-              "close": 138.95
+              "close": 138.96
             }
           ]
         },
@@ -24015,7 +23799,7 @@
             },
             {
               "date": "2026-06-17",
-              "close": 206.65
+              "close": 206.55
             }
           ]
         },
@@ -24092,7 +23876,7 @@
     "2026-06-16": {
       "pick_date": "2026-06-16",
       "generated_at": "2026-06-16T12:31:11.831897+00:00",
-      "entries_locked": true,
+      "entries_locked": false,
       "retired": false,
       "picks": [
         {
@@ -24108,22 +23892,13 @@
           },
           "screen_close": 147.4199981689453,
           "entry_atr": 4.937859671456473,
-          "entry_price": 151.5,
-          "stop_price": 144.09,
-          "target_price": 166.31,
-          "status": "HOLD",
+          "entry_price": null,
+          "stop_price": null,
+          "target_price": null,
+          "status": "PENDING",
           "exit_price": null,
           "exit_date": null,
-          "closes": [
-            {
-              "date": "2026-06-16",
-              "close": 149.39
-            },
-            {
-              "date": "2026-06-17",
-              "close": 145.87
-            }
-          ]
+          "closes": []
         },
         {
           "rank": 2,
@@ -24211,7 +23986,7 @@
             },
             {
               "date": "2026-06-17",
-              "close": 404.12
+              "close": 403.85
             }
           ]
         },
@@ -24391,7 +24166,7 @@
             },
             {
               "date": "2026-06-17",
-              "close": 69.05
+              "close": 69.06
             }
           ]
         },
@@ -24571,7 +24346,7 @@
             },
             {
               "date": "2026-06-17",
-              "close": 1111.66
+              "close": 1112.0
             }
           ]
         },
@@ -24931,7 +24706,7 @@
             },
             {
               "date": "2026-06-17",
-              "close": 138.95
+              "close": 138.96
             }
           ]
         },
@@ -25081,7 +24856,7 @@
             },
             {
               "date": "2026-06-17",
-              "close": 206.65
+              "close": 206.55
             }
           ]
         }
@@ -25090,7 +24865,7 @@
     "2026-06-17": {
       "pick_date": "2026-06-17",
       "generated_at": "2026-06-17T12:31:17.056472+00:00",
-      "entries_locked": true,
+      "entries_locked": false,
       "retired": false,
       "picks": [
         {
@@ -25236,18 +25011,13 @@
           },
           "screen_close": 149.38999938964844,
           "entry_atr": 5.3385740007672995,
-          "entry_price": 149.24,
-          "stop_price": 141.23,
-          "target_price": 165.26,
-          "status": "HOLD",
+          "entry_price": null,
+          "stop_price": null,
+          "target_price": null,
+          "status": "PENDING",
           "exit_price": null,
           "exit_date": null,
-          "closes": [
-            {
-              "date": "2026-06-17",
-              "close": 145.87
-            }
-          ]
+          "closes": []
         },
         {
           "rank": 7,
@@ -25288,9 +25058,9 @@
           },
           "screen_close": 367.1099853515625,
           "entry_atr": 11.28999764578683,
-          "entry_price": 367.05,
-          "stop_price": 350.12,
-          "target_price": 400.92,
+          "entry_price": 367.01,
+          "stop_price": 350.08,
+          "target_price": 400.88,
           "status": "HOLD",
           "exit_price": null,
           "exit_date": null,
@@ -25531,7 +25301,7 @@
           "closes": [
             {
               "date": "2026-06-17",
-              "close": 69.05
+              "close": 69.06
             }
           ]
         },
