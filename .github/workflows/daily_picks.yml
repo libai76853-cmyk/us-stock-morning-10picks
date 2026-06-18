@@ -15,6 +15,18 @@ on:
     - cron: "30 12 * * 1-5"
   workflow_dispatch:
 
+# Serialize runs so the CF-cron and GitHub-native-schedule dispatches that
+# both fire ~12:30 can't run concurrently. Without this they each load
+# cohorts.json before either commits today's cohort, both pass the in-run
+# idempotency guard, and both send Telegram (a duplicate push — audit #2,
+# a TOCTOU race the in-process guard can't catch across two runners).
+# cancel-in-progress:false → the second dispatch QUEUES; when it runs it
+# checks out the first run's commit (today's cohort present) → guard trips →
+# it only refreshes, no second push.
+concurrency:
+  group: daily-stock-picks
+  cancel-in-progress: false
+
 jobs:
   pick:
     runs-on: ubuntu-latest

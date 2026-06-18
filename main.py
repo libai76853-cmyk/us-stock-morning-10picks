@@ -1161,12 +1161,25 @@ def load_cohorts() -> dict:
 
 
 def save_cohorts(store: dict) -> None:
+    """Persist cohorts durably and atomically.
+
+    Deliberately does NOT swallow errors: run() does tracking (this save)
+    BEFORE sending Telegram, so a failed save raises → the run fails before
+    any push → the */15 backup retries cleanly. Swallowing the error (the
+    pre-2026-06-18-audit behavior) let run() return success + push while the
+    cohort was never persisted; the next run then loaded stale state, the
+    idempotency guard missed, and Telegram was re-sent. Atomic temp+replace
+    avoids a torn file if two runners ever write at once; fsync guarantees the
+    bytes hit disk before we proceed to push.
+    """
     store["updated_at"] = datetime.now(timezone.utc).isoformat()
-    try:
-        with open(_cohorts_path(), "w") as f:
-            json.dump(store, f, ensure_ascii=False, indent=2)
-    except Exception as e:
-        print(f"  Cohorts save failed: {e}")
+    path = _cohorts_path()
+    tmp = f"{path}.tmp"
+    with open(tmp, "w") as f:
+        json.dump(store, f, ensure_ascii=False, indent=2)
+        f.flush()
+        os.fsync(f.fileno())
+    os.replace(tmp, path)
 
 
 def _finite_or_none(x):
@@ -1201,6 +1214,7 @@ def build_cohort(pick_date: date, picks: list[dict]) -> dict:
                 "screen_close": _finite_or_none(p.get("last_close")),  # close the screen ranked on
                 "entry_atr": p.get("atr"),
                 "entry_price": None,   # locked next run = open(pick_date)
+                "entry_locked": False, # frozen once the entry bar settles
                 "stop_price": None,
                 "target_price": None,
                 "status": "PENDING",
@@ -1285,26 +1299,43 @@ def update_all_cohorts(store: dict) -> None:
             # Entry = open of the first AVAILABLE trading bar on/after pick_date
             # (closest to the pick date; tolerates holidays + Yahoo's flaky
             # skipped days — e.g. it dropped 6/15 for 25/33 of that cohort).
-            # RECOMPUTED every run, never frozen — that is what fixes the
-            # 2026-06-15 fossils (entry had locked once to a pre-settlement bar
-            # carrying the prior Friday's open and stuck there). With recompute,
-            # a transiently-stale open self-corrects on the next 15-min refresh,
-            # so we no longer need to wait for full settlement to lock — the
-            # cohort fills the same session once the market opens. (Exit
-            # detection below still uses settled closes only, so an intraday
-            # spike can't falsely trip a stop/target.)
-            entry = stop = target = None
-            entry_dt = dates[0] if dates else None
-            o = series[entry_dt].get("open") if entry_dt else None
-            if o and o > 0:
-                entry = round(o, 2)
-                atr = p.get("entry_atr") or 0
-                if atr > 0:
-                    stop = round(entry - ATR_STOP_MULT * atr, 2)
-                    target = round(entry + ATR_TARGET_MULT * atr, 2)
-            p["entry_price"] = entry
-            p["stop_price"] = stop
-            p["target_price"] = target
+            #
+            # Lifecycle (2026-06-18 audit hardening):
+            #   - while the entry bar is still TODAY (unsettled): recompute the
+            #     entry every run, so Yahoo's flaky pre-settlement open (which
+            #     froze the 6/15 fossils to the prior Friday's open) self-heals
+            #     on the next 15-min refresh.
+            #   - once that bar SETTLES (entry_dt < today): freeze entry +
+            #     stop/target permanently (`entry_locked`). Freezing prevents
+            #     two audit-confirmed bugs: (#4) a later Yahoo revision of the
+            #     open shifting stop/target and retroactively flipping a
+            #     settled close's HOLD↔STOPPED status; (#5) the entry being
+            #     destroyed to None if yfinance later drops the ticker.
+            #   - if a run yields no usable open (ticker missing this fetch),
+            #     KEEP whatever we already had instead of nulling it — never
+            #     lose a value on a transient gap.
+            if p.get("entry_locked"):
+                entry = p.get("entry_price")
+                stop = p.get("stop_price")
+                target = p.get("target_price")
+            else:
+                entry_dt = dates[0] if dates else None
+                o = series[entry_dt].get("open") if entry_dt else None
+                if o and o > 0:
+                    entry = round(o, 2)
+                    atr = p.get("entry_atr") or 0
+                    stop = round(entry - ATR_STOP_MULT * atr, 2) if atr > 0 else None
+                    target = round(entry + ATR_TARGET_MULT * atr, 2) if atr > 0 else None
+                    p["entry_price"] = entry
+                    p["stop_price"] = stop
+                    p["target_price"] = target
+                    if date.fromisoformat(entry_dt) < today:
+                        p["entry_locked"] = True  # settled → freeze going forward
+                else:
+                    # No usable bar this run — preserve any existing value.
+                    entry = p.get("entry_price")
+                    stop = p.get("stop_price")
+                    target = p.get("target_price")
 
             # Rebuild closes. Record every close (incl. today's live bar for
             # intraday P/L display), but only DETECT target/stop crossings on
@@ -1747,10 +1778,21 @@ async def run() -> int:
         )
         telegram_ok = False
     else:
+        # Retry each message a few times. Once the cohort is committed the
+        # idempotency guard skips Telegram on the next run, so a message that
+        # fails transiently (rate-limit, timeout) would otherwise never be
+        # re-sent — leaving a partial push (e.g. picks 1-25 but not 26-33).
         msgs = format_messages(picks, partial)
         for i, m in enumerate(msgs, 1):
-            ok = await send_telegram(m)
-            print(f"Telegram send {i}/{len(msgs)} ({len(m)} chars): {'OK' if ok else 'FAILED'}")
+            ok = False
+            for attempt in range(3):
+                ok = await send_telegram(m)
+                if ok:
+                    break
+                if attempt < 2:
+                    await asyncio.sleep(2 * (attempt + 1))
+            print(f"Telegram send {i}/{len(msgs)} ({len(m)} chars): "
+                  f"{'OK' if ok else 'FAILED after 3 tries'}")
             telegram_ok = telegram_ok and ok
 
     return 0 if telegram_ok else 1
