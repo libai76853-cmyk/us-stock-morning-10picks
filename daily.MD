@@ -5,6 +5,30 @@
 格式：日期 | commit | 摘要 + 影响 + 验证。
 
 ---
+## 2026-06-18 (审计) — 对抗式审查揪出 7 个潜伏 bug 并全修
+
+**Commit**: aaa2824（4 组修复）
+
+刷屏止血后,用 workflow 跑了一次 4 维度对抗式审查（NameError 类 / 刷屏幂等 / 数据边界崩溃 / 逻辑正确性,27 条原始发现逐条独立 agent 反驳验证 → 确认 7 条真 bug）。全部修掉:
+
+| # | 严重 | bug | 修复 |
+|---|---|---|---|
+| 1 | critical | `save_cohorts` 吞异常 + 不 fsync → 保存静默失败但 run 仍返回成功+推送 → 下次加载旧数据、幂等失效 → 重复推送 | 原子写(temp+fsync+`os.replace`)+ **失败抛异常**;因 tracking 在 Telegram 前,保存失败 → run 崩 → 不推 → 干净重试 |
+| 2 | high | CF cron 与 GH schedule 同 ~12:30 触发两个 run,都在对方 commit 前加载 cohorts → 都过幂等 → 都推送(跨 runner 的 TOCTOU,进程内护栏管不了) | daily_picks.yml 加 `concurrency` group(`cancel-in-progress:false`)→ 第二个排队,等第一个 commit 后再 checkout → 幂等跳过 |
+| 3 | high | Telegram 多条消息部分失败(1-2 成功、3 失败)→ 下次幂等跳过 → 永远补不齐 26-33 | 每条消息重试 3 次 + 退避 |
+| 4 | high | entry 每次重算 → stop/target 跟着浮动,且退出检测对所有已结算 close 用新水平重判 → 历史 HOLD↔STOPPED 状态被追溯改写 | entry 日**结算后冻结**(`entry_locked`),stop/target 不再变 → 退出判定确定性、不翻转 |
+| 5 | medium | yfinance 漏掉某 ticker → dates 空 → entry 被冲成 None,毁掉已锁仓位 | 冻结后保留;未冻结但本次无数据时也**保留已有值**,绝不 null |
+| 6 | medium | 缺数据 ticker 永远 PENDING 但 cohort 仍退休 → retired=True/entries_locked=False 不一致 | 冻结逻辑大幅降低发生面(基本只剩整窗口全缺数据的极端情形) |
+| 7 | medium | `save_cohorts` 不 fsync,进程在发送窗口被杀 → 缓冲未落盘 → 下次幂等失败重推 | 同 #1,fsync 已加 |
+
+**冻结生命周期**(#4/#5 核心):entry 日仍是「今天」(未结算)时每次重算(自愈 Yahoo 盘中脏开盘价,即 6/15 fossils 的成因);entry 日一旦 `< today` 结算 → 冻结 entry+stop+target,永不再改。
+
+**验证**：本地 refresh 跑通(6/17 cohort 33/33 已冻结、今天 6/18 33/33 锁定但未冻结仍自愈);CI run 27774610156 成功、幂等跳过 Telegram、NAV 正常、无 save failed;额外派对抗 reviewer 复查 diff → **无回归**。
+
+**教训**：止血后立刻对同类代码做穷尽审查值得 —— 这次 NameError 只是冰山一角,真正的重复推送残留风险其实在 `save_cohorts` 静默吞异常(critical),不审查不会发现。
+
+---
+
 ## 2026-06-18 — Telegram 刷屏(同一批 picks 当天推 ~16 次)
 
 **Commit**: 5ce9a39
