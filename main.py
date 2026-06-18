@@ -1333,7 +1333,7 @@ def update_all_cohorts(store: dict) -> None:
         c["entries_locked"] = all(p.get("entry_price") for p in c["picks"])
         if settled_seen >= TRACKING_WINDOW:
             c["retired"] = True
-            print(f"  Cohort {d_iso} retired ({trading_dates_seen} trading days elapsed)")
+            print(f"  Cohort {d_iso} retired ({settled_seen} trading days elapsed)")
 
 
 # ----- Equity curve + dashboard --------------------------------------------
@@ -1719,9 +1719,27 @@ async def run() -> int:
         refresh_tracking(store)
         return 0
 
-    # ---- 1. Generate today's fresh Top-N (daily-fresh Telegram, v6 behavior) ----
+    # ---- 1. Generate today's fresh Top-N ----
     picks, partial = await _generate_picks_pipeline()
 
+    # ---- 2. Record today's cohort (store already loaded in step 0) ----
+    if picks:
+        if today_iso in store["cohorts"]:
+            print(f"  Cohort {today_iso} already exists; overwriting with fresh picks")
+        store["cohorts"][today_iso] = build_cohort(today, picks)
+        print(f"  Recorded cohort {today_iso} ({len(picks)} picks)")
+
+    # ---- 3. Roll cohorts + recompute equity + regenerate dashboard ----
+    # Done BEFORE Telegram on purpose: if this (the crash-prone part) throws,
+    # the run fails with NO push sent and NO commit, so the */15 backup retries
+    # cleanly. Sending Telegram first (as before 2026-06-18) meant a later crash
+    # left the push sent but the run marked failed → the idempotency guard
+    # (which only counts successful runs) re-dispatched generation every 15 min
+    # → the same picks were pushed ~16 times. The 2026-06-18 NameError in the
+    # cohort-retire branch is exactly what triggered that storm.
+    refresh_tracking(store)
+
+    # ---- 4. Telegram LAST — only reached once tracking succeeded ----
     telegram_ok = True
     if not picks:
         await send_telegram(
@@ -1734,16 +1752,6 @@ async def run() -> int:
             ok = await send_telegram(m)
             print(f"Telegram send {i}/{len(msgs)} ({len(m)} chars): {'OK' if ok else 'FAILED'}")
             telegram_ok = telegram_ok and ok
-
-    # ---- 2. Record today's cohort (store already loaded in step 0) ----
-    if picks:
-        if today_iso in store["cohorts"]:
-            print(f"  Cohort {today_iso} already exists; overwriting with fresh picks")
-        store["cohorts"][today_iso] = build_cohort(today, picks)
-        print(f"  Recorded cohort {today_iso} ({len(picks)} picks)")
-
-    # ---- 3-4. Roll cohorts + recompute equity + regenerate dashboard ----
-    refresh_tracking(store)
 
     return 0 if telegram_ok else 1
 
