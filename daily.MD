@@ -5,6 +5,26 @@
 格式：日期 | commit | 摘要 + 影响 + 验证。
 
 ---
+## 2026-06-18 — Telegram 刷屏(同一批 picks 当天推 ~16 次)
+
+**Commit**: 5ce9a39
+
+**症状**：用户「为什么telegram bot连推送好几次今天？」。6/18 当天同一批 picks 被推送约 16 次（12:30 起每 15 分钟一次）。
+
+**根因**（两个 bug 叠加）：
+1. **NameError**：entry 修复重构时把 `trading_dates_seen` 改名 `settled_seen`，但 cohort **退休分支**的 print 残留一处旧名（~1336 行）。该分支只在 cohort 满 10 交易日退休时执行，本地测试从未触发；6/18 当天 6/04 cohort 到期 → 进分支 → `update_all_cohorts` 抛 NameError → `run()` 崩。
+2. **顺序错误**：`run()` 先发 Telegram、后做 tracking。于是每次 run 都「发完推送 → 在 tracking 崩 → run 标记 failed」。CF `*/15` 幂等护栏只认 success run → 以为今天没成功生成 → 每 15 分钟重新触发生成 → 又发一次推送。**「发完就崩」的死循环**。
+
+**修复**：
+1. print 改用 `settled_seen`。
+2. `run()` 重排：**tracking + dashboard 放到 Telegram 之前**。崩了就没推送、没 commit → 备份干净重试；只有 tracking 成功才会走到 Telegram，成功 run 才 commit cohort → 两个幂等护栏(run 内 step 0b + CF `alreadyHandledToday`)同时生效 → 不再重复推。
+
+**验证**：手动触发 run 27773784463 全步骤 success、retire 分支不崩、Telegram 发 1 次、commit 成功；再触发 run 27773885032 → 「already generated today; skip pick-gen + Telegram, refresh only」无 Telegram 发送 ✓。刷屏止住（今天最后会多收到 1 条"规范"推送）。
+
+**教训**：(1) 改名/重构后要 grep 全量旧名，尤其**只在罕见分支(retire/exit/holiday/NaN)执行的代码**——本地正常路径测不到。(2) **有副作用的操作(发推送)要放在所有可能崩的步骤之后**，否则「副作用已发生 + run 失败」会和「失败重试」组成放大循环。(3) 幂等信号(success run)必须在副作用**之后**才置位。
+
+---
+
 ## 2026-06-16 — 入场价对不上：脏 entry 固化（锁到错误交易日 + 永不重算）
 
 **Commit**: 5d851c1 + 6c4a17c
