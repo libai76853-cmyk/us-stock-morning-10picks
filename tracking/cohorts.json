@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-06-19T16:00:30.878560+00:00",
+  "updated_at": "2026-06-19T16:15:47.195789+00:00",
   "tracking_window": 10,
   "cohorts": {
     "2026-05-27": {
@@ -19922,36 +19922,7 @@
           "status": "HOLD",
           "exit_price": null,
           "exit_date": null,
-          "closes": [
-            {
-              "date": "2026-06-10",
-              "close": 231.92
-            },
-            {
-              "date": "2026-06-11",
-              "close": 239.11
-            },
-            {
-              "date": "2026-06-12",
-              "close": 240.13
-            },
-            {
-              "date": "2026-06-15",
-              "close": 236.77
-            },
-            {
-              "date": "2026-06-16",
-              "close": 234.49
-            },
-            {
-              "date": "2026-06-17",
-              "close": 233.25
-            },
-            {
-              "date": "2026-06-18",
-              "close": 232.8
-            }
-          ],
+          "closes": [],
           "entry_locked": true
         },
         {
@@ -21446,32 +21417,7 @@
           "status": "HOLD",
           "exit_price": null,
           "exit_date": null,
-          "closes": [
-            {
-              "date": "2026-06-11",
-              "close": 239.11
-            },
-            {
-              "date": "2026-06-12",
-              "close": 240.13
-            },
-            {
-              "date": "2026-06-15",
-              "close": 236.77
-            },
-            {
-              "date": "2026-06-16",
-              "close": 234.49
-            },
-            {
-              "date": "2026-06-17",
-              "close": 233.25
-            },
-            {
-              "date": "2026-06-18",
-              "close": 232.8
-            }
-          ],
+          "closes": [],
           "entry_locked": true
         },
         {
