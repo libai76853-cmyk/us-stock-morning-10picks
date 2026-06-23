@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-06-23T13:30:50.876768+00:00",
+  "updated_at": "2026-06-23T13:45:37.992709+00:00",
   "tracking_window": 10,
   "cohorts": {
     "2026-05-27": {
@@ -17701,7 +17701,7 @@
             },
             {
               "date": "2026-06-23",
-              "close": 104.5
+              "close": 103.29
             }
           ],
           "entry_locked": true
@@ -17764,7 +17764,7 @@
             },
             {
               "date": "2026-06-23",
-              "close": 202.2
+              "close": 202.14
             }
           ],
           "entry_locked": true
@@ -18046,7 +18046,7 @@
             },
             {
               "date": "2026-06-23",
-              "close": 148.44
+              "close": 148.95
             }
           ],
           "entry_locked": true
@@ -18195,7 +18195,7 @@
             },
             {
               "date": "2026-06-23",
-              "close": 140.04
+              "close": 140.03
             }
           ],
           "entry_locked": true
@@ -18255,6 +18255,10 @@
             {
               "date": "2026-06-22",
               "close": 69.21
+            },
+            {
+              "date": "2026-06-23",
+              "close": 64.8
             }
           ],
           "entry_locked": true
@@ -18376,7 +18380,7 @@
             },
             {
               "date": "2026-06-23",
-              "close": 130.58
+              "close": 131.28
             }
           ],
           "entry_locked": true
@@ -18486,7 +18490,7 @@
             },
             {
               "date": "2026-06-23",
-              "close": 105.47
+              "close": 107.86
             }
           ],
           "entry_locked": true
@@ -18639,7 +18643,7 @@
             },
             {
               "date": "2026-06-23",
-              "close": 469.42
+              "close": 466.42
             }
           ],
           "entry_locked": true
@@ -18702,7 +18706,7 @@
             },
             {
               "date": "2026-06-23",
-              "close": 226.24
+              "close": 226.78
             }
           ],
           "entry_locked": true
@@ -18765,7 +18769,7 @@
             },
             {
               "date": "2026-06-23",
-              "close": 329.48
+              "close": 328.55
             }
           ],
           "entry_locked": true
@@ -18883,7 +18887,7 @@
             },
             {
               "date": "2026-06-23",
-              "close": 965.88
+              "close": 962.95
             }
           ],
           "entry_locked": true
@@ -18946,7 +18950,7 @@
             },
             {
               "date": "2026-06-23",
-              "close": 16.6
+              "close": 16.64
             }
           ],
           "entry_locked": true
@@ -19009,7 +19013,7 @@
             },
             {
               "date": "2026-06-23",
-              "close": 98.54
+              "close": 97.82
             }
           ],
           "entry_locked": true
@@ -19131,7 +19135,7 @@
             },
             {
               "date": "2026-06-23",
-              "close": 91.91
+              "close": 92.01
             }
           ],
           "entry_locked": true
@@ -19194,7 +19198,7 @@
             },
             {
               "date": "2026-06-23",
-              "close": 78.19
+              "close": 79.2
             }
           ],
           "entry_locked": true
@@ -19257,7 +19261,7 @@
             },
             {
               "date": "2026-06-23",
-              "close": 561.61
+              "close": 568.69
             }
           ],
           "entry_locked": true
@@ -19351,7 +19355,7 @@
             },
             {
               "date": "2026-06-23",
-              "close": 35.53
+              "close": 35.57
             }
           ],
           "entry_locked": true
@@ -19512,7 +19516,7 @@
             },
             {
               "date": "2026-06-23",
-              "close": 148.44
+              "close": 148.95
             }
           ],
           "entry_locked": true
@@ -19708,7 +19712,7 @@
             },
             {
               "date": "2026-06-23",
-              "close": 202.2
+              "close": 202.14
             }
           ],
           "entry_locked": true
@@ -19767,7 +19771,7 @@
             },
             {
               "date": "2026-06-23",
-              "close": 309.02
+              "close": 305.17
             }
           ],
           "entry_locked": true
@@ -19826,7 +19830,7 @@
             },
             {
               "date": "2026-06-23",
-              "close": 345.06
+              "close": 347.17
             }
           ],
           "entry_locked": true
@@ -19932,7 +19936,7 @@
             },
             {
               "date": "2026-06-23",
-              "close": 117.68
+              "close": 117.2
             }
           ],
           "entry_locked": true
@@ -20057,7 +20061,7 @@
             },
             {
               "date": "2026-06-23",
-              "close": 1118.41
+              "close": 1105.67
             }
           ],
           "entry_locked": true
@@ -20116,7 +20120,7 @@
             },
             {
               "date": "2026-06-23",
-              "close": 105.47
+              "close": 107.86
             }
           ],
           "entry_locked": true
@@ -20230,7 +20234,7 @@
             },
             {
               "date": "2026-06-23",
-              "close": 16.6
+              "close": 16.64
             }
           ],
           "entry_locked": true
@@ -20289,7 +20293,7 @@
             },
             {
               "date": "2026-06-23",
-              "close": 233.55
+              "close": 232.92
             }
           ],
           "entry_locked": true
@@ -20348,7 +20352,7 @@
             },
             {
               "date": "2026-06-23",
-              "close": 226.24
+              "close": 226.78
             }
           ],
           "entry_locked": true
@@ -20404,6 +20408,10 @@
             {
               "date": "2026-06-22",
               "close": 163.15
+            },
+            {
+              "date": "2026-06-23",
+              "close": 164.24
             }
           ],
           "entry_locked": true
@@ -20462,7 +20470,7 @@
             },
             {
               "date": "2026-06-23",
-              "close": 340.22
+              "close": 346.19
             }
           ],
           "entry_locked": true
@@ -20521,7 +20529,7 @@
             },
             {
               "date": "2026-06-23",
-              "close": 340.9
+              "close": 346.75
             }
           ],
           "entry_locked": true
@@ -20623,7 +20631,7 @@
             },
             {
               "date": "2026-06-23",
-              "close": 313.19
+              "close": 310.54
             }
           ],
           "entry_locked": true
@@ -20682,7 +20690,7 @@
             },
             {
               "date": "2026-06-23",
-              "close": 91.91
+              "close": 92.01
             }
           ],
           "entry_locked": true
@@ -20741,7 +20749,7 @@
             },
             {
               "date": "2026-06-23",
-              "close": 965.88
+              "close": 962.95
             }
           ],
           "entry_locked": true
@@ -20800,7 +20808,7 @@
             },
             {
               "date": "2026-06-23",
-              "close": 83.82
+              "close": 84.46
             }
           ],
           "entry_locked": true
@@ -20859,7 +20867,7 @@
             },
             {
               "date": "2026-06-23",
-              "close": 98.54
+              "close": 97.82
             }
           ],
           "entry_locked": true
@@ -20966,6 +20974,10 @@
             {
               "date": "2026-06-22",
               "close": 69.21
+            },
+            {
+              "date": "2026-06-23",
+              "close": 64.8
             }
           ],
           "entry_locked": true
@@ -21071,7 +21083,7 @@
             },
             {
               "date": "2026-06-23",
-              "close": 47.27
+              "close": 47.39
             }
           ],
           "entry_locked": true
@@ -21130,7 +21142,7 @@
             },
             {
               "date": "2026-06-23",
-              "close": 102.75
+              "close": 102.46
             }
           ],
           "entry_locked": true
@@ -21189,7 +21201,7 @@
             },
             {
               "date": "2026-06-23",
-              "close": 35.53
+              "close": 35.57
             }
           ],
           "entry_locked": true
@@ -21412,7 +21424,7 @@
             },
             {
               "date": "2026-06-23",
-              "close": 117.68
+              "close": 117.2
             }
           ],
           "entry_locked": true
@@ -21464,6 +21476,10 @@
             {
               "date": "2026-06-22",
               "close": 377.24
+            },
+            {
+              "date": "2026-06-23",
+              "close": 363.42
             }
           ],
           "entry_locked": true
@@ -21518,7 +21534,7 @@
             },
             {
               "date": "2026-06-23",
-              "close": 148.44
+              "close": 148.95
             }
           ],
           "entry_locked": true
@@ -21608,7 +21624,7 @@
             },
             {
               "date": "2026-06-23",
-              "close": 67.65
+              "close": 67.91
             }
           ],
           "entry_locked": true
@@ -21663,7 +21679,7 @@
             },
             {
               "date": "2026-06-23",
-              "close": 345.06
+              "close": 347.17
             }
           ],
           "entry_locked": true
@@ -21718,7 +21734,7 @@
             },
             {
               "date": "2026-06-23",
-              "close": 340.22
+              "close": 346.19
             }
           ],
           "entry_locked": true
@@ -21773,7 +21789,7 @@
             },
             {
               "date": "2026-06-23",
-              "close": 340.9
+              "close": 346.75
             }
           ],
           "entry_locked": true
@@ -21914,7 +21930,7 @@
             },
             {
               "date": "2026-06-23",
-              "close": 1118.41
+              "close": 1105.67
             }
           ],
           "entry_locked": true
@@ -21969,7 +21985,7 @@
             },
             {
               "date": "2026-06-23",
-              "close": 233.55
+              "close": 232.92
             }
           ],
           "entry_locked": true
@@ -22024,7 +22040,7 @@
             },
             {
               "date": "2026-06-23",
-              "close": 90.46
+              "close": 90.42
             }
           ],
           "entry_locked": true
@@ -22079,7 +22095,7 @@
             },
             {
               "date": "2026-06-23",
-              "close": 208.85
+              "close": 211.54
             }
           ],
           "entry_locked": true
@@ -22134,7 +22150,7 @@
             },
             {
               "date": "2026-06-23",
-              "close": 313.19
+              "close": 310.54
             }
           ],
           "entry_locked": true
@@ -22189,7 +22205,7 @@
             },
             {
               "date": "2026-06-23",
-              "close": 423.9
+              "close": 417.33
             }
           ],
           "entry_locked": true
@@ -22244,7 +22260,7 @@
             },
             {
               "date": "2026-06-23",
-              "close": 130.58
+              "close": 131.28
             }
           ],
           "entry_locked": true
@@ -22299,7 +22315,7 @@
             },
             {
               "date": "2026-06-23",
-              "close": 16.6
+              "close": 16.64
             }
           ],
           "entry_locked": true
@@ -22354,7 +22370,7 @@
             },
             {
               "date": "2026-06-23",
-              "close": 965.88
+              "close": 962.95
             }
           ],
           "entry_locked": true
@@ -22542,7 +22558,7 @@
             },
             {
               "date": "2026-06-23",
-              "close": 91.91
+              "close": 92.01
             }
           ],
           "entry_locked": true
@@ -22597,7 +22613,7 @@
             },
             {
               "date": "2026-06-23",
-              "close": 75.74
+              "close": 75.46
             }
           ],
           "entry_locked": true
@@ -22652,7 +22668,7 @@
             },
             {
               "date": "2026-06-23",
-              "close": 74.17
+              "close": 74.29
             }
           ],
           "entry_locked": true
@@ -22824,7 +22840,7 @@
             },
             {
               "date": "2026-06-23",
-              "close": 83.82
+              "close": 84.46
             }
           ],
           "entry_locked": true
@@ -22879,7 +22895,7 @@
             },
             {
               "date": "2026-06-23",
-              "close": 78.19
+              "close": 79.2
             }
           ],
           "entry_locked": true
@@ -22969,7 +22985,7 @@
             },
             {
               "date": "2026-06-23",
-              "close": 843.66
+              "close": 842.88
             }
           ],
           "entry_locked": true
@@ -23020,7 +23036,7 @@
             },
             {
               "date": "2026-06-23",
-              "close": 202.2
+              "close": 202.14
             }
           ],
           "entry_locked": true
@@ -23071,7 +23087,7 @@
             },
             {
               "date": "2026-06-23",
-              "close": 148.44
+              "close": 148.95
             }
           ],
           "entry_locked": true
@@ -23161,7 +23177,7 @@
             },
             {
               "date": "2026-06-23",
-              "close": 75.74
+              "close": 75.46
             }
           ],
           "entry_locked": true
@@ -23212,7 +23228,7 @@
             },
             {
               "date": "2026-06-23",
-              "close": 309.02
+              "close": 305.17
             }
           ],
           "entry_locked": true
@@ -23263,7 +23279,7 @@
             },
             {
               "date": "2026-06-23",
-              "close": 162.71
+              "close": 161.85
             }
           ],
           "entry_locked": true
@@ -23314,7 +23330,7 @@
             },
             {
               "date": "2026-06-23",
-              "close": 117.68
+              "close": 117.2
             }
           ],
           "entry_locked": true
@@ -23365,7 +23381,7 @@
             },
             {
               "date": "2026-06-23",
-              "close": 58.28
+              "close": 58.94
             }
           ],
           "entry_locked": true
@@ -23416,7 +23432,7 @@
             },
             {
               "date": "2026-06-23",
-              "close": 1932.63
+              "close": 1914.28
             }
           ],
           "entry_locked": true
@@ -23467,7 +23483,7 @@
             },
             {
               "date": "2026-06-23",
-              "close": 340.22
+              "close": 346.19
             }
           ],
           "entry_locked": true
@@ -23518,7 +23534,7 @@
             },
             {
               "date": "2026-06-23",
-              "close": 275.04
+              "close": 275.02
             }
           ],
           "entry_locked": true
@@ -23569,7 +23585,7 @@
             },
             {
               "date": "2026-06-23",
-              "close": 469.42
+              "close": 466.42
             }
           ],
           "entry_locked": true
@@ -23710,7 +23726,7 @@
             },
             {
               "date": "2026-06-23",
-              "close": 33.56
+              "close": 33.78
             }
           ],
           "entry_locked": true
@@ -23761,7 +23777,7 @@
             },
             {
               "date": "2026-06-23",
-              "close": 340.9
+              "close": 346.75
             }
           ],
           "entry_locked": true
@@ -23812,7 +23828,7 @@
             },
             {
               "date": "2026-06-23",
-              "close": 16.6
+              "close": 16.64
             }
           ],
           "entry_locked": true
@@ -23863,7 +23879,7 @@
             },
             {
               "date": "2026-06-23",
-              "close": 226.24
+              "close": 226.78
             }
           ],
           "entry_locked": true
@@ -23992,7 +24008,7 @@
             },
             {
               "date": "2026-06-23",
-              "close": 47.27
+              "close": 47.39
             }
           ],
           "entry_locked": true
@@ -24043,7 +24059,7 @@
             },
             {
               "date": "2026-06-23",
-              "close": 130.58
+              "close": 131.28
             }
           ],
           "entry_locked": true
@@ -24094,7 +24110,7 @@
             },
             {
               "date": "2026-06-23",
-              "close": 78.75
+              "close": 78.6
             }
           ],
           "entry_locked": true
@@ -24145,7 +24161,7 @@
             },
             {
               "date": "2026-06-23",
-              "close": 90.46
+              "close": 90.42
             }
           ],
           "entry_locked": true
@@ -24231,7 +24247,7 @@
             },
             {
               "date": "2026-06-23",
-              "close": 149.99
+              "close": 151.38
             }
           ],
           "entry_locked": true
@@ -24282,7 +24298,7 @@
             },
             {
               "date": "2026-06-23",
-              "close": 965.88
+              "close": 962.95
             }
           ],
           "entry_locked": true
@@ -24372,7 +24388,7 @@
             },
             {
               "date": "2026-06-23",
-              "close": 110.25
+              "close": 110.81
             }
           ],
           "entry_locked": true
@@ -24423,7 +24439,7 @@
             },
             {
               "date": "2026-06-23",
-              "close": 80.84
+              "close": 80.93
             }
           ],
           "entry_locked": true
@@ -24474,7 +24490,7 @@
             },
             {
               "date": "2026-06-23",
-              "close": 25.02
+              "close": 25.09
             }
           ],
           "entry_locked": true
@@ -24529,7 +24545,7 @@
             },
             {
               "date": "2026-06-23",
-              "close": 148.44
+              "close": 148.95
             }
           ],
           "entry_locked": true
@@ -24576,7 +24592,7 @@
             },
             {
               "date": "2026-06-23",
-              "close": 1071.97
+              "close": 1071.67
             }
           ],
           "entry_locked": true
@@ -24623,7 +24639,7 @@
             },
             {
               "date": "2026-06-23",
-              "close": 202.2
+              "close": 202.14
             }
           ],
           "entry_locked": true
@@ -24670,7 +24686,7 @@
             },
             {
               "date": "2026-06-23",
-              "close": 162.71
+              "close": 161.85
             }
           ],
           "entry_locked": true
@@ -24717,7 +24733,7 @@
             },
             {
               "date": "2026-06-23",
-              "close": 843.66
+              "close": 842.88
             }
           ],
           "entry_locked": true
@@ -24764,7 +24780,7 @@
             },
             {
               "date": "2026-06-23",
-              "close": 116.83
+              "close": 119.76
             }
           ],
           "entry_locked": true
@@ -24920,7 +24936,7 @@
             },
             {
               "date": "2026-06-23",
-              "close": 33.86
+              "close": 34.1
             }
           ],
           "entry_locked": true
@@ -25045,7 +25061,7 @@
             },
             {
               "date": "2026-06-23",
-              "close": 1118.41
+              "close": 1105.67
             }
           ],
           "entry_locked": true
@@ -25092,7 +25108,7 @@
             },
             {
               "date": "2026-06-23",
-              "close": 86.38
+              "close": 86.62
             }
           ],
           "entry_locked": true
@@ -25174,7 +25190,7 @@
             },
             {
               "date": "2026-06-23",
-              "close": 275.04
+              "close": 275.02
             }
           ],
           "entry_locked": true
@@ -25221,7 +25237,7 @@
             },
             {
               "date": "2026-06-23",
-              "close": 93.0
+              "close": 94.82
             }
           ],
           "entry_locked": true
@@ -25268,7 +25284,7 @@
             },
             {
               "date": "2026-06-23",
-              "close": 75.74
+              "close": 75.46
             }
           ],
           "entry_locked": true
@@ -25366,7 +25382,32 @@
           "status": "HOLD",
           "exit_price": null,
           "exit_date": null,
-          "closes": [],
+          "closes": [
+            {
+              "date": "2026-06-15",
+              "close": 129.82
+            },
+            {
+              "date": "2026-06-16",
+              "close": 131.02
+            },
+            {
+              "date": "2026-06-17",
+              "close": 129.64
+            },
+            {
+              "date": "2026-06-18",
+              "close": 128.25
+            },
+            {
+              "date": "2026-06-22",
+              "close": 129.5
+            },
+            {
+              "date": "2026-06-23",
+              "close": 129.85
+            }
+          ],
           "entry_locked": true
         },
         {
@@ -25411,7 +25452,7 @@
             },
             {
               "date": "2026-06-23",
-              "close": 85.7
+              "close": 86.64
             }
           ],
           "entry_locked": true
@@ -25498,6 +25539,10 @@
             {
               "date": "2026-06-22",
               "close": 69.21
+            },
+            {
+              "date": "2026-06-23",
+              "close": 64.8
             }
           ],
           "entry_locked": true
@@ -25579,7 +25624,7 @@
             },
             {
               "date": "2026-06-23",
-              "close": 130.58
+              "close": 131.28
             }
           ],
           "entry_locked": true
@@ -25696,7 +25741,7 @@
             },
             {
               "date": "2026-06-23",
-              "close": 16.6
+              "close": 16.64
             }
           ],
           "entry_locked": true
@@ -25778,7 +25823,7 @@
             },
             {
               "date": "2026-06-23",
-              "close": 212.51
+              "close": 214.84
             }
           ],
           "entry_locked": true
@@ -25825,7 +25870,7 @@
             },
             {
               "date": "2026-06-23",
-              "close": 160.9
+              "close": 162.71
             }
           ],
           "entry_locked": true
@@ -25950,7 +25995,7 @@
             },
             {
               "date": "2026-06-23",
-              "close": 1071.97
+              "close": 1071.67
             }
           ],
           "entry_locked": true
@@ -25993,7 +26038,7 @@
             },
             {
               "date": "2026-06-23",
-              "close": 202.2
+              "close": 202.14
             }
           ],
           "entry_locked": true
@@ -26033,6 +26078,10 @@
             {
               "date": "2026-06-22",
               "close": 410.92
+            },
+            {
+              "date": "2026-06-23",
+              "close": 403.67
             }
           ],
           "entry_locked": true
@@ -26075,7 +26124,7 @@
             },
             {
               "date": "2026-06-23",
-              "close": 162.71
+              "close": 161.85
             }
           ],
           "entry_locked": true
@@ -26118,7 +26167,7 @@
             },
             {
               "date": "2026-06-23",
-              "close": 843.66
+              "close": 842.88
             }
           ],
           "entry_locked": true
@@ -26200,7 +26249,7 @@
             },
             {
               "date": "2026-06-23",
-              "close": 116.83
+              "close": 119.76
             }
           ],
           "entry_locked": true
@@ -26243,7 +26292,7 @@
             },
             {
               "date": "2026-06-23",
-              "close": 149.99
+              "close": 151.38
             }
           ],
           "entry_locked": true
@@ -26283,6 +26332,10 @@
             {
               "date": "2026-06-22",
               "close": 69.21
+            },
+            {
+              "date": "2026-06-23",
+              "close": 64.8
             }
           ],
           "entry_locked": true
@@ -26325,7 +26378,7 @@
             },
             {
               "date": "2026-06-23",
-              "close": 28.23
+              "close": 28.43
             }
           ],
           "entry_locked": true
@@ -26368,7 +26421,7 @@
             },
             {
               "date": "2026-06-23",
-              "close": 104.5
+              "close": 103.29
             }
           ],
           "entry_locked": true
@@ -26411,7 +26464,7 @@
             },
             {
               "date": "2026-06-23",
-              "close": 33.86
+              "close": 34.1
             }
           ],
           "entry_locked": true
@@ -26454,7 +26507,7 @@
             },
             {
               "date": "2026-06-23",
-              "close": 40.18
+              "close": 40.46
             }
           ],
           "entry_locked": true
@@ -26497,7 +26550,7 @@
             },
             {
               "date": "2026-06-23",
-              "close": 1932.63
+              "close": 1914.28
             }
           ],
           "entry_locked": true
@@ -26540,7 +26593,7 @@
             },
             {
               "date": "2026-06-23",
-              "close": 1118.41
+              "close": 1105.67
             }
           ],
           "entry_locked": true
@@ -26583,7 +26636,7 @@
             },
             {
               "date": "2026-06-23",
-              "close": 561.61
+              "close": 568.69
             }
           ],
           "entry_locked": true
@@ -26626,7 +26679,7 @@
             },
             {
               "date": "2026-06-23",
-              "close": 86.38
+              "close": 86.62
             }
           ],
           "entry_locked": true
@@ -26700,7 +26753,7 @@
             },
             {
               "date": "2026-06-23",
-              "close": 93.0
+              "close": 94.82
             }
           ],
           "entry_locked": true
@@ -26743,7 +26796,7 @@
             },
             {
               "date": "2026-06-23",
-              "close": 75.74
+              "close": 75.46
             }
           ],
           "entry_locked": true
@@ -26798,7 +26851,28 @@
           "status": "HOLD",
           "exit_price": null,
           "exit_date": null,
-          "closes": [],
+          "closes": [
+            {
+              "date": "2026-06-16",
+              "close": 131.02
+            },
+            {
+              "date": "2026-06-17",
+              "close": 129.64
+            },
+            {
+              "date": "2026-06-18",
+              "close": 128.25
+            },
+            {
+              "date": "2026-06-22",
+              "close": 129.5
+            },
+            {
+              "date": "2026-06-23",
+              "close": 129.85
+            }
+          ],
           "entry_locked": true
         },
         {
@@ -26839,7 +26913,7 @@
             },
             {
               "date": "2026-06-23",
-              "close": 85.7
+              "close": 86.64
             }
           ],
           "entry_locked": true
@@ -26917,7 +26991,7 @@
             },
             {
               "date": "2026-06-23",
-              "close": 130.58
+              "close": 131.28
             }
           ],
           "entry_locked": true
@@ -27030,7 +27104,7 @@
             },
             {
               "date": "2026-06-23",
-              "close": 160.9
+              "close": 162.71
             }
           ],
           "entry_locked": true
@@ -27073,7 +27147,7 @@
             },
             {
               "date": "2026-06-23",
-              "close": 16.6
+              "close": 16.64
             }
           ],
           "entry_locked": true
@@ -27116,7 +27190,7 @@
             },
             {
               "date": "2026-06-23",
-              "close": 214.49
+              "close": 215.45
             }
           ],
           "entry_locked": true
@@ -27194,7 +27268,7 @@
             },
             {
               "date": "2026-06-23",
-              "close": 212.51
+              "close": 214.84
             }
           ],
           "entry_locked": true
@@ -27241,7 +27315,7 @@
             },
             {
               "date": "2026-06-23",
-              "close": 661.65
+              "close": 664.14
             }
           ],
           "entry_locked": true
@@ -27280,7 +27354,7 @@
             },
             {
               "date": "2026-06-23",
-              "close": 97.64
+              "close": 97.87
             }
           ],
           "entry_locked": true
@@ -27319,7 +27393,7 @@
             },
             {
               "date": "2026-06-23",
-              "close": 202.2
+              "close": 202.14
             }
           ],
           "entry_locked": true
@@ -27358,7 +27432,7 @@
             },
             {
               "date": "2026-06-23",
-              "close": 162.71
+              "close": 161.85
             }
           ],
           "entry_locked": true
@@ -27397,7 +27471,7 @@
             },
             {
               "date": "2026-06-23",
-              "close": 104.5
+              "close": 103.29
             }
           ],
           "entry_locked": true
@@ -27436,7 +27510,7 @@
             },
             {
               "date": "2026-06-23",
-              "close": 148.44
+              "close": 148.95
             }
           ],
           "entry_locked": true
@@ -27475,7 +27549,7 @@
             },
             {
               "date": "2026-06-23",
-              "close": 47.99
+              "close": 49.15
             }
           ],
           "entry_locked": true
@@ -27549,7 +27623,7 @@
             },
             {
               "date": "2026-06-23",
-              "close": 116.83
+              "close": 119.76
             }
           ],
           "entry_locked": true
@@ -27588,7 +27662,7 @@
             },
             {
               "date": "2026-06-23",
-              "close": 292.0
+              "close": 294.65
             }
           ],
           "entry_locked": true
@@ -27627,7 +27701,7 @@
             },
             {
               "date": "2026-06-23",
-              "close": 27.23
+              "close": 27.72
             }
           ],
           "entry_locked": true
@@ -27701,7 +27775,7 @@
             },
             {
               "date": "2026-06-23",
-              "close": 117.68
+              "close": 117.2
             }
           ],
           "entry_locked": true
@@ -27740,7 +27814,7 @@
             },
             {
               "date": "2026-06-23",
-              "close": 328.58
+              "close": 330.18
             }
           ],
           "entry_locked": true
@@ -27779,7 +27853,7 @@
             },
             {
               "date": "2026-06-23",
-              "close": 149.99
+              "close": 151.38
             }
           ],
           "entry_locked": true
@@ -27818,7 +27892,7 @@
             },
             {
               "date": "2026-06-23",
-              "close": 198.31
+              "close": 198.85
             }
           ],
           "entry_locked": true
@@ -27854,6 +27928,10 @@
             {
               "date": "2026-06-22",
               "close": 69.21
+            },
+            {
+              "date": "2026-06-23",
+              "close": 64.8
             }
           ],
           "entry_locked": true
@@ -27892,7 +27970,7 @@
             },
             {
               "date": "2026-06-23",
-              "close": 561.61
+              "close": 568.69
             }
           ],
           "entry_locked": true
@@ -27997,7 +28075,7 @@
             },
             {
               "date": "2026-06-23",
-              "close": 16.6
+              "close": 16.64
             }
           ],
           "entry_locked": true
@@ -28071,7 +28149,7 @@
             },
             {
               "date": "2026-06-23",
-              "close": 132.02
+              "close": 132.99
             }
           ],
           "entry_locked": true
@@ -28110,7 +28188,7 @@
             },
             {
               "date": "2026-06-23",
-              "close": 58.55
+              "close": 58.69
             }
           ],
           "entry_locked": true
@@ -28149,7 +28227,7 @@
             },
             {
               "date": "2026-06-23",
-              "close": 965.88
+              "close": 962.95
             }
           ],
           "entry_locked": true
@@ -28188,7 +28266,7 @@
             },
             {
               "date": "2026-06-23",
-              "close": 81.04
+              "close": 80.31
             }
           ],
           "entry_locked": true
@@ -28227,7 +28305,7 @@
             },
             {
               "date": "2026-06-23",
-              "close": 245.02
+              "close": 245.54
             }
           ],
           "entry_locked": true
@@ -28263,6 +28341,10 @@
             {
               "date": "2026-06-22",
               "close": 329.71
+            },
+            {
+              "date": "2026-06-23",
+              "close": 332.38
             }
           ],
           "entry_locked": true
@@ -28301,7 +28383,7 @@
             },
             {
               "date": "2026-06-23",
-              "close": 160.9
+              "close": 162.71
             }
           ],
           "entry_locked": true
@@ -28340,7 +28422,7 @@
             },
             {
               "date": "2026-06-23",
-              "close": 85.7
+              "close": 86.64
             }
           ],
           "entry_locked": true
@@ -28379,7 +28461,7 @@
             },
             {
               "date": "2026-06-23",
-              "close": 214.49
+              "close": 215.45
             }
           ],
           "entry_locked": true
@@ -28418,7 +28500,7 @@
             },
             {
               "date": "2026-06-23",
-              "close": 195.27
+              "close": 195.1
             }
           ],
           "entry_locked": true
@@ -28457,7 +28539,7 @@
             },
             {
               "date": "2026-06-23",
-              "close": 321.69
+              "close": 322.2
             }
           ],
           "entry_locked": true
@@ -28500,7 +28582,7 @@
             },
             {
               "date": "2026-06-23",
-              "close": 202.2
+              "close": 202.14
             }
           ],
           "entry_locked": true
@@ -28535,7 +28617,7 @@
             },
             {
               "date": "2026-06-23",
-              "close": 377.84
+              "close": 383.65
             }
           ],
           "entry_locked": true
@@ -28567,6 +28649,10 @@
             {
               "date": "2026-06-22",
               "close": 212.69
+            },
+            {
+              "date": "2026-06-23",
+              "close": 206.68
             }
           ],
           "entry_locked": true
@@ -28601,7 +28687,7 @@
             },
             {
               "date": "2026-06-23",
-              "close": 116.83
+              "close": 119.76
             }
           ],
           "entry_locked": true
@@ -28636,7 +28722,7 @@
             },
             {
               "date": "2026-06-23",
-              "close": 148.44
+              "close": 148.95
             }
           ],
           "entry_locked": true
@@ -28671,7 +28757,7 @@
             },
             {
               "date": "2026-06-23",
-              "close": 333.01
+              "close": 319.44
             }
           ],
           "entry_locked": true
@@ -28706,7 +28792,7 @@
             },
             {
               "date": "2026-06-23",
-              "close": 843.66
+              "close": 842.88
             }
           ],
           "entry_locked": true
@@ -28741,7 +28827,7 @@
             },
             {
               "date": "2026-06-23",
-              "close": 198.31
+              "close": 198.85
             }
           ],
           "entry_locked": true
@@ -28776,7 +28862,7 @@
             },
             {
               "date": "2026-06-23",
-              "close": 292.0
+              "close": 294.65
             }
           ],
           "entry_locked": true
@@ -28811,7 +28897,7 @@
             },
             {
               "date": "2026-06-23",
-              "close": 97.64
+              "close": 97.87
             }
           ],
           "entry_locked": true
@@ -28846,7 +28932,7 @@
             },
             {
               "date": "2026-06-23",
-              "close": 160.9
+              "close": 162.71
             }
           ],
           "entry_locked": true
@@ -28881,7 +28967,7 @@
             },
             {
               "date": "2026-06-23",
-              "close": 171.8
+              "close": 172.29
             }
           ],
           "entry_locked": true
@@ -28916,7 +29002,7 @@
             },
             {
               "date": "2026-06-23",
-              "close": 27.23
+              "close": 27.72
             }
           ],
           "entry_locked": true
@@ -28951,7 +29037,7 @@
             },
             {
               "date": "2026-06-23",
-              "close": 328.58
+              "close": 330.18
             }
           ],
           "entry_locked": true
@@ -28986,7 +29072,7 @@
             },
             {
               "date": "2026-06-23",
-              "close": 268.92
+              "close": 270.99
             }
           ],
           "entry_locked": true
@@ -29021,7 +29107,7 @@
             },
             {
               "date": "2026-06-23",
-              "close": 16.6
+              "close": 16.64
             }
           ],
           "entry_locked": true
@@ -29056,7 +29142,7 @@
             },
             {
               "date": "2026-06-23",
-              "close": 132.02
+              "close": 132.99
             }
           ],
           "entry_locked": true
@@ -29080,7 +29166,20 @@
           "status": "HOLD",
           "exit_price": null,
           "exit_date": null,
-          "closes": [],
+          "closes": [
+            {
+              "date": "2026-06-18",
+              "close": 128.25
+            },
+            {
+              "date": "2026-06-22",
+              "close": 129.5
+            },
+            {
+              "date": "2026-06-23",
+              "close": 129.85
+            }
+          ],
           "entry_locked": true
         },
         {
@@ -29113,7 +29212,7 @@
             },
             {
               "date": "2026-06-23",
-              "close": 70.24
+              "close": 69.8
             }
           ],
           "entry_locked": true
@@ -29148,7 +29247,7 @@
             },
             {
               "date": "2026-06-23",
-              "close": 211.9
+              "close": 210.49
             }
           ],
           "entry_locked": true
@@ -29183,7 +29282,7 @@
             },
             {
               "date": "2026-06-23",
-              "close": 90.46
+              "close": 90.42
             }
           ],
           "entry_locked": true
@@ -29218,7 +29317,7 @@
             },
             {
               "date": "2026-06-23",
-              "close": 340.22
+              "close": 346.19
             }
           ],
           "entry_locked": true
@@ -29253,7 +29352,7 @@
             },
             {
               "date": "2026-06-23",
-              "close": 340.9
+              "close": 346.75
             }
           ],
           "entry_locked": true
@@ -29288,7 +29387,7 @@
             },
             {
               "date": "2026-06-23",
-              "close": 110.02
+              "close": 109.85
             }
           ],
           "entry_locked": true
@@ -29320,6 +29419,10 @@
             {
               "date": "2026-06-22",
               "close": 69.21
+            },
+            {
+              "date": "2026-06-23",
+              "close": 64.8
             }
           ],
           "entry_locked": true
@@ -29354,7 +29457,7 @@
             },
             {
               "date": "2026-06-23",
-              "close": 561.61
+              "close": 568.69
             }
           ],
           "entry_locked": true
@@ -29389,7 +29492,7 @@
             },
             {
               "date": "2026-06-23",
-              "close": 245.02
+              "close": 245.54
             }
           ],
           "entry_locked": true
@@ -29424,7 +29527,7 @@
             },
             {
               "date": "2026-06-23",
-              "close": 86.38
+              "close": 86.62
             }
           ],
           "entry_locked": true
@@ -29459,7 +29562,7 @@
             },
             {
               "date": "2026-06-23",
-              "close": 214.49
+              "close": 215.45
             }
           ],
           "entry_locked": true
@@ -29494,7 +29597,7 @@
             },
             {
               "date": "2026-06-23",
-              "close": 321.69
+              "close": 322.2
             }
           ],
           "entry_locked": true
@@ -29529,7 +29632,7 @@
             },
             {
               "date": "2026-06-23",
-              "close": 46.56
+              "close": 46.63
             }
           ],
           "entry_locked": true
@@ -29564,7 +29667,7 @@
             },
             {
               "date": "2026-06-23",
-              "close": 130.58
+              "close": 131.28
             }
           ],
           "entry_locked": true
@@ -29599,7 +29702,7 @@
             },
             {
               "date": "2026-06-23",
-              "close": 94.39
+              "close": 93.46
             }
           ],
           "entry_locked": true
@@ -29639,7 +29742,7 @@
             },
             {
               "date": "2026-06-23",
-              "close": 1071.97
+              "close": 1071.67
             }
           ]
         },
@@ -29670,7 +29773,7 @@
             },
             {
               "date": "2026-06-23",
-              "close": 1990.58
+              "close": 1966.1
             }
           ]
         },
@@ -29701,7 +29804,7 @@
             },
             {
               "date": "2026-06-23",
-              "close": 996.91
+              "close": 1002.14
             }
           ]
         },
@@ -29732,7 +29835,7 @@
             },
             {
               "date": "2026-06-23",
-              "close": 116.83
+              "close": 119.76
             }
           ]
         },
@@ -29763,7 +29866,7 @@
             },
             {
               "date": "2026-06-23",
-              "close": 149.99
+              "close": 151.38
             }
           ]
         },
@@ -29794,7 +29897,7 @@
             },
             {
               "date": "2026-06-23",
-              "close": 148.44
+              "close": 148.95
             }
           ]
         },
@@ -29825,7 +29928,7 @@
             },
             {
               "date": "2026-06-23",
-              "close": 843.66
+              "close": 842.88
             }
           ]
         },
@@ -29856,7 +29959,7 @@
             },
             {
               "date": "2026-06-23",
-              "close": 988.0
+              "close": 975.72
             }
           ]
         },
@@ -29887,7 +29990,7 @@
             },
             {
               "date": "2026-06-23",
-              "close": 97.64
+              "close": 97.87
             }
           ]
         },
@@ -29918,7 +30021,7 @@
             },
             {
               "date": "2026-06-23",
-              "close": 198.31
+              "close": 198.85
             }
           ]
         },
@@ -29946,6 +30049,10 @@
             {
               "date": "2026-06-22",
               "close": 69.21
+            },
+            {
+              "date": "2026-06-23",
+              "close": 64.8
             }
           ]
         },
@@ -29976,7 +30083,7 @@
             },
             {
               "date": "2026-06-23",
-              "close": 160.9
+              "close": 162.71
             }
           ]
         },
@@ -30007,7 +30114,7 @@
             },
             {
               "date": "2026-06-23",
-              "close": 140.04
+              "close": 140.03
             }
           ]
         },
@@ -30038,7 +30145,7 @@
             },
             {
               "date": "2026-06-23",
-              "close": 27.23
+              "close": 27.72
             }
           ]
         },
@@ -30069,7 +30176,7 @@
             },
             {
               "date": "2026-06-23",
-              "close": 104.5
+              "close": 103.29
             }
           ]
         },
@@ -30093,7 +30200,16 @@
           "status": "HOLD",
           "exit_price": null,
           "exit_date": null,
-          "closes": []
+          "closes": [
+            {
+              "date": "2026-06-22",
+              "close": 129.5
+            },
+            {
+              "date": "2026-06-23",
+              "close": 129.85
+            }
+          ]
         },
         {
           "rank": 17,
@@ -30122,7 +30238,7 @@
             },
             {
               "date": "2026-06-23",
-              "close": 117.68
+              "close": 117.2
             }
           ]
         },
@@ -30153,7 +30269,7 @@
             },
             {
               "date": "2026-06-23",
-              "close": 16.6
+              "close": 16.64
             }
           ]
         },
@@ -30184,7 +30300,7 @@
             },
             {
               "date": "2026-06-23",
-              "close": 1118.41
+              "close": 1105.67
             }
           ]
         },
@@ -30215,7 +30331,7 @@
             },
             {
               "date": "2026-06-23",
-              "close": 132.02
+              "close": 132.99
             }
           ]
         },
@@ -30246,7 +30362,7 @@
             },
             {
               "date": "2026-06-23",
-              "close": 340.22
+              "close": 346.19
             }
           ]
         },
@@ -30277,7 +30393,7 @@
             },
             {
               "date": "2026-06-23",
-              "close": 340.9
+              "close": 346.75
             }
           ]
         },
@@ -30308,7 +30424,7 @@
             },
             {
               "date": "2026-06-23",
-              "close": 70.24
+              "close": 69.8
             }
           ]
         },
@@ -30339,7 +30455,7 @@
             },
             {
               "date": "2026-06-23",
-              "close": 245.02
+              "close": 245.54
             }
           ]
         },
@@ -30370,7 +30486,7 @@
             },
             {
               "date": "2026-06-23",
-              "close": 268.92
+              "close": 270.99
             }
           ]
         },
@@ -30401,7 +30517,7 @@
             },
             {
               "date": "2026-06-23",
-              "close": 965.88
+              "close": 962.95
             }
           ]
         },
@@ -30463,7 +30579,7 @@
             },
             {
               "date": "2026-06-23",
-              "close": 78.75
+              "close": 78.6
             }
           ]
         },
@@ -30494,7 +30610,7 @@
             },
             {
               "date": "2026-06-23",
-              "close": 73.5
+              "close": 72.38
             }
           ]
         },
@@ -30525,7 +30641,7 @@
             },
             {
               "date": "2026-06-23",
-              "close": 214.49
+              "close": 215.45
             }
           ]
         },
@@ -30556,7 +30672,7 @@
             },
             {
               "date": "2026-06-23",
-              "close": 90.46
+              "close": 90.42
             }
           ]
         },
@@ -30587,7 +30703,7 @@
             },
             {
               "date": "2026-06-23",
-              "close": 83.82
+              "close": 84.46
             }
           ]
         },
@@ -30618,7 +30734,7 @@
             },
             {
               "date": "2026-06-23",
-              "close": 130.58
+              "close": 131.28
             }
           ]
         }
@@ -30657,7 +30773,7 @@
             },
             {
               "date": "2026-06-23",
-              "close": 148.44
+              "close": 148.95
             }
           ]
         },
@@ -30688,7 +30804,7 @@
             },
             {
               "date": "2026-06-23",
-              "close": 202.2
+              "close": 202.14
             }
           ]
         },
@@ -30719,7 +30835,7 @@
             },
             {
               "date": "2026-06-23",
-              "close": 206.0
+              "close": 203.12
             }
           ]
         },
@@ -30750,7 +30866,7 @@
             },
             {
               "date": "2026-06-23",
-              "close": 377.84
+              "close": 383.65
             }
           ]
         },
@@ -30781,7 +30897,7 @@
             },
             {
               "date": "2026-06-23",
-              "close": 333.01
+              "close": 319.44
             }
           ]
         },
@@ -30812,7 +30928,7 @@
             },
             {
               "date": "2026-06-23",
-              "close": 160.9
+              "close": 162.71
             }
           ]
         },
@@ -30843,7 +30959,7 @@
             },
             {
               "date": "2026-06-23",
-              "close": 843.66
+              "close": 842.88
             }
           ]
         },
@@ -30874,7 +30990,7 @@
             },
             {
               "date": "2026-06-23",
-              "close": 116.83
+              "close": 119.76
             }
           ]
         },
@@ -30905,7 +31021,7 @@
             },
             {
               "date": "2026-06-23",
-              "close": 292.0
+              "close": 294.65
             }
           ]
         },
@@ -30936,7 +31052,7 @@
             },
             {
               "date": "2026-06-23",
-              "close": 132.02
+              "close": 132.99
             }
           ]
         },
@@ -30967,7 +31083,7 @@
             },
             {
               "date": "2026-06-23",
-              "close": 97.64
+              "close": 97.87
             }
           ]
         },
@@ -30998,7 +31114,7 @@
             },
             {
               "date": "2026-06-23",
-              "close": 198.31
+              "close": 198.85
             }
           ]
         },
@@ -31029,7 +31145,7 @@
             },
             {
               "date": "2026-06-23",
-              "close": 78.19
+              "close": 79.2
             }
           ]
         },
@@ -31060,7 +31176,7 @@
             },
             {
               "date": "2026-06-23",
-              "close": 104.5
+              "close": 103.29
             }
           ]
         },
@@ -31091,7 +31207,7 @@
             },
             {
               "date": "2026-06-23",
-              "close": 240.35
+              "close": 245.69
             }
           ]
         },
@@ -31122,7 +31238,7 @@
             },
             {
               "date": "2026-06-23",
-              "close": 268.92
+              "close": 270.99
             }
           ]
         },
@@ -31146,7 +31262,16 @@
           "status": "HOLD",
           "exit_price": null,
           "exit_date": null,
-          "closes": []
+          "closes": [
+            {
+              "date": "2026-06-22",
+              "close": 129.5
+            },
+            {
+              "date": "2026-06-23",
+              "close": 129.85
+            }
+          ]
         },
         {
           "rank": 18,
@@ -31175,7 +31300,7 @@
             },
             {
               "date": "2026-06-23",
-              "close": 33.56
+              "close": 33.78
             }
           ]
         },
@@ -31206,7 +31331,7 @@
             },
             {
               "date": "2026-06-23",
-              "close": 27.23
+              "close": 27.72
             }
           ]
         },
@@ -31237,7 +31362,7 @@
             },
             {
               "date": "2026-06-23",
-              "close": 90.46
+              "close": 90.42
             }
           ]
         },
@@ -31268,7 +31393,7 @@
             },
             {
               "date": "2026-06-23",
-              "close": 86.38
+              "close": 86.62
             }
           ]
         },
@@ -31299,7 +31424,7 @@
             },
             {
               "date": "2026-06-23",
-              "close": 74.16
+              "close": 74.63
             }
           ]
         },
@@ -31330,7 +31455,7 @@
             },
             {
               "date": "2026-06-23",
-              "close": 340.22
+              "close": 346.19
             }
           ]
         },
@@ -31361,7 +31486,7 @@
             },
             {
               "date": "2026-06-23",
-              "close": 340.9
+              "close": 346.75
             }
           ]
         },
@@ -31392,7 +31517,7 @@
             },
             {
               "date": "2026-06-23",
-              "close": 469.42
+              "close": 466.42
             }
           ]
         },
@@ -31423,7 +31548,7 @@
             },
             {
               "date": "2026-06-23",
-              "close": 149.99
+              "close": 151.38
             }
           ]
         },
@@ -31454,7 +31579,7 @@
             },
             {
               "date": "2026-06-23",
-              "close": 70.24
+              "close": 69.8
             }
           ]
         },
@@ -31485,7 +31610,7 @@
             },
             {
               "date": "2026-06-23",
-              "close": 16.6
+              "close": 16.64
             }
           ]
         },
@@ -31516,7 +31641,7 @@
             },
             {
               "date": "2026-06-23",
-              "close": 46.56
+              "close": 46.63
             }
           ]
         },
@@ -31547,7 +31672,7 @@
             },
             {
               "date": "2026-06-23",
-              "close": 94.39
+              "close": 93.46
             }
           ]
         },
@@ -31578,7 +31703,7 @@
             },
             {
               "date": "2026-06-23",
-              "close": 83.82
+              "close": 84.46
             }
           ]
         },
@@ -31609,7 +31734,7 @@
             },
             {
               "date": "2026-06-23",
-              "close": 214.49
+              "close": 215.45
             }
           ]
         },
@@ -31640,7 +31765,7 @@
             },
             {
               "date": "2026-06-23",
-              "close": 130.58
+              "close": 131.28
             }
           ]
         }
@@ -31649,7 +31774,7 @@
     "2026-06-23": {
       "pick_date": "2026-06-23",
       "generated_at": "2026-06-23T12:31:12.844519+00:00",
-      "entries_locked": false,
+      "entries_locked": true,
       "retired": false,
       "picks": [
         {
@@ -31665,17 +31790,17 @@
           },
           "screen_close": 149.1999969482422,
           "entry_atr": 5.407145908900669,
-          "entry_price": 144.93,
+          "entry_price": 148.32,
           "entry_locked": false,
-          "stop_price": 136.82,
-          "target_price": 161.15,
+          "stop_price": 140.21,
+          "target_price": 164.54,
           "status": "HOLD",
           "exit_price": null,
           "exit_date": null,
           "closes": [
             {
               "date": "2026-06-23",
-              "close": 148.44
+              "close": 148.95
             }
           ]
         },
@@ -31692,17 +31817,17 @@
           },
           "screen_close": 418.7099914550781,
           "entry_atr": 30.557144165039062,
-          "entry_price": 415.19,
+          "entry_price": 395.0,
           "entry_locked": false,
-          "stop_price": 369.35,
-          "target_price": 506.86,
+          "stop_price": 349.16,
+          "target_price": 486.67,
           "status": "HOLD",
           "exit_price": null,
           "exit_date": null,
           "closes": [
             {
               "date": "2026-06-23",
-              "close": 394.83
+              "close": 398.05
             }
           ]
         },
@@ -31719,17 +31844,17 @@
           },
           "screen_close": 868.8800048828125,
           "entry_atr": 31.550715855189733,
-          "entry_price": 844.95,
+          "entry_price": 852.79,
           "entry_locked": false,
-          "stop_price": 797.62,
-          "target_price": 939.6,
+          "stop_price": 805.46,
+          "target_price": 947.44,
           "status": "HOLD",
           "exit_price": null,
           "exit_date": null,
           "closes": [
             {
               "date": "2026-06-23",
-              "close": 843.66
+              "close": 842.88
             }
           ]
         },
@@ -31756,7 +31881,7 @@
           "closes": [
             {
               "date": "2026-06-23",
-              "close": 202.2
+              "close": 202.14
             }
           ]
         },
@@ -31783,7 +31908,7 @@
           "closes": [
             {
               "date": "2026-06-23",
-              "close": 996.91
+              "close": 1002.14
             }
           ]
         },
@@ -31800,17 +31925,17 @@
           },
           "screen_close": 167.25999450683594,
           "entry_atr": 6.889283316476004,
-          "entry_price": 163.51,
+          "entry_price": 160.08,
           "entry_locked": false,
-          "stop_price": 153.18,
-          "target_price": 184.18,
+          "stop_price": 149.75,
+          "target_price": 180.75,
           "status": "HOLD",
           "exit_price": null,
           "exit_date": null,
           "closes": [
             {
               "date": "2026-06-23",
-              "close": 160.9
+              "close": 162.71
             }
           ]
         },
@@ -31837,7 +31962,7 @@
           "closes": [
             {
               "date": "2026-06-23",
-              "close": 140.04
+              "close": 140.03
             }
           ]
         },
@@ -31864,7 +31989,7 @@
           "closes": [
             {
               "date": "2026-06-23",
-              "close": 104.5
+              "close": 103.29
             }
           ]
         },
@@ -31891,7 +32016,7 @@
           "closes": [
             {
               "date": "2026-06-23",
-              "close": 340.22
+              "close": 346.19
             }
           ]
         },
@@ -31918,7 +32043,7 @@
           "closes": [
             {
               "date": "2026-06-23",
-              "close": 340.9
+              "close": 346.75
             }
           ]
         },
@@ -31935,17 +32060,17 @@
           },
           "screen_close": 28.780000686645508,
           "entry_atr": 0.9800000871930804,
-          "entry_price": 28.23,
+          "entry_price": 28.21,
           "entry_locked": false,
-          "stop_price": 26.76,
-          "target_price": 31.17,
+          "stop_price": 26.74,
+          "target_price": 31.15,
           "status": "HOLD",
           "exit_price": null,
           "exit_date": null,
           "closes": [
             {
               "date": "2026-06-23",
-              "close": 28.23
+              "close": 28.43
             }
           ]
         },
@@ -31962,17 +32087,17 @@
           },
           "screen_close": 326.6000061035156,
           "entry_atr": 7.363573346819196,
-          "entry_price": 328.33,
+          "entry_price": 328.82,
           "entry_locked": false,
-          "stop_price": 317.28,
-          "target_price": 350.42,
+          "stop_price": 317.77,
+          "target_price": 350.91,
           "status": "HOLD",
           "exit_price": null,
           "exit_date": null,
           "closes": [
             {
               "date": "2026-06-23",
-              "close": 328.58
+              "close": 330.18
             }
           ]
         },
@@ -31989,10 +32114,10 @@
           },
           "screen_close": 264.510009765625,
           "entry_atr": 7.221429007393973,
-          "entry_price": 260.91,
+          "entry_price": 263.49,
           "entry_locked": false,
-          "stop_price": 250.08,
-          "target_price": 282.57,
+          "stop_price": 252.66,
+          "target_price": 285.15,
           "status": "HOLD",
           "exit_price": null,
           "exit_date": null,
@@ -32016,17 +32141,17 @@
           },
           "screen_close": 34.20000076293945,
           "entry_atr": 1.4585718427385603,
-          "entry_price": 33.66,
+          "entry_price": 33.8,
           "entry_locked": false,
-          "stop_price": 31.47,
-          "target_price": 38.04,
+          "stop_price": 31.61,
+          "target_price": 38.18,
           "status": "HOLD",
           "exit_price": null,
           "exit_date": null,
           "closes": [
             {
               "date": "2026-06-23",
-              "close": 33.86
+              "close": 34.1
             }
           ]
         },
@@ -32043,17 +32168,17 @@
           },
           "screen_close": 132.8300018310547,
           "entry_atr": 4.125002179827009,
-          "entry_price": 131.04,
+          "entry_price": 132.08,
           "entry_locked": false,
-          "stop_price": 124.85,
-          "target_price": 143.42,
+          "stop_price": 125.89,
+          "target_price": 144.46,
           "status": "HOLD",
           "exit_price": null,
           "exit_date": null,
           "closes": [
             {
               "date": "2026-06-23",
-              "close": 132.02
+              "close": 132.99
             }
           ]
         },
@@ -32070,17 +32195,17 @@
           },
           "screen_close": 138.91000366210938,
           "entry_atr": 5.524998801095145,
-          "entry_price": 135.34,
+          "entry_price": 134.51,
           "entry_locked": false,
-          "stop_price": 127.05,
-          "target_price": 151.91,
+          "stop_price": 126.22,
+          "target_price": 151.08,
           "status": "HOLD",
           "exit_price": null,
           "exit_date": null,
           "closes": [
             {
               "date": "2026-06-23",
-              "close": 134.73
+              "close": 135.77
             }
           ]
         },
@@ -32097,17 +32222,17 @@
           },
           "screen_close": 309.3599853515625,
           "entry_atr": 13.800003051757812,
-          "entry_price": 311.23,
+          "entry_price": 291.99,
           "entry_locked": false,
-          "stop_price": 290.53,
-          "target_price": 352.63,
+          "stop_price": 271.29,
+          "target_price": 333.39,
           "status": "HOLD",
           "exit_price": null,
           "exit_date": null,
           "closes": [
             {
               "date": "2026-06-23",
-              "close": 292.0
+              "close": 294.65
             }
           ]
         },
@@ -32124,17 +32249,17 @@
           },
           "screen_close": 76.37000274658203,
           "entry_atr": 1.7449989318847656,
-          "entry_price": 74.3,
+          "entry_price": 76.79,
           "entry_locked": false,
-          "stop_price": 71.68,
-          "target_price": 79.53,
+          "stop_price": 74.17,
+          "target_price": 82.02,
           "status": "HOLD",
           "exit_price": null,
           "exit_date": null,
           "closes": [
             {
               "date": "2026-06-23",
-              "close": 76.92
+              "close": 76.36
             }
           ]
         },
@@ -32161,7 +32286,7 @@
           "closes": [
             {
               "date": "2026-06-23",
-              "close": 116.83
+              "close": 119.76
             }
           ]
         },
@@ -32178,17 +32303,17 @@
           },
           "screen_close": 357.9599914550781,
           "entry_atr": 20.828717912946427,
-          "entry_price": 338.88,
+          "entry_price": 337.96,
           "entry_locked": false,
-          "stop_price": 307.64,
-          "target_price": 401.37,
+          "stop_price": 306.72,
+          "target_price": 400.45,
           "status": "HOLD",
           "exit_price": null,
           "exit_date": null,
           "closes": [
             {
               "date": "2026-06-23",
-              "close": 333.01
+              "close": 319.44
             }
           ]
         },
@@ -32215,7 +32340,7 @@
           "closes": [
             {
               "date": "2026-06-23",
-              "close": 1118.41
+              "close": 1105.67
             }
           ]
         },
@@ -32232,17 +32357,17 @@
           },
           "screen_close": 16.6299991607666,
           "entry_atr": 0.4107142857142857,
-          "entry_price": 16.48,
+          "entry_price": 16.67,
           "entry_locked": false,
-          "stop_price": 15.86,
-          "target_price": 17.71,
+          "stop_price": 16.05,
+          "target_price": 17.9,
           "status": "HOLD",
           "exit_price": null,
           "exit_date": null,
           "closes": [
             {
               "date": "2026-06-23",
-              "close": 16.6
+              "close": 16.64
             }
           ]
         },
@@ -32259,17 +32384,17 @@
           },
           "screen_close": 156.69000244140625,
           "entry_atr": 8.788572038922991,
-          "entry_price": 160.36,
+          "entry_price": 150.23,
           "entry_locked": false,
-          "stop_price": 147.18,
-          "target_price": 186.73,
+          "stop_price": 137.05,
+          "target_price": 176.6,
           "status": "HOLD",
           "exit_price": null,
           "exit_date": null,
           "closes": [
             {
               "date": "2026-06-23",
-              "close": 149.99
+              "close": 151.38
             }
           ]
         },
@@ -32286,17 +32411,17 @@
           },
           "screen_close": 101.80000305175781,
           "entry_atr": 4.971427917480469,
-          "entry_price": 99.89,
+          "entry_price": 97.91,
           "entry_locked": false,
-          "stop_price": 92.43,
-          "target_price": 114.8,
+          "stop_price": 90.45,
+          "target_price": 112.82,
           "status": "HOLD",
           "exit_price": null,
           "exit_date": null,
           "closes": [
             {
               "date": "2026-06-23",
-              "close": 97.64
+              "close": 97.87
             }
           ]
         },
@@ -32323,7 +32448,7 @@
           "closes": [
             {
               "date": "2026-06-23",
-              "close": 348.48
+              "close": 347.65
             }
           ]
         },
@@ -32340,17 +32465,17 @@
           },
           "screen_close": 88.66999816894531,
           "entry_atr": 2.3557112557547435,
-          "entry_price": 89.89,
+          "entry_price": 89.84,
           "entry_locked": false,
-          "stop_price": 86.36,
-          "target_price": 96.96,
+          "stop_price": 86.31,
+          "target_price": 96.91,
           "status": "HOLD",
           "exit_price": null,
           "exit_date": null,
           "closes": [
             {
               "date": "2026-06-23",
-              "close": 90.46
+              "close": 90.42
             }
           ]
         },
@@ -32367,14 +32492,19 @@
           },
           "screen_close": 69.20999908447266,
           "entry_atr": 3.417142868041992,
-          "entry_price": null,
+          "entry_price": 65.43,
           "entry_locked": false,
-          "stop_price": null,
-          "target_price": null,
-          "status": "PENDING",
+          "stop_price": 60.3,
+          "target_price": 75.68,
+          "status": "HOLD",
           "exit_price": null,
           "exit_date": null,
-          "closes": []
+          "closes": [
+            {
+              "date": "2026-06-23",
+              "close": 64.8
+            }
+          ]
         },
         {
           "rank": 28,
@@ -32399,7 +32529,7 @@
           "closes": [
             {
               "date": "2026-06-23",
-              "close": 240.35
+              "close": 245.69
             }
           ]
         },
@@ -32416,17 +32546,17 @@
           },
           "screen_close": 129.9499969482422,
           "entry_atr": 4.1471421377999445,
-          "entry_price": 130.12,
+          "entry_price": 130.56,
           "entry_locked": false,
-          "stop_price": 123.9,
-          "target_price": 142.56,
+          "stop_price": 124.34,
+          "target_price": 143.0,
           "status": "HOLD",
           "exit_price": null,
           "exit_date": null,
           "closes": [
             {
               "date": "2026-06-23",
-              "close": 130.58
+              "close": 131.28
             }
           ]
         },
@@ -32443,17 +32573,17 @@
           },
           "screen_close": 195.5399932861328,
           "entry_atr": 5.018571036202567,
-          "entry_price": 188.64,
+          "entry_price": 193.66,
           "entry_locked": false,
-          "stop_price": 181.11,
-          "target_price": 203.7,
+          "stop_price": 186.13,
+          "target_price": 208.72,
           "status": "HOLD",
           "exit_price": null,
           "exit_date": null,
           "closes": [
             {
               "date": "2026-06-23",
-              "close": 195.27
+              "close": 195.1
             }
           ]
         },
@@ -32470,17 +32600,17 @@
           },
           "screen_close": 214.57000732421875,
           "entry_atr": 4.630713326590402,
-          "entry_price": 212.61,
+          "entry_price": 215.04,
           "entry_locked": false,
-          "stop_price": 205.66,
-          "target_price": 226.5,
+          "stop_price": 208.09,
+          "target_price": 228.93,
           "status": "HOLD",
           "exit_price": null,
           "exit_date": null,
           "closes": [
             {
               "date": "2026-06-23",
-              "close": 214.49
+              "close": 215.45
             }
           ]
         },
@@ -32497,17 +32627,17 @@
           },
           "screen_close": 17.860000610351562,
           "entry_atr": 0.403571537562779,
-          "entry_price": 18.06,
+          "entry_price": 18.07,
           "entry_locked": false,
-          "stop_price": 17.45,
-          "target_price": 19.27,
+          "stop_price": 17.46,
+          "target_price": 19.28,
           "status": "HOLD",
           "exit_price": null,
           "exit_date": null,
           "closes": [
             {
               "date": "2026-06-23",
-              "close": 18.07
+              "close": 18.04
             }
           ]
         },
@@ -32524,17 +32654,17 @@
           },
           "screen_close": 79.52999877929688,
           "entry_atr": 1.7742870875767298,
-          "entry_price": 79.25,
+          "entry_price": 81.32,
           "entry_locked": false,
-          "stop_price": 76.59,
-          "target_price": 84.57,
+          "stop_price": 78.66,
+          "target_price": 86.64,
           "status": "HOLD",
           "exit_price": null,
           "exit_date": null,
           "closes": [
             {
               "date": "2026-06-23",
-              "close": 81.04
+              "close": 80.31
             }
           ]
         }
