@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-06-23T20:45:44.049491+00:00",
+  "updated_at": "2026-06-24T12:31:23.373970+00:00",
   "tracking_window": 10,
   "cohorts": {
     "2026-05-27": {
@@ -17641,7 +17641,7 @@
       "pick_date": "2026-06-09",
       "generated_at": "2026-06-09T12:31:16.874762+00:00",
       "entries_locked": true,
-      "retired": false,
+      "retired": true,
       "picks": [
         {
           "rank": 1,
@@ -19219,9 +19219,9 @@
           "entry_price": 591.0,
           "stop_price": 562.56,
           "target_price": 647.88,
-          "status": "HOLD",
-          "exit_price": null,
-          "exit_date": null,
+          "status": "STOPPED",
+          "exit_price": 562.2,
+          "exit_date": "2026-06-23",
           "closes": [
             {
               "date": "2026-06-09",
@@ -19282,17 +19282,13 @@
           "entry_price": 47.65,
           "stop_price": 45.47,
           "target_price": 52.02,
-          "status": "STOPPED",
-          "exit_price": 45.06,
-          "exit_date": "2026-06-10",
+          "status": "TARGET_HIT",
+          "exit_price": 141.18,
+          "exit_date": "2026-06-09",
           "closes": [
             {
               "date": "2026-06-09",
-              "close": 47.06
-            },
-            {
-              "date": "2026-06-10",
-              "close": 45.06
+              "close": 141.18
             }
           ],
           "entry_locked": true
@@ -19792,9 +19788,9 @@
           "entry_price": 356.41,
           "stop_price": 340.18,
           "target_price": 388.88,
-          "status": "HOLD",
-          "exit_price": null,
-          "exit_date": null,
+          "status": "STOPPED",
+          "exit_price": 339.36,
+          "exit_date": "2026-06-23",
           "closes": [
             {
               "date": "2026-06-10",
@@ -20432,9 +20428,9 @@
           "entry_price": 361.05,
           "stop_price": 346.98,
           "target_price": 389.19,
-          "status": "HOLD",
-          "exit_price": null,
-          "exit_date": null,
+          "status": "STOPPED",
+          "exit_price": 346.08,
+          "exit_date": "2026-06-23",
           "closes": [
             {
               "date": "2026-06-10",
@@ -20491,9 +20487,9 @@
           "entry_price": 363.19,
           "stop_price": 349.1,
           "target_price": 391.37,
-          "status": "HOLD",
-          "exit_price": null,
-          "exit_date": null,
+          "status": "STOPPED",
+          "exit_price": 346.13,
+          "exit_date": "2026-06-23",
           "closes": [
             {
               "date": "2026-06-10",
@@ -21049,41 +21045,13 @@
           "entry_price": 46.77,
           "stop_price": 44.72,
           "target_price": 50.87,
-          "status": "HOLD",
-          "exit_price": null,
-          "exit_date": null,
+          "status": "TARGET_HIT",
+          "exit_price": 135.18,
+          "exit_date": "2026-06-10",
           "closes": [
             {
               "date": "2026-06-10",
-              "close": 45.06
-            },
-            {
-              "date": "2026-06-11",
-              "close": 46.84
-            },
-            {
-              "date": "2026-06-12",
-              "close": 48.26
-            },
-            {
-              "date": "2026-06-15",
-              "close": 48.54
-            },
-            {
-              "date": "2026-06-16",
-              "close": 48.04
-            },
-            {
-              "date": "2026-06-17",
-              "close": 47.95
-            },
-            {
-              "date": "2026-06-18",
-              "close": 47.71
-            },
-            {
-              "date": "2026-06-23",
-              "close": 46.67
+              "close": 135.18
             }
           ],
           "entry_locked": true
@@ -23747,9 +23715,9 @@
           "entry_price": 362.62,
           "stop_price": 347.11,
           "target_price": 393.65,
-          "status": "HOLD",
-          "exit_price": null,
-          "exit_date": null,
+          "status": "STOPPED",
+          "exit_price": 346.13,
+          "exit_date": "2026-06-23",
           "closes": [
             {
               "date": "2026-06-12",
@@ -23982,33 +23950,13 @@
           "entry_price": 47.49,
           "stop_price": 45.25,
           "target_price": 51.97,
-          "status": "HOLD",
-          "exit_price": null,
-          "exit_date": null,
+          "status": "TARGET_HIT",
+          "exit_price": 144.78,
+          "exit_date": "2026-06-12",
           "closes": [
             {
               "date": "2026-06-12",
-              "close": 48.26
-            },
-            {
-              "date": "2026-06-15",
-              "close": 48.54
-            },
-            {
-              "date": "2026-06-16",
-              "close": 48.04
-            },
-            {
-              "date": "2026-06-17",
-              "close": 47.95
-            },
-            {
-              "date": "2026-06-18",
-              "close": 47.71
-            },
-            {
-              "date": "2026-06-23",
-              "close": 46.67
+              "close": 144.78
             }
           ],
           "entry_locked": true
@@ -24217,9 +24165,9 @@
           "entry_price": 161.58,
           "stop_price": 150.2,
           "target_price": 184.35,
-          "status": "HOLD",
-          "exit_price": null,
-          "exit_date": null,
+          "status": "STOPPED",
+          "exit_price": 149.98,
+          "exit_date": "2026-06-23",
           "closes": [
             {
               "date": "2026-06-12",
@@ -25258,9 +25206,9 @@
           "entry_price": 79.7,
           "stop_price": 75.73,
           "target_price": 87.64,
-          "status": "HOLD",
-          "exit_price": null,
-          "exit_date": null,
+          "status": "STOPPED",
+          "exit_price": 74.71,
+          "exit_date": "2026-06-23",
           "closes": [
             {
               "date": "2026-06-15",
@@ -25516,9 +25464,9 @@
           "entry_price": 71.19,
           "stop_price": 66.04,
           "target_price": 81.5,
-          "status": "HOLD",
-          "exit_price": null,
-          "exit_date": null,
+          "status": "STOPPED",
+          "exit_price": 64.4,
+          "exit_date": "2026-06-23",
           "closes": [
             {
               "date": "2026-06-15",
@@ -26270,9 +26218,9 @@
           "entry_price": 167.66,
           "stop_price": 155.31,
           "target_price": 192.36,
-          "status": "HOLD",
-          "exit_price": null,
-          "exit_date": null,
+          "status": "STOPPED",
+          "exit_price": 149.98,
+          "exit_date": "2026-06-23",
           "closes": [
             {
               "date": "2026-06-16",
@@ -26313,9 +26261,9 @@
           "entry_price": 70.58,
           "stop_price": 65.37,
           "target_price": 80.99,
-          "status": "HOLD",
-          "exit_price": null,
-          "exit_date": null,
+          "status": "STOPPED",
+          "exit_price": 64.4,
+          "exit_date": "2026-06-23",
           "closes": [
             {
               "date": "2026-06-16",
@@ -26356,9 +26304,9 @@
           "entry_price": 29.43,
           "stop_price": 27.96,
           "target_price": 32.37,
-          "status": "HOLD",
-          "exit_price": null,
-          "exit_date": null,
+          "status": "STOPPED",
+          "exit_price": 27.02,
+          "exit_date": "2026-06-23",
           "closes": [
             {
               "date": "2026-06-16",
@@ -27336,9 +27284,9 @@
           "entry_price": 108.18,
           "stop_price": 100.88,
           "target_price": 122.78,
-          "status": "HOLD",
-          "exit_price": null,
-          "exit_date": null,
+          "status": "STOPPED",
+          "exit_price": 97.84,
+          "exit_date": "2026-06-23",
           "closes": [
             {
               "date": "2026-06-17",
@@ -27683,9 +27631,9 @@
           "entry_price": 31.09,
           "stop_price": 29.32,
           "target_price": 34.63,
-          "status": "HOLD",
-          "exit_price": null,
-          "exit_date": null,
+          "status": "STOPPED",
+          "exit_price": 28.72,
+          "exit_date": "2026-06-23",
           "closes": [
             {
               "date": "2026-06-17",
@@ -27835,9 +27783,9 @@
           "entry_price": 167.85,
           "stop_price": 155.94,
           "target_price": 191.67,
-          "status": "HOLD",
-          "exit_price": null,
-          "exit_date": null,
+          "status": "STOPPED",
+          "exit_price": 149.98,
+          "exit_date": "2026-06-23",
           "closes": [
             {
               "date": "2026-06-17",
@@ -27913,9 +27861,9 @@
           "entry_price": 70.13,
           "stop_price": 64.89,
           "target_price": 80.62,
-          "status": "HOLD",
-          "exit_price": null,
-          "exit_date": null,
+          "status": "STOPPED",
+          "exit_price": 64.4,
+          "exit_date": "2026-06-23",
           "closes": [
             {
               "date": "2026-06-17",
@@ -28638,9 +28586,9 @@
           "entry_price": 216.65,
           "stop_price": 203.55,
           "target_price": 242.86,
-          "status": "HOLD",
-          "exit_price": null,
-          "exit_date": null,
+          "status": "STOPPED",
+          "exit_price": 203.05,
+          "exit_date": "2026-06-23",
           "closes": [
             {
               "date": "2026-06-18",
@@ -28883,9 +28831,9 @@
           "entry_price": 106.32,
           "stop_price": 98.87,
           "target_price": 121.22,
-          "status": "HOLD",
-          "exit_price": null,
-          "exit_date": null,
+          "status": "STOPPED",
+          "exit_price": 97.84,
+          "exit_date": "2026-06-23",
           "closes": [
             {
               "date": "2026-06-18",
@@ -28988,9 +28936,9 @@
           "entry_price": 31.18,
           "stop_price": 29.25,
           "target_price": 35.03,
-          "status": "HOLD",
-          "exit_price": null,
-          "exit_date": null,
+          "status": "STOPPED",
+          "exit_price": 28.72,
+          "exit_date": "2026-06-23",
           "closes": [
             {
               "date": "2026-06-18",
@@ -29303,9 +29251,9 @@
           "entry_price": 363.89,
           "stop_price": 346.93,
           "target_price": 397.8,
-          "status": "HOLD",
-          "exit_price": null,
-          "exit_date": null,
+          "status": "STOPPED",
+          "exit_price": 346.08,
+          "exit_date": "2026-06-23",
           "closes": [
             {
               "date": "2026-06-18",
@@ -29338,9 +29286,9 @@
           "entry_price": 365.75,
           "stop_price": 348.72,
           "target_price": 399.8,
-          "status": "HOLD",
-          "exit_price": null,
-          "exit_date": null,
+          "status": "STOPPED",
+          "exit_price": 346.13,
+          "exit_date": "2026-06-23",
           "closes": [
             {
               "date": "2026-06-18",
@@ -29408,9 +29356,9 @@
           "entry_price": 69.95,
           "stop_price": 64.69,
           "target_price": 80.47,
-          "status": "HOLD",
-          "exit_price": null,
-          "exit_date": null,
+          "status": "STOPPED",
+          "exit_price": 64.4,
+          "exit_date": "2026-06-23",
           "closes": [
             {
               "date": "2026-06-18",
@@ -29732,9 +29680,9 @@
           "entry_locked": true,
           "stop_price": 1063.95,
           "target_price": 1460.77,
-          "status": "HOLD",
-          "exit_price": null,
-          "exit_date": null,
+          "status": "STOPPED",
+          "exit_price": 1051.77,
+          "exit_date": "2026-06-23",
           "closes": [
             {
               "date": "2026-06-22",
@@ -29763,9 +29711,9 @@
           "entry_locked": true,
           "stop_price": 2057.36,
           "target_price": 2765.21,
-          "status": "HOLD",
-          "exit_price": null,
-          "exit_date": null,
+          "status": "STOPPED",
+          "exit_price": 1963.6,
+          "exit_date": "2026-06-23",
           "closes": [
             {
               "date": "2026-06-22",
@@ -30135,9 +30083,9 @@
           "entry_locked": true,
           "stop_price": 28.91,
           "target_price": 34.45,
-          "status": "HOLD",
-          "exit_price": null,
-          "exit_date": null,
+          "status": "STOPPED",
+          "exit_price": 28.72,
+          "exit_date": "2026-06-23",
           "closes": [
             {
               "date": "2026-06-22",
@@ -31321,9 +31269,9 @@
           "entry_locked": true,
           "stop_price": 28.83,
           "target_price": 34.61,
-          "status": "HOLD",
-          "exit_price": null,
-          "exit_date": null,
+          "status": "STOPPED",
+          "exit_price": 28.72,
+          "exit_date": "2026-06-23",
           "closes": [
             {
               "date": "2026-06-22",
@@ -31791,7 +31739,7 @@
           "screen_close": 149.1999969482422,
           "entry_atr": 5.407145908900669,
           "entry_price": 148.32,
-          "entry_locked": false,
+          "entry_locked": true,
           "stop_price": 140.21,
           "target_price": 164.54,
           "status": "HOLD",
@@ -31818,7 +31766,7 @@
           "screen_close": 418.7099914550781,
           "entry_atr": 30.557144165039062,
           "entry_price": 395.0,
-          "entry_locked": false,
+          "entry_locked": true,
           "stop_price": 349.16,
           "target_price": 486.67,
           "status": "HOLD",
@@ -31845,7 +31793,7 @@
           "screen_close": 868.8800048828125,
           "entry_atr": 31.550715855189733,
           "entry_price": 852.79,
-          "entry_locked": false,
+          "entry_locked": true,
           "stop_price": 805.46,
           "target_price": 947.44,
           "status": "HOLD",
@@ -31872,7 +31820,7 @@
           "screen_close": 208.64999389648438,
           "entry_atr": 7.9621462140764505,
           "entry_price": 202.17,
-          "entry_locked": false,
+          "entry_locked": true,
           "stop_price": 190.23,
           "target_price": 226.06,
           "status": "HOLD",
@@ -31899,7 +31847,7 @@
           "screen_close": 1094.0400390625,
           "entry_atr": 68.80071585518974,
           "entry_price": 984.26,
-          "entry_locked": false,
+          "entry_locked": true,
           "stop_price": 881.06,
           "target_price": 1190.66,
           "status": "HOLD",
@@ -31926,7 +31874,7 @@
           "screen_close": 167.25999450683594,
           "entry_atr": 6.889283316476004,
           "entry_price": 160.08,
-          "entry_locked": false,
+          "entry_locked": true,
           "stop_price": 149.75,
           "target_price": 180.75,
           "status": "HOLD",
@@ -31953,7 +31901,7 @@
           "screen_close": 139.19000244140625,
           "entry_atr": 4.27214104788644,
           "entry_price": 139.31,
-          "entry_locked": false,
+          "entry_locked": true,
           "stop_price": 132.9,
           "target_price": 152.13,
           "status": "HOLD",
@@ -31980,7 +31928,7 @@
           "screen_close": 103.66000366210938,
           "entry_atr": 4.7685715811593195,
           "entry_price": 104.61,
-          "entry_locked": false,
+          "entry_locked": true,
           "stop_price": 97.46,
           "target_price": 118.92,
           "status": "HOLD",
@@ -32007,7 +31955,7 @@
           "screen_close": 348.7799987792969,
           "entry_atr": 12.936209542410714,
           "entry_price": 340.11,
-          "entry_locked": false,
+          "entry_locked": true,
           "stop_price": 320.71,
           "target_price": 378.92,
           "status": "HOLD",
@@ -32033,10 +31981,10 @@
           },
           "screen_close": 349.67999267578125,
           "entry_atr": 12.872859409877233,
-          "entry_price": 340.67,
-          "entry_locked": false,
-          "stop_price": 321.36,
-          "target_price": 379.29,
+          "entry_price": 340.69,
+          "entry_locked": true,
+          "stop_price": 321.38,
+          "target_price": 379.31,
           "status": "HOLD",
           "exit_price": null,
           "exit_date": null,
@@ -32061,7 +32009,7 @@
           "screen_close": 28.780000686645508,
           "entry_atr": 0.9800000871930804,
           "entry_price": 28.21,
-          "entry_locked": false,
+          "entry_locked": true,
           "stop_price": 26.74,
           "target_price": 31.15,
           "status": "HOLD",
@@ -32088,7 +32036,7 @@
           "screen_close": 326.6000061035156,
           "entry_atr": 7.363573346819196,
           "entry_price": 328.82,
-          "entry_locked": false,
+          "entry_locked": true,
           "stop_price": 317.77,
           "target_price": 350.91,
           "status": "HOLD",
@@ -32115,7 +32063,7 @@
           "screen_close": 264.510009765625,
           "entry_atr": 7.221429007393973,
           "entry_price": 263.49,
-          "entry_locked": false,
+          "entry_locked": true,
           "stop_price": 252.66,
           "target_price": 285.15,
           "status": "HOLD",
@@ -32142,7 +32090,7 @@
           "screen_close": 34.20000076293945,
           "entry_atr": 1.4585718427385603,
           "entry_price": 33.8,
-          "entry_locked": false,
+          "entry_locked": true,
           "stop_price": 31.61,
           "target_price": 38.18,
           "status": "HOLD",
@@ -32169,7 +32117,7 @@
           "screen_close": 132.8300018310547,
           "entry_atr": 4.125002179827009,
           "entry_price": 132.08,
-          "entry_locked": false,
+          "entry_locked": true,
           "stop_price": 125.89,
           "target_price": 144.46,
           "status": "HOLD",
@@ -32196,7 +32144,7 @@
           "screen_close": 138.91000366210938,
           "entry_atr": 5.524998801095145,
           "entry_price": 134.51,
-          "entry_locked": false,
+          "entry_locked": true,
           "stop_price": 126.22,
           "target_price": 151.08,
           "status": "HOLD",
@@ -32223,7 +32171,7 @@
           "screen_close": 309.3599853515625,
           "entry_atr": 13.800003051757812,
           "entry_price": 291.99,
-          "entry_locked": false,
+          "entry_locked": true,
           "stop_price": 271.29,
           "target_price": 333.39,
           "status": "HOLD",
@@ -32250,7 +32198,7 @@
           "screen_close": 76.37000274658203,
           "entry_atr": 1.7449989318847656,
           "entry_price": 76.79,
-          "entry_locked": false,
+          "entry_locked": true,
           "stop_price": 74.17,
           "target_price": 82.02,
           "status": "HOLD",
@@ -32277,7 +32225,7 @@
           "screen_close": 118.68000030517578,
           "entry_atr": 5.1292860848563055,
           "entry_price": 116.77,
-          "entry_locked": false,
+          "entry_locked": true,
           "stop_price": 109.08,
           "target_price": 132.16,
           "status": "HOLD",
@@ -32304,7 +32252,7 @@
           "screen_close": 357.9599914550781,
           "entry_atr": 20.828717912946427,
           "entry_price": 337.96,
-          "entry_locked": false,
+          "entry_locked": true,
           "stop_price": 306.72,
           "target_price": 400.45,
           "status": "HOLD",
@@ -32331,7 +32279,7 @@
           "screen_close": 1102.0799560546875,
           "entry_atr": 36.390677315848215,
           "entry_price": 1117.0,
-          "entry_locked": false,
+          "entry_locked": true,
           "stop_price": 1062.41,
           "target_price": 1226.17,
           "status": "HOLD",
@@ -32358,7 +32306,7 @@
           "screen_close": 16.6299991607666,
           "entry_atr": 0.4107142857142857,
           "entry_price": 16.67,
-          "entry_locked": false,
+          "entry_locked": true,
           "stop_price": 16.05,
           "target_price": 17.9,
           "status": "HOLD",
@@ -32385,7 +32333,7 @@
           "screen_close": 156.69000244140625,
           "entry_atr": 8.788572038922991,
           "entry_price": 150.23,
-          "entry_locked": false,
+          "entry_locked": true,
           "stop_price": 137.05,
           "target_price": 176.6,
           "status": "HOLD",
@@ -32412,7 +32360,7 @@
           "screen_close": 101.80000305175781,
           "entry_atr": 4.971427917480469,
           "entry_price": 97.91,
-          "entry_locked": false,
+          "entry_locked": true,
           "stop_price": 90.45,
           "target_price": 112.82,
           "status": "HOLD",
@@ -32439,7 +32387,7 @@
           "screen_close": 344.7200012207031,
           "entry_atr": 10.015716552734375,
           "entry_price": 348.31,
-          "entry_locked": false,
+          "entry_locked": true,
           "stop_price": 333.29,
           "target_price": 378.36,
           "status": "HOLD",
@@ -32466,7 +32414,7 @@
           "screen_close": 88.66999816894531,
           "entry_atr": 2.3557112557547435,
           "entry_price": 89.84,
-          "entry_locked": false,
+          "entry_locked": true,
           "stop_price": 86.31,
           "target_price": 96.91,
           "status": "HOLD",
@@ -32493,7 +32441,7 @@
           "screen_close": 69.20999908447266,
           "entry_atr": 3.417142868041992,
           "entry_price": 65.43,
-          "entry_locked": false,
+          "entry_locked": true,
           "stop_price": 60.3,
           "target_price": 75.68,
           "status": "HOLD",
@@ -32520,7 +32468,7 @@
           "screen_close": 239.57000732421875,
           "entry_atr": 8.383571079799108,
           "entry_price": 240.48,
-          "entry_locked": false,
+          "entry_locked": true,
           "stop_price": 227.9,
           "target_price": 265.63,
           "status": "HOLD",
@@ -32547,7 +32495,7 @@
           "screen_close": 129.9499969482422,
           "entry_atr": 4.1471421377999445,
           "entry_price": 130.56,
-          "entry_locked": false,
+          "entry_locked": true,
           "stop_price": 124.34,
           "target_price": 143.0,
           "status": "HOLD",
@@ -32574,7 +32522,7 @@
           "screen_close": 195.5399932861328,
           "entry_atr": 5.018571036202567,
           "entry_price": 193.66,
-          "entry_locked": false,
+          "entry_locked": true,
           "stop_price": 186.13,
           "target_price": 208.72,
           "status": "HOLD",
@@ -32601,7 +32549,7 @@
           "screen_close": 214.57000732421875,
           "entry_atr": 4.630713326590402,
           "entry_price": 215.04,
-          "entry_locked": false,
+          "entry_locked": true,
           "stop_price": 208.09,
           "target_price": 228.93,
           "status": "HOLD",
@@ -32628,7 +32576,7 @@
           "screen_close": 17.860000610351562,
           "entry_atr": 0.403571537562779,
           "entry_price": 18.07,
-          "entry_locked": false,
+          "entry_locked": true,
           "stop_price": 17.46,
           "target_price": 19.28,
           "status": "HOLD",
@@ -32654,10 +32602,10 @@
           },
           "screen_close": 79.52999877929688,
           "entry_atr": 1.7742870875767298,
-          "entry_price": 81.32,
-          "entry_locked": false,
-          "stop_price": 78.66,
-          "target_price": 86.64,
+          "entry_price": 81.33,
+          "entry_locked": true,
+          "stop_price": 78.67,
+          "target_price": 86.65,
           "status": "HOLD",
           "exit_price": null,
           "exit_date": null,
@@ -32667,6 +32615,740 @@
               "close": 80.31
             }
           ]
+        }
+      ]
+    },
+    "2026-06-24": {
+      "pick_date": "2026-06-24",
+      "generated_at": "2026-06-24T12:31:19.979989+00:00",
+      "entries_locked": false,
+      "retired": false,
+      "picks": [
+        {
+          "rank": 1,
+          "ticker": "MU",
+          "sector": "Technology",
+          "score": 73.0,
+          "components": {
+            "heat": 20,
+            "fund": 32.0,
+            "mom": -1.0,
+            "tech": 22.0
+          },
+          "screen_close": 1051.77001953125,
+          "entry_atr": 100.0314461844308,
+          "entry_price": null,
+          "entry_locked": false,
+          "stop_price": null,
+          "target_price": null,
+          "status": "PENDING",
+          "exit_price": null,
+          "exit_date": null,
+          "closes": []
+        },
+        {
+          "rank": 2,
+          "ticker": "DELL",
+          "sector": "Technology",
+          "score": 72.0,
+          "components": {
+            "heat": 20,
+            "fund": 24.0,
+            "mom": 13.0,
+            "tech": 15.0
+          },
+          "screen_close": 427.7799987792969,
+          "entry_atr": 31.14499991280692,
+          "entry_price": null,
+          "entry_locked": false,
+          "stop_price": null,
+          "target_price": null,
+          "status": "PENDING",
+          "exit_price": null,
+          "exit_date": null,
+          "closes": []
+        },
+        {
+          "rank": 3,
+          "ticker": "STX",
+          "sector": "Technology",
+          "score": 72.0,
+          "components": {
+            "heat": 20,
+            "fund": 27.0,
+            "mom": 2.0,
+            "tech": 23.0
+          },
+          "screen_close": 1038.5899658203125,
+          "entry_atr": 73.96572004045758,
+          "entry_price": null,
+          "entry_locked": false,
+          "stop_price": null,
+          "target_price": null,
+          "status": "PENDING",
+          "exit_price": null,
+          "exit_date": null,
+          "closes": []
+        },
+        {
+          "rank": 4,
+          "ticker": "GOOG",
+          "sector": "Communication Services",
+          "score": 71.0,
+          "components": {
+            "heat": 20,
+            "fund": 27.0,
+            "mom": 4.0,
+            "tech": 20.0
+          },
+          "screen_close": 346.0799865722656,
+          "entry_atr": 12.327996390206474,
+          "entry_price": null,
+          "entry_locked": false,
+          "stop_price": null,
+          "target_price": null,
+          "status": "PENDING",
+          "exit_price": null,
+          "exit_date": null,
+          "closes": []
+        },
+        {
+          "rank": 5,
+          "ticker": "INCY",
+          "sector": "Healthcare",
+          "score": 71.0,
+          "components": {
+            "heat": 20,
+            "fund": 32.0,
+            "mom": 5.0,
+            "tech": 14.0
+          },
+          "screen_close": 104.4000015258789,
+          "entry_atr": 4.6971435546875,
+          "entry_price": null,
+          "entry_locked": false,
+          "stop_price": null,
+          "target_price": null,
+          "status": "PENDING",
+          "exit_price": null,
+          "exit_date": null,
+          "closes": []
+        },
+        {
+          "rank": 6,
+          "ticker": "TPR",
+          "sector": "Consumer Cyclical",
+          "score": 70.0,
+          "components": {
+            "heat": 20,
+            "fund": 32.0,
+            "mom": 5.0,
+            "tech": 13.0
+          },
+          "screen_close": 150.52999877929688,
+          "entry_atr": 5.562860761369977,
+          "entry_price": null,
+          "entry_locked": false,
+          "stop_price": null,
+          "target_price": null,
+          "status": "PENDING",
+          "exit_price": null,
+          "exit_date": null,
+          "closes": []
+        },
+        {
+          "rank": 7,
+          "ticker": "UAL",
+          "sector": "Industrials",
+          "score": 70.0,
+          "components": {
+            "heat": 20,
+            "fund": 21.0,
+            "mom": 11.0,
+            "tech": 18.0
+          },
+          "screen_close": 121.55000305175781,
+          "entry_atr": 5.215000152587891,
+          "entry_price": null,
+          "entry_locked": false,
+          "stop_price": null,
+          "target_price": null,
+          "status": "PENDING",
+          "exit_price": null,
+          "exit_date": null,
+          "closes": []
+        },
+        {
+          "rank": 8,
+          "ticker": "VST",
+          "sector": "Utilities",
+          "score": 69.0,
+          "components": {
+            "heat": 20,
+            "fund": 27.0,
+            "mom": 10.0,
+            "tech": 12.0
+          },
+          "screen_close": 162.38999938964844,
+          "entry_atr": 6.904640197753906,
+          "entry_price": null,
+          "entry_locked": false,
+          "stop_price": null,
+          "target_price": null,
+          "status": "PENDING",
+          "exit_price": null,
+          "exit_date": null,
+          "closes": []
+        },
+        {
+          "rank": 9,
+          "ticker": "V",
+          "sector": "Financial Services",
+          "score": 67.0,
+          "components": {
+            "heat": 20,
+            "fund": 24.0,
+            "mom": 5.0,
+            "tech": 18.0
+          },
+          "screen_close": 328.4800109863281,
+          "entry_atr": 6.975716727120536,
+          "entry_price": null,
+          "entry_locked": false,
+          "stop_price": null,
+          "target_price": null,
+          "status": "PENDING",
+          "exit_price": null,
+          "exit_date": null,
+          "closes": []
+        },
+        {
+          "rank": 10,
+          "ticker": "EME",
+          "sector": "Industrials",
+          "score": 66.0,
+          "components": {
+            "heat": 20,
+            "fund": 24.0,
+            "mom": 0.0,
+            "tech": 22.0
+          },
+          "screen_close": 838.6099853515625,
+          "entry_atr": 31.795000348772323,
+          "entry_price": null,
+          "entry_locked": false,
+          "stop_price": null,
+          "target_price": null,
+          "status": "PENDING",
+          "exit_price": null,
+          "exit_date": null,
+          "closes": []
+        },
+        {
+          "rank": 11,
+          "ticker": "LLY",
+          "sector": "Healthcare",
+          "score": 66.0,
+          "components": {
+            "heat": 20,
+            "fund": 27.0,
+            "mom": 5.0,
+            "tech": 14.0
+          },
+          "screen_close": 1107.0799560546875,
+          "entry_atr": 37.301400320870535,
+          "entry_price": null,
+          "entry_locked": false,
+          "stop_price": null,
+          "target_price": null,
+          "status": "PENDING",
+          "exit_price": null,
+          "exit_date": null,
+          "closes": []
+        },
+        {
+          "rank": 12,
+          "ticker": "EBAY",
+          "sector": "Consumer Cyclical",
+          "score": 65.0,
+          "components": {
+            "heat": 20,
+            "fund": 19.0,
+            "mom": 11.0,
+            "tech": 15.0
+          },
+          "screen_close": 108.97000122070312,
+          "entry_atr": 2.8792855398995534,
+          "entry_price": null,
+          "entry_locked": false,
+          "stop_price": null,
+          "target_price": null,
+          "status": "PENDING",
+          "exit_price": null,
+          "exit_date": null,
+          "closes": []
+        },
+        {
+          "rank": 13,
+          "ticker": "GEV",
+          "sector": "Industrials",
+          "score": 65.0,
+          "components": {
+            "heat": 20,
+            "fund": 15.0,
+            "mom": 7.0,
+            "tech": 23.0
+          },
+          "screen_close": 1034.97998046875,
+          "entry_atr": 51.646070207868306,
+          "entry_price": null,
+          "entry_locked": false,
+          "stop_price": null,
+          "target_price": null,
+          "status": "PENDING",
+          "exit_price": null,
+          "exit_date": null,
+          "closes": []
+        },
+        {
+          "rank": 14,
+          "ticker": "HIG",
+          "sector": "Financial Services",
+          "score": 65.0,
+          "components": {
+            "heat": 20,
+            "fund": 22.0,
+            "mom": 8.0,
+            "tech": 15.0
+          },
+          "screen_close": 131.3300018310547,
+          "entry_atr": 2.815710885184152,
+          "entry_price": null,
+          "entry_locked": false,
+          "stop_price": null,
+          "target_price": null,
+          "status": "PENDING",
+          "exit_price": null,
+          "exit_date": null,
+          "closes": []
+        },
+        {
+          "rank": 15,
+          "ticker": "CASY",
+          "sector": "Consumer Cyclical",
+          "score": 64.0,
+          "components": {
+            "heat": 20,
+            "fund": 12.0,
+            "mom": 7.0,
+            "tech": 25.0
+          },
+          "screen_close": 831.8900146484375,
+          "entry_atr": 35.452854701450896,
+          "entry_price": null,
+          "entry_locked": false,
+          "stop_price": null,
+          "target_price": null,
+          "status": "PENDING",
+          "exit_price": null,
+          "exit_date": null,
+          "closes": []
+        },
+        {
+          "rank": 16,
+          "ticker": "MKC",
+          "sector": "Consumer Defensive",
+          "score": 63.0,
+          "components": {
+            "heat": 20,
+            "fund": 24.0,
+            "mom": 11.0,
+            "tech": 8.0
+          },
+          "screen_close": 47.380001068115234,
+          "entry_atr": 1.3992862701416016,
+          "entry_price": null,
+          "entry_locked": false,
+          "stop_price": null,
+          "target_price": null,
+          "status": "PENDING",
+          "exit_price": null,
+          "exit_date": null,
+          "closes": []
+        },
+        {
+          "rank": 17,
+          "ticker": "PCG",
+          "sector": "Utilities",
+          "score": 63.0,
+          "components": {
+            "heat": 20,
+            "fund": 21.0,
+            "mom": 5.0,
+            "tech": 17.0
+          },
+          "screen_close": 16.770000457763672,
+          "entry_atr": 0.3950000490461077,
+          "entry_price": null,
+          "entry_locked": false,
+          "stop_price": null,
+          "target_price": null,
+          "status": "PENDING",
+          "exit_price": null,
+          "exit_date": null,
+          "closes": []
+        },
+        {
+          "rank": 18,
+          "ticker": "TRGP",
+          "sector": "Energy",
+          "score": 63.0,
+          "components": {
+            "heat": 20,
+            "fund": 21.0,
+            "mom": 8.0,
+            "tech": 14.0
+          },
+          "screen_close": 268.7200012207031,
+          "entry_atr": 7.466428484235491,
+          "entry_price": null,
+          "entry_locked": false,
+          "stop_price": null,
+          "target_price": null,
+          "status": "PENDING",
+          "exit_price": null,
+          "exit_date": null,
+          "closes": []
+        },
+        {
+          "rank": 19,
+          "ticker": "APA",
+          "sector": "Energy",
+          "score": 62.0,
+          "components": {
+            "heat": 20,
+            "fund": 26.0,
+            "mom": 4.0,
+            "tech": 12.0
+          },
+          "screen_close": 34.220001220703125,
+          "entry_atr": 1.4350005558558874,
+          "entry_price": null,
+          "entry_locked": false,
+          "stop_price": null,
+          "target_price": null,
+          "status": "PENDING",
+          "exit_price": null,
+          "exit_date": null,
+          "closes": []
+        },
+        {
+          "rank": 20,
+          "ticker": "EOG",
+          "sector": "Energy",
+          "score": 62.0,
+          "components": {
+            "heat": 20,
+            "fund": 20.0,
+            "mom": 8.0,
+            "tech": 14.0
+          },
+          "screen_close": 134.89999389648438,
+          "entry_atr": 4.1664308820452005,
+          "entry_price": null,
+          "entry_locked": false,
+          "stop_price": null,
+          "target_price": null,
+          "status": "PENDING",
+          "exit_price": null,
+          "exit_date": null,
+          "closes": []
+        },
+        {
+          "rank": 21,
+          "ticker": "GOOGL",
+          "sector": "Communication Services",
+          "score": 62.0,
+          "components": {
+            "heat": 20,
+            "fund": 27.0,
+            "mom": 1.0,
+            "tech": 14.0
+          },
+          "screen_close": 346.1300048828125,
+          "entry_atr": 12.269287109375,
+          "entry_price": null,
+          "entry_locked": false,
+          "stop_price": null,
+          "target_price": null,
+          "status": "PENDING",
+          "exit_price": null,
+          "exit_date": null,
+          "closes": []
+        },
+        {
+          "rank": 22,
+          "ticker": "CBRE",
+          "sector": "Real Estate",
+          "score": 61.0,
+          "components": {
+            "heat": 20,
+            "fund": 25.0,
+            "mom": 11.0,
+            "tech": 5.0
+          },
+          "screen_close": 133.2100067138672,
+          "entry_atr": 3.9371430533272878,
+          "entry_price": null,
+          "entry_locked": false,
+          "stop_price": null,
+          "target_price": null,
+          "status": "PENDING",
+          "exit_price": null,
+          "exit_date": null,
+          "closes": []
+        },
+        {
+          "rank": 23,
+          "ticker": "MDLZ",
+          "sector": "Consumer Defensive",
+          "score": 61.0,
+          "components": {
+            "heat": 20,
+            "fund": 18.0,
+            "mom": 11.0,
+            "tech": 12.0
+          },
+          "screen_close": 61.060001373291016,
+          "entry_atr": 1.4607137952532088,
+          "entry_price": null,
+          "entry_locked": false,
+          "stop_price": null,
+          "target_price": null,
+          "status": "PENDING",
+          "exit_price": null,
+          "exit_date": null,
+          "closes": []
+        },
+        {
+          "rank": 24,
+          "ticker": "GS",
+          "sector": "Financial Services",
+          "score": 59.0,
+          "components": {
+            "heat": 20,
+            "fund": 13.0,
+            "mom": 5.0,
+            "tech": 21.0
+          },
+          "screen_close": 1094.43994140625,
+          "entry_atr": 37.26999773297991,
+          "entry_price": null,
+          "entry_locked": false,
+          "stop_price": null,
+          "target_price": null,
+          "status": "PENDING",
+          "exit_price": null,
+          "exit_date": null,
+          "closes": []
+        },
+        {
+          "rank": 25,
+          "ticker": "VTRS",
+          "sector": "Healthcare",
+          "score": 59.0,
+          "components": {
+            "heat": 20,
+            "fund": 13.0,
+            "mom": 11.0,
+            "tech": 15.0
+          },
+          "screen_close": 15.75,
+          "entry_atr": 0.48571416309901644,
+          "entry_price": null,
+          "entry_locked": false,
+          "stop_price": null,
+          "target_price": null,
+          "status": "PENDING",
+          "exit_price": null,
+          "exit_date": null,
+          "closes": []
+        },
+        {
+          "rank": 26,
+          "ticker": "HSY",
+          "sector": "Consumer Defensive",
+          "score": 58.0,
+          "components": {
+            "heat": 20,
+            "fund": 25.0,
+            "mom": 13.0,
+            "tech": 0.0
+          },
+          "screen_close": 179.27000427246094,
+          "entry_atr": 5.681425912039621,
+          "entry_price": null,
+          "entry_locked": false,
+          "stop_price": null,
+          "target_price": null,
+          "status": "PENDING",
+          "exit_price": null,
+          "exit_date": null,
+          "closes": []
+        },
+        {
+          "rank": 27,
+          "ticker": "TTWO",
+          "sector": "Communication Services",
+          "score": 58.0,
+          "components": {
+            "heat": 20,
+            "fund": 5.0,
+            "mom": 18.0,
+            "tech": 15.0
+          },
+          "screen_close": 242.63999938964844,
+          "entry_atr": 8.257142203194755,
+          "entry_price": null,
+          "entry_locked": false,
+          "stop_price": null,
+          "target_price": null,
+          "status": "PENDING",
+          "exit_price": null,
+          "exit_date": null,
+          "closes": []
+        },
+        {
+          "rank": 28,
+          "ticker": "CTVA",
+          "sector": "Basic Materials",
+          "score": 57.0,
+          "components": {
+            "heat": 20,
+            "fund": 13.0,
+            "mom": 5.0,
+            "tech": 19.0
+          },
+          "screen_close": 79.11000061035156,
+          "entry_atr": 1.78564453125,
+          "entry_price": null,
+          "entry_locked": false,
+          "stop_price": null,
+          "target_price": null,
+          "status": "PENDING",
+          "exit_price": null,
+          "exit_date": null,
+          "closes": []
+        },
+        {
+          "rank": 29,
+          "ticker": "NEE",
+          "sector": "Utilities",
+          "score": 55.0,
+          "components": {
+            "heat": 20,
+            "fund": 13.0,
+            "mom": 5.0,
+            "tech": 17.0
+          },
+          "screen_close": 86.43000030517578,
+          "entry_atr": 1.507143838065011,
+          "entry_price": null,
+          "entry_locked": false,
+          "stop_price": null,
+          "target_price": null,
+          "status": "PENDING",
+          "exit_price": null,
+          "exit_date": null,
+          "closes": []
+        },
+        {
+          "rank": 30,
+          "ticker": "PPG",
+          "sector": "Basic Materials",
+          "score": 54.0,
+          "components": {
+            "heat": 20,
+            "fund": 12.0,
+            "mom": 5.0,
+            "tech": 17.0
+          },
+          "screen_close": 117.69999694824219,
+          "entry_atr": 3.4128592354910716,
+          "entry_price": null,
+          "entry_locked": false,
+          "stop_price": null,
+          "target_price": null,
+          "status": "PENDING",
+          "exit_price": null,
+          "exit_date": null,
+          "closes": []
+        },
+        {
+          "rank": 31,
+          "ticker": "VTR",
+          "sector": "Real Estate",
+          "score": 54.0,
+          "components": {
+            "heat": 20,
+            "fund": 7.0,
+            "mom": 11.0,
+            "tech": 16.0
+          },
+          "screen_close": 85.37000274658203,
+          "entry_atr": 2.3321429661342075,
+          "entry_price": null,
+          "entry_locked": false,
+          "stop_price": null,
+          "target_price": null,
+          "status": "PENDING",
+          "exit_price": null,
+          "exit_date": null,
+          "closes": []
+        },
+        {
+          "rank": 32,
+          "ticker": "NUE",
+          "sector": "Basic Materials",
+          "score": 53.0,
+          "components": {
+            "heat": 20,
+            "fund": 16.0,
+            "mom": 4.0,
+            "tech": 13.0
+          },
+          "screen_close": 239.6300048828125,
+          "entry_atr": 8.820711408342634,
+          "entry_price": null,
+          "entry_locked": false,
+          "stop_price": null,
+          "target_price": null,
+          "status": "PENDING",
+          "exit_price": null,
+          "exit_date": null,
+          "closes": []
+        },
+        {
+          "rank": 33,
+          "ticker": "O",
+          "sector": "Real Estate",
+          "score": 53.0,
+          "components": {
+            "heat": 20,
+            "fund": 8.0,
+            "mom": 8.0,
+            "tech": 17.0
+          },
+          "screen_close": 61.529998779296875,
+          "entry_atr": 1.1335710797991072,
+          "entry_price": null,
+          "entry_locked": false,
+          "stop_price": null,
+          "target_price": null,
+          "status": "PENDING",
+          "exit_price": null,
+          "exit_date": null,
+          "closes": []
         }
       ]
     }
