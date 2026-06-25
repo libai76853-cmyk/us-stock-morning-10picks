@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-06-25T20:15:38.223844+00:00",
+  "updated_at": "2026-06-25T20:30:34.678874+00:00",
   "tracking_window": 10,
   "cohorts": {
     "2026-05-27": {
@@ -29369,32 +29369,7 @@
           "status": "HOLD",
           "exit_price": null,
           "exit_date": null,
-          "closes": [
-            {
-              "date": "2026-06-17",
-              "close": 187.08
-            },
-            {
-              "date": "2026-06-18",
-              "close": 188.15
-            },
-            {
-              "date": "2026-06-22",
-              "close": 195.54
-            },
-            {
-              "date": "2026-06-23",
-              "close": 195.0
-            },
-            {
-              "date": "2026-06-24",
-              "close": 193.02
-            },
-            {
-              "date": "2026-06-25",
-              "close": 192.44
-            }
-          ],
+          "closes": [],
           "entry_locked": true
         },
         {
@@ -34412,20 +34387,7 @@
           "status": "HOLD",
           "exit_price": null,
           "exit_date": null,
-          "closes": [
-            {
-              "date": "2026-06-23",
-              "close": 195.0
-            },
-            {
-              "date": "2026-06-24",
-              "close": 193.02
-            },
-            {
-              "date": "2026-06-25",
-              "close": 192.44
-            }
-          ]
+          "closes": []
         },
         {
           "rank": 31,
@@ -35773,10 +35735,10 @@
           },
           "screen_close": 345.0400085449219,
           "entry_atr": 12.557281494140625,
-          "entry_price": 336.92,
+          "entry_price": 336.67,
           "entry_locked": false,
-          "stop_price": 318.08,
-          "target_price": 374.59,
+          "stop_price": 317.83,
+          "target_price": 374.34,
           "status": "HOLD",
           "exit_price": null,
           "exit_date": null,
@@ -35962,10 +35924,10 @@
           },
           "screen_close": 345.2900085449219,
           "entry_atr": 12.496429443359375,
-          "entry_price": 336.73,
+          "entry_price": 336.72,
           "entry_locked": false,
-          "stop_price": 317.99,
-          "target_price": 374.22,
+          "stop_price": 317.98,
+          "target_price": 374.21,
           "status": "HOLD",
           "exit_price": null,
           "exit_date": null,
