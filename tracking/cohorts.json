@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-06-30T20:15:39.906146+00:00",
+  "updated_at": "2026-06-30T20:30:35.866345+00:00",
   "tracking_window": 10,
   "cohorts": {
     "2026-05-27": {
@@ -37554,7 +37554,7 @@
             },
             {
               "date": "2026-06-30",
-              "close": 121.24
+              "close": 121.29
             }
           ]
         },
@@ -38665,7 +38665,7 @@
             },
             {
               "date": "2026-06-30",
-              "close": 121.24
+              "close": 121.29
             }
           ]
         },
@@ -41645,10 +41645,10 @@
           },
           "screen_close": 23.010000228881836,
           "entry_atr": 0.7564287185668945,
-          "entry_price": 23.0,
+          "entry_price": 22.98,
           "entry_locked": false,
-          "stop_price": 21.87,
-          "target_price": 25.27,
+          "stop_price": 21.85,
+          "target_price": 25.25,
           "status": "HOLD",
           "exit_price": null,
           "exit_date": null,
@@ -41844,7 +41844,7 @@
           "closes": [
             {
               "date": "2026-06-30",
-              "close": 121.24
+              "close": 121.29
             }
           ]
         },
