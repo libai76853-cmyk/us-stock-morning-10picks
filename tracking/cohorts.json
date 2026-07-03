@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-07-03T16:30:45.571765+00:00",
+  "updated_at": "2026-07-03T16:45:41.275624+00:00",
   "tracking_window": 10,
   "cohorts": {
     "2026-05-27": {
@@ -39779,7 +39779,32 @@
           "status": "HOLD",
           "exit_price": null,
           "exit_date": null,
-          "closes": []
+          "closes": [
+            {
+              "date": "2026-06-25",
+              "close": 542.87
+            },
+            {
+              "date": "2026-06-26",
+              "close": 550.25
+            },
+            {
+              "date": "2026-06-29",
+              "close": 562.6
+            },
+            {
+              "date": "2026-06-30",
+              "close": 563.29
+            },
+            {
+              "date": "2026-07-01",
+              "close": 612.91
+            },
+            {
+              "date": "2026-07-02",
+              "close": 582.9
+            }
+          ]
         },
         {
           "rank": 30,
@@ -40915,10 +40940,27 @@
           "entry_locked": true,
           "stop_price": 512.64,
           "target_price": 604.73,
-          "status": "HOLD",
-          "exit_price": null,
-          "exit_date": null,
-          "closes": []
+          "status": "TARGET_HIT",
+          "exit_price": 612.91,
+          "exit_date": "2026-07-01",
+          "closes": [
+            {
+              "date": "2026-06-26",
+              "close": 550.25
+            },
+            {
+              "date": "2026-06-29",
+              "close": 562.6
+            },
+            {
+              "date": "2026-06-30",
+              "close": 563.29
+            },
+            {
+              "date": "2026-07-01",
+              "close": 612.91
+            }
+          ]
         },
         {
           "rank": 25,
@@ -44850,7 +44892,12 @@
           "status": "HOLD",
           "exit_price": null,
           "exit_date": null,
-          "closes": []
+          "closes": [
+            {
+              "date": "2026-07-02",
+              "close": 582.9
+            }
+          ]
         },
         {
           "rank": 7,
