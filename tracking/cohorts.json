@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-07-13T20:31:04.204706+00:00",
+  "updated_at": "2026-07-13T20:46:05.145527+00:00",
   "tracking_window": 10,
   "cohorts": {
     "2026-05-27": {
@@ -54009,7 +54009,24 @@
           "status": "HOLD",
           "exit_price": null,
           "exit_date": null,
-          "closes": []
+          "closes": [
+            {
+              "date": "2026-07-08",
+              "close": 84.39
+            },
+            {
+              "date": "2026-07-09",
+              "close": 87.52
+            },
+            {
+              "date": "2026-07-10",
+              "close": 88.08
+            },
+            {
+              "date": "2026-07-13",
+              "close": 89.21
+            }
+          ]
         },
         {
           "rank": 11,
@@ -56428,7 +56445,16 @@
           "status": "HOLD",
           "exit_price": null,
           "exit_date": null,
-          "closes": []
+          "closes": [
+            {
+              "date": "2026-07-10",
+              "close": 88.08
+            },
+            {
+              "date": "2026-07-13",
+              "close": 89.21
+            }
+          ]
         },
         {
           "rank": 13,
@@ -57595,7 +57621,12 @@
           "status": "HOLD",
           "exit_price": null,
           "exit_date": null,
-          "closes": []
+          "closes": [
+            {
+              "date": "2026-07-13",
+              "close": 89.21
+            }
+          ]
         },
         {
           "rank": 20,
