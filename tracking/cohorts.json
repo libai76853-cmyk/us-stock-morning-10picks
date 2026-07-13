@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-07-13T20:16:12.659267+00:00",
+  "updated_at": "2026-07-13T20:31:04.204706+00:00",
   "tracking_window": 10,
   "cohorts": {
     "2026-05-27": {
@@ -44365,7 +44365,7 @@
             },
             {
               "date": "2026-07-13",
-              "close": 426.9
+              "close": 427.11
             }
           ]
         },
@@ -45570,7 +45570,7 @@
             },
             {
               "date": "2026-07-13",
-              "close": 221.14
+              "close": 221.09
             }
           ]
         },
@@ -52653,7 +52653,7 @@
             },
             {
               "date": "2026-07-13",
-              "close": 518.48
+              "close": 518.23
             }
           ]
         },
@@ -52696,7 +52696,7 @@
             },
             {
               "date": "2026-07-13",
-              "close": 65.01
+              "close": 64.99
             }
           ]
         },
@@ -54009,24 +54009,7 @@
           "status": "HOLD",
           "exit_price": null,
           "exit_date": null,
-          "closes": [
-            {
-              "date": "2026-07-08",
-              "close": 84.39
-            },
-            {
-              "date": "2026-07-09",
-              "close": 87.52
-            },
-            {
-              "date": "2026-07-10",
-              "close": 88.08
-            },
-            {
-              "date": "2026-07-13",
-              "close": 89.21
-            }
-          ]
+          "closes": []
         },
         {
           "rank": 11,
@@ -55442,7 +55425,7 @@
             },
             {
               "date": "2026-07-13",
-              "close": 518.48
+              "close": 518.23
             }
           ]
         },
@@ -56445,16 +56428,7 @@
           "status": "HOLD",
           "exit_price": null,
           "exit_date": null,
-          "closes": [
-            {
-              "date": "2026-07-10",
-              "close": 88.08
-            },
-            {
-              "date": "2026-07-13",
-              "close": 89.21
-            }
-          ]
+          "closes": []
         },
         {
           "rank": 13,
@@ -57344,10 +57318,10 @@
           },
           "screen_close": 357.17999267578125,
           "entry_atr": 11.482142857142858,
-          "entry_price": 356.19,
+          "entry_price": 356.2,
           "entry_locked": false,
-          "stop_price": 338.97,
-          "target_price": 390.64,
+          "stop_price": 338.98,
+          "target_price": 390.65,
           "status": "HOLD",
           "exit_price": null,
           "exit_date": null,
@@ -57621,12 +57595,7 @@
           "status": "HOLD",
           "exit_price": null,
           "exit_date": null,
-          "closes": [
-            {
-              "date": "2026-07-13",
-              "close": 89.21
-            }
-          ]
+          "closes": []
         },
         {
           "rank": 20,
@@ -57992,10 +57961,10 @@
           },
           "screen_close": 23.18000030517578,
           "entry_atr": 0.5785713195800781,
-          "entry_price": 23.17,
+          "entry_price": 23.26,
           "entry_locked": false,
-          "stop_price": 22.3,
-          "target_price": 24.91,
+          "stop_price": 22.39,
+          "target_price": 25.0,
           "status": "HOLD",
           "exit_price": null,
           "exit_date": null,
