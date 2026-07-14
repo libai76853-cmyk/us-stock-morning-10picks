@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-07-14T12:31:42.915037+00:00",
+  "updated_at": "2026-07-14T13:00:29.089701+00:00",
   "tracking_window": 10,
   "cohorts": {
     "2026-05-27": {
@@ -45210,12 +45210,7 @@
           "status": "HOLD",
           "exit_price": null,
           "exit_date": null,
-          "closes": [
-            {
-              "date": "2026-07-10",
-              "close": 151.92
-            }
-          ]
+          "closes": []
         },
         {
           "rank": 20,
