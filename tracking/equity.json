@@ -1,8 +1,8 @@
 {
-  "updated_at": "2026-07-15T13:45:38.553929+00:00",
+  "updated_at": "2026-07-15T14:01:15.874903+00:00",
   "method": "daily-rebalanced equal-weight NAV, 10-trading-day hold per cohort",
-  "total_positions_tracked": 1220,
-  "latest_nav": 1.0148,
+  "total_positions_tracked": 1214,
+  "latest_nav": 1.018,
   "series": [
     {
       "date": "2026-05-26",
@@ -163,56 +163,56 @@
     {
       "date": "2026-07-02",
       "nav": 1.0074,
-      "daily_return_pct": 0.598,
-      "positions": 260
+      "daily_return_pct": 0.599,
+      "positions": 259
     },
     {
       "date": "2026-07-06",
       "nav": 1.0097,
       "daily_return_pct": 0.229,
-      "positions": 283
+      "positions": 280
     },
     {
       "date": "2026-07-07",
       "nav": 1.013,
-      "daily_return_pct": 0.332,
-      "positions": 285
+      "daily_return_pct": 0.33,
+      "positions": 281
     },
     {
       "date": "2026-07-08",
-      "nav": 0.9998,
-      "daily_return_pct": -1.305,
-      "positions": 290
+      "nav": 0.9997,
+      "daily_return_pct": -1.309,
+      "positions": 286
     },
     {
       "date": "2026-07-09",
-      "nav": 0.9999,
-      "daily_return_pct": 0.013,
-      "positions": 287
+      "nav": 0.9996,
+      "daily_return_pct": -0.017,
+      "positions": 281
     },
     {
       "date": "2026-07-10",
-      "nav": 1.0039,
-      "daily_return_pct": 0.393,
-      "positions": 295
+      "nav": 1.0037,
+      "daily_return_pct": 0.412,
+      "positions": 289
     },
     {
       "date": "2026-07-13",
-      "nav": 1.0052,
-      "daily_return_pct": 0.133,
-      "positions": 311
+      "nav": 1.0049,
+      "daily_return_pct": 0.118,
+      "positions": 305
     },
     {
       "date": "2026-07-14",
-      "nav": 1.0131,
+      "nav": 1.0127,
       "daily_return_pct": 0.782,
       "positions": 40
     },
     {
       "date": "2026-07-15",
-      "nav": 1.0148,
-      "daily_return_pct": 0.175,
-      "positions": 319
+      "nav": 1.018,
+      "daily_return_pct": 0.519,
+      "positions": 313
     }
   ]
 }
