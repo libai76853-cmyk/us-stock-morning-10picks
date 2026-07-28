@@ -1,8 +1,8 @@
 {
-  "updated_at": "2026-07-28T16:01:23.039376+00:00",
+  "updated_at": "2026-07-28T16:16:25.191199+00:00",
   "method": "daily-rebalanced equal-weight NAV, 10-trading-day hold per cohort",
   "total_positions_tracked": 1517,
-  "latest_nav": 1.011,
+  "latest_nav": 1.0099,
   "series": [
     {
       "date": "2026-05-26",
@@ -252,20 +252,20 @@
     },
     {
       "date": "2026-07-24",
-      "nav": 1.0043,
-      "daily_return_pct": 0.428,
-      "positions": 268
+      "nav": 1.0042,
+      "daily_return_pct": 0.422,
+      "positions": 263
     },
     {
       "date": "2026-07-27",
       "nav": 1.0023,
-      "daily_return_pct": -0.202,
+      "daily_return_pct": -0.187,
       "positions": 276
     },
     {
       "date": "2026-07-28",
-      "nav": 1.011,
-      "daily_return_pct": 0.877,
+      "nav": 1.0099,
+      "daily_return_pct": 0.759,
       "positions": 272
     }
   ]
