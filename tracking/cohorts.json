@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-08-03T20:30:58.810412+00:00",
+  "updated_at": "2026-08-03T20:45:53.592383+00:00",
   "tracking_window": 10,
   "cohorts": {
     "2026-05-27": {
@@ -78618,10 +78618,23 @@
           "entry_locked": true,
           "stop_price": 102.57,
           "target_price": 115.21,
-          "status": "HOLD",
-          "exit_price": null,
-          "exit_date": null,
-          "closes": []
+          "status": "TARGET_HIT",
+          "exit_price": 117.44,
+          "exit_date": "2026-07-28",
+          "closes": [
+            {
+              "date": "2026-07-24",
+              "close": 109.39
+            },
+            {
+              "date": "2026-07-27",
+              "close": 113.21
+            },
+            {
+              "date": "2026-07-28",
+              "close": 117.44
+            }
+          ]
         },
         {
           "rank": 22,
