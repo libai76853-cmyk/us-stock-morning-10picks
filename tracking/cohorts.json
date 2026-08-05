@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-08-05T20:15:57.942057+00:00",
+  "updated_at": "2026-08-05T20:30:53.041047+00:00",
   "tracking_window": 10,
   "cohorts": {
     "2026-05-27": {
@@ -76913,7 +76913,7 @@
             },
             {
               "date": "2026-08-05",
-              "close": 182.07
+              "close": 182.08
             }
           ]
         },
@@ -79791,7 +79791,7 @@
             },
             {
               "date": "2026-08-05",
-              "close": 182.07
+              "close": 182.08
             }
           ]
         },
@@ -81244,7 +81244,7 @@
             },
             {
               "date": "2026-08-05",
-              "close": 462.8
+              "close": 462.7
             }
           ]
         },
@@ -81377,7 +81377,7 @@
             },
             {
               "date": "2026-08-05",
-              "close": 136.02
+              "close": 136.03
             }
           ]
         },
@@ -85697,7 +85697,7 @@
             },
             {
               "date": "2026-08-05",
-              "close": 218.26
+              "close": 218.27
             }
           ]
         },
@@ -88144,7 +88144,7 @@
             },
             {
               "date": "2026-08-05",
-              "close": 351.23
+              "close": 351.02
             }
           ]
         },
@@ -88916,10 +88916,10 @@
           },
           "screen_close": 377.6499938964844,
           "entry_atr": 13.864283970424108,
-          "entry_price": 383.34,
+          "entry_price": 382.94,
           "entry_locked": false,
-          "stop_price": 362.54,
-          "target_price": 424.93,
+          "stop_price": 362.14,
+          "target_price": 424.53,
           "status": "HOLD",
           "exit_price": null,
           "exit_date": null,
@@ -88943,10 +88943,10 @@
           },
           "screen_close": 375.3500061035156,
           "entry_atr": 13.625501360212054,
-          "entry_price": 380.0,
+          "entry_price": 380.08,
           "entry_locked": false,
-          "stop_price": 359.56,
-          "target_price": 420.88,
+          "stop_price": 359.64,
+          "target_price": 420.96,
           "status": "HOLD",
           "exit_price": null,
           "exit_date": null,
