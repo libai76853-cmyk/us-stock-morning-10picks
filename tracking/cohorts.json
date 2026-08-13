@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-08-13T13:01:14.806970+00:00",
+  "updated_at": "2026-08-13T13:16:10.582127+00:00",
   "tracking_window": 10,
   "cohorts": {
     "2026-05-27": {
@@ -86349,10 +86349,6 @@
           "exit_date": null,
           "closes": [
             {
-              "date": "2026-07-31",
-              "close": 152.37
-            },
-            {
               "date": "2026-08-03",
               "close": 155.63
             },
@@ -86466,10 +86462,6 @@
           "exit_price": null,
           "exit_date": null,
           "closes": [
-            {
-              "date": "2026-07-31",
-              "close": 294.74
-            },
             {
               "date": "2026-08-03",
               "close": 298.03
@@ -86761,10 +86753,6 @@
           "exit_price": null,
           "exit_date": null,
           "closes": [
-            {
-              "date": "2026-07-31",
-              "close": 119.52
-            },
             {
               "date": "2026-08-03",
               "close": 118.43
@@ -87202,10 +87190,6 @@
           "exit_date": "2026-08-03",
           "closes": [
             {
-              "date": "2026-07-31",
-              "close": 125.19
-            },
-            {
               "date": "2026-08-03",
               "close": 118.3
             }
@@ -87232,10 +87216,6 @@
           "exit_price": null,
           "exit_date": null,
           "closes": [
-            {
-              "date": "2026-07-31",
-              "close": 340.85
-            },
             {
               "date": "2026-08-03",
               "close": 354.22
@@ -87617,10 +87597,6 @@
           "exit_price": null,
           "exit_date": null,
           "closes": [
-            {
-              "date": "2026-07-31",
-              "close": 127.21
-            },
             {
               "date": "2026-08-03",
               "close": 129.35
