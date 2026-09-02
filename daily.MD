@@ -5,6 +5,35 @@
 格式：日期 | commit | 摘要 + 影响 + 验证。
 
 ---
+## 2026-09-02 — 推送越来越晚：GitHub PAT 8/17 到期，CF cron 静默失效两周
+
+**Commit**: 无代码改动（凭证运维）
+
+**症状**：用户「现在怎么推送越来越晚了」。
+
+**证据**（run 历史按触发源分类）：
+- 8/17 及之前：每天 12:30 准点有 CF 的 `workflow_dispatch`（准时推送），GH 原生 `schedule` 之后到达、幂等跳过
+- **8/18 起 `workflow_dispatch` 完全消失**，只剩 GH 原生 `schedule` 在生成+推送，且延迟持续恶化：8/18~8/26 约 +1h → 8/27、8/28 **+10h（22:30 UTC）** → 8/31 +6.7h → 9/1 +4.3h
+
+**根因**：fine-grained PAT `cf-worker-daily-picks-trigger`（当时选了 90 天期）**8/17 到期**。CF Worker 调 GitHub API 全部 401：发不出 dispatch、`alreadyHandledToday` 查不了（fail-open 后 dispatch 也 401）→ CF cron **静默**失效。Worker 本身健康（URL → 403 key gate）。全程零报警——失败发生在 CF scheduled handler 内部，没人看。GH 原生 schedule 备份把系统撑了两周**零漏天**（降级而非宕机，备份设计兑现），但它天生迟到。
+
+**连带**：wrangler OAuth 也过期（"Not logged in"）；后台发起 `wrangler login` 两次都在 120s 窗口内超时（用户未及时点 Allow）。
+
+**修复（进行中）**：
+1. 用户生成 PAT v2 `cf-worker-daily-picks-trigger-v2`，**1 年期**（GitHub 上限），先本地 `curl … /actions/workflows` 验 200 再交（沙箱验不了 github_pat_*）
+2. wrangler 重新授权（改由用户自己跑 `npx wrangler login`，避开 2 分钟窗口的时序问题）
+3. `printf '%s' "$PAT" | npx wrangler secret put GH_TOKEN` + 重设 `TRIGGER_KEY`
+4. `TRIGGER_KEY` 改存 `cf-worker-trigger/.trigger_key`（chmod 600）——不再放 `/tmp`，重启丢了两次
+
+**教训**：
+1. 任何有到期日的凭证（PAT、OAuth）必须**记录到期日 + 提前 ~2 周提醒**。凭证静默到期的表现不是报错，是「推送变慢」，极难察觉。
+2. 推送变晚时，**第一步看 `gh run list` 里主触发源的 event 类型是否还在**：只剩 `schedule` 没有 `workflow_dispatch` = 主源已死、备份在撑。
+3. 考虑给 CF Worker 加告警：dispatch 非 204 时直接 Telegram 一条，让主源死亡变成响的而不是静默的。
+
+**TODO**：PAT v2 签发后记录新到期日；确认下个交易日 12:30 的 `workflow_dispatch` 重新出现。
+
+---
+
 ## 2026-06-18 (审计) — 对抗式审查揪出 7 个潜伏 bug 并全修
 
 **Commit**: aaa2824（4 组修复）
