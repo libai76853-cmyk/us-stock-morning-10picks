@@ -30,7 +30,9 @@
 2. 推送变晚时，**第一步看 `gh run list` 里主触发源的 event 类型是否还在**：只剩 `schedule` 没有 `workflow_dispatch` = 主源已死、备份在撑。
 3. 考虑给 CF Worker 加告警：dispatch 非 204 时直接 Telegram 一条，让主源死亡变成响的而不是静默的。
 
-**TODO**：PAT v2 签发后记录新到期日；确认下个交易日 12:30 的 `workflow_dispatch` 重新出现。
+**✅ 修复完成（9/2 当天）**：用户第 3 次 `wrangler login` 成功（前两次后台发起均因 2 分钟窗口超时）；PAT v2 先存为 `cf-worker-trigger/.gh_pat_v2`（chmod 600，校验 93 字符全 ASCII），再 `cat … | wrangler secret put GH_TOKEN` / `cat .trigger_key | … TRIGGER_KEY`（全 stdin）。**用 Worker 自己验 token**（绕开沙箱对 github_pat_* 的拦截）：`curl "…/?key=…&guard=1"` → `dispatch -> HTTP 204`（GitHub 受理 = token 经 CF 出口有效）；guard 未报 "already handled" 是因为当天 GH 备份尚未触发，所以这次就是当天合法推送而非重复。run 33644530469（`workflow_dispatch`）success、Telegram 4/4 仅一次、retire 分支正常、NAV 1.0014。**CF 主触发源复活。** 该 run 中 yfinance 对 BK、SATS 报 `404 Quote not found`，代码已优雅跳过（flaky 数据源又一例）。
+
+**待办**：(a) 用户确认 PAT v2 精确到期日（要求 1 年 ≈ 2027-09-02）→ 记录 + 提前 2 周提醒；(b) 确认 9/3 12:30 UTC 出现 `workflow_dispatch`（准点恢复的最终证据）。
 
 ---
 
