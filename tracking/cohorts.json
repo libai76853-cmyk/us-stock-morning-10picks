@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-09-15T20:16:02.162032+00:00",
+  "updated_at": "2026-09-15T20:30:57.427073+00:00",
   "tracking_window": 10,
   "cohorts": {
     "2026-05-27": {
@@ -127769,7 +127769,7 @@
             },
             {
               "date": "2026-09-15",
-              "close": 135.59
+              "close": 135.54
             }
           ]
         },
@@ -133366,7 +133366,7 @@
             },
             {
               "date": "2026-09-15",
-              "close": 135.59
+              "close": 135.54
             }
           ]
         },
@@ -134512,7 +134512,7 @@
             },
             {
               "date": "2026-09-15",
-              "close": 135.59
+              "close": 135.54
             }
           ]
         },
@@ -136107,7 +136107,7 @@
             },
             {
               "date": "2026-09-15",
-              "close": 135.59
+              "close": 135.54
             }
           ]
         },
@@ -137694,7 +137694,7 @@
             },
             {
               "date": "2026-09-15",
-              "close": 135.59
+              "close": 135.54
             }
           ]
         },
@@ -139702,7 +139702,7 @@
             },
             {
               "date": "2026-09-15",
-              "close": 135.59
+              "close": 135.54
             }
           ]
         },
@@ -140930,7 +140930,7 @@
             },
             {
               "date": "2026-09-15",
-              "close": 135.59
+              "close": 135.54
             }
           ]
         },
@@ -141896,10 +141896,10 @@
           },
           "screen_close": 345.7099914550781,
           "entry_atr": 7.173860822405134,
-          "entry_price": 343.34,
+          "entry_price": 343.15,
           "entry_locked": false,
-          "stop_price": 332.58,
-          "target_price": 364.86,
+          "stop_price": 332.39,
+          "target_price": 364.67,
           "status": "HOLD",
           "exit_price": null,
           "exit_date": null,
@@ -141923,10 +141923,10 @@
           },
           "screen_close": 349.3900146484375,
           "entry_atr": 7.4857177734375,
-          "entry_price": 346.8,
+          "entry_price": 346.78,
           "entry_locked": false,
-          "stop_price": 335.57,
-          "target_price": 369.26,
+          "stop_price": 335.55,
+          "target_price": 369.24,
           "status": "HOLD",
           "exit_price": null,
           "exit_date": null,
@@ -141987,7 +141987,7 @@
           "closes": [
             {
               "date": "2026-09-15",
-              "close": 135.59
+              "close": 135.54
             }
           ]
         },
@@ -142058,10 +142058,10 @@
           },
           "screen_close": 234.52999877929688,
           "entry_atr": 7.155000959123884,
-          "entry_price": 236.21,
+          "entry_price": 235.66,
           "entry_locked": false,
-          "stop_price": 225.48,
-          "target_price": 257.68,
+          "stop_price": 224.93,
+          "target_price": 257.13,
           "status": "HOLD",
           "exit_price": null,
           "exit_date": null,
