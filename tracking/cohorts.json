@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-10-09T20:16:14.663072+00:00",
+  "updated_at": "2026-10-09T20:31:29.668520+00:00",
   "tracking_window": 10,
   "cohorts": {
     "2026-05-27": {
@@ -161575,7 +161575,7 @@
             },
             {
               "date": "2026-10-09",
-              "close": 241.77
+              "close": 241.78
             }
           ]
         },
@@ -163112,7 +163112,7 @@
             },
             {
               "date": "2026-10-09",
-              "close": 158.28
+              "close": 158.38
             }
           ]
         },
@@ -165533,7 +165533,7 @@
             },
             {
               "date": "2026-10-09",
-              "close": 111.52
+              "close": 111.54
             }
           ]
         },
@@ -166991,7 +166991,7 @@
             },
             {
               "date": "2026-10-09",
-              "close": 159.94
+              "close": 159.96
             }
           ]
         },
@@ -167136,7 +167136,7 @@
             },
             {
               "date": "2026-10-09",
-              "close": 111.52
+              "close": 111.54
             }
           ]
         },
@@ -167775,7 +167775,7 @@
             },
             {
               "date": "2026-10-09",
-              "close": 129.63
+              "close": 129.64
             }
           ]
         },
@@ -168660,7 +168660,7 @@
             },
             {
               "date": "2026-10-09",
-              "close": 111.52
+              "close": 111.54
             }
           ]
         },
@@ -169130,7 +169130,7 @@
             },
             {
               "date": "2026-10-09",
-              "close": 130.81
+              "close": 130.8
             }
           ]
         }
@@ -169224,7 +169224,7 @@
             },
             {
               "date": "2026-10-09",
-              "close": 129.63
+              "close": 129.64
             }
           ]
         },
@@ -170154,7 +170154,7 @@
             },
             {
               "date": "2026-10-09",
-              "close": 111.52
+              "close": 111.54
             }
           ]
         },
@@ -171200,7 +171200,7 @@
             },
             {
               "date": "2026-10-09",
-              "close": 431.8
+              "close": 431.87
             }
           ]
         },
@@ -172843,7 +172843,7 @@
             },
             {
               "date": "2026-10-09",
-              "close": 111.52
+              "close": 111.54
             }
           ]
         },
@@ -173797,7 +173797,7 @@
             },
             {
               "date": "2026-10-09",
-              "close": 111.52
+              "close": 111.54
             }
           ]
         },
@@ -174010,7 +174010,7 @@
             },
             {
               "date": "2026-10-09",
-              "close": 130.81
+              "close": 130.8
             }
           ]
         }
@@ -174045,7 +174045,7 @@
           "closes": [
             {
               "date": "2026-10-09",
-              "close": 431.8
+              "close": 431.87
             }
           ]
         },
@@ -174170,10 +174170,10 @@
           },
           "screen_close": 230.47999572753906,
           "entry_atr": 5.351427350725446,
-          "entry_price": 233.84,
+          "entry_price": 233.88,
           "entry_locked": false,
-          "stop_price": 225.81,
-          "target_price": 249.89,
+          "stop_price": 225.85,
+          "target_price": 249.93,
           "status": "HOLD",
           "exit_price": null,
           "exit_date": null,
@@ -174386,10 +174386,10 @@
           },
           "screen_close": 344.8599853515625,
           "entry_atr": 8.70135498046875,
-          "entry_price": 348.0,
+          "entry_price": 348.01,
           "entry_locked": false,
-          "stop_price": 334.95,
-          "target_price": 374.1,
+          "stop_price": 334.96,
+          "target_price": 374.11,
           "status": "HOLD",
           "exit_price": null,
           "exit_date": null,
@@ -174467,10 +174467,10 @@
           },
           "screen_close": 348.2900085449219,
           "entry_atr": 8.814285278320312,
-          "entry_price": 351.4,
+          "entry_price": 351.45,
           "entry_locked": false,
-          "stop_price": 338.18,
-          "target_price": 377.84,
+          "stop_price": 338.23,
+          "target_price": 377.89,
           "status": "HOLD",
           "exit_price": null,
           "exit_date": null,
@@ -174531,7 +174531,7 @@
           "closes": [
             {
               "date": "2026-10-09",
-              "close": 129.09
+              "close": 129.11
             }
           ]
         },
@@ -174602,10 +174602,10 @@
           },
           "screen_close": 47.34000015258789,
           "entry_atr": 0.796428952898298,
-          "entry_price": 47.14,
+          "entry_price": 47.24,
           "entry_locked": false,
-          "stop_price": 45.95,
-          "target_price": 49.53,
+          "stop_price": 46.05,
+          "target_price": 49.63,
           "status": "HOLD",
           "exit_price": null,
           "exit_date": null,
@@ -174666,7 +174666,7 @@
           "closes": [
             {
               "date": "2026-10-09",
-              "close": 111.52
+              "close": 111.54
             }
           ]
         },
@@ -174774,7 +174774,7 @@
           "closes": [
             {
               "date": "2026-10-09",
-              "close": 60.01
+              "close": 60.03
             }
           ]
         },
