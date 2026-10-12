@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-10-12T20:46:18.945671+00:00",
+  "updated_at": "2026-10-12T21:22:04.095033+00:00",
   "tracking_window": 10,
   "cohorts": {
     "2026-05-27": {
@@ -176648,10 +176648,10 @@
           },
           "screen_close": 262.42999267578125,
           "entry_atr": 5.6292877197265625,
-          "entry_price": 262.5,
+          "entry_price": 262.55,
           "entry_locked": false,
-          "stop_price": 254.06,
-          "target_price": 279.39,
+          "stop_price": 254.11,
+          "target_price": 279.44,
           "status": "HOLD",
           "exit_price": null,
           "exit_date": null,
