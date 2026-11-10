@@ -1,8 +1,8 @@
 {
-  "updated_at": "2026-11-10T14:16:26.313985+00:00",
+  "updated_at": "2026-11-10T14:31:26.807218+00:00",
   "method": "daily-rebalanced equal-weight NAV, 10-trading-day hold per cohort",
-  "total_positions_tracked": 3959,
-  "latest_nav": 0.9862,
+  "total_positions_tracked": 3992,
+  "latest_nav": 0.9816,
   "series": [
     {
       "date": "2026-05-26",
@@ -705,6 +705,12 @@
       "nav": 0.9862,
       "daily_return_pct": 1.602,
       "positions": 190
+    },
+    {
+      "date": "2026-11-10",
+      "nav": 0.9816,
+      "daily_return_pct": -0.47,
+      "positions": 201
     }
   ]
 }
