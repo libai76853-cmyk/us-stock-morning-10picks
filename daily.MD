@@ -5,6 +5,25 @@
 格式：日期 | commit | 摘要 + 影响 + 验证。
 
 ---
+## 2026-11-24 — 新增 robinhood-tpsl：手机一键止盈止损（独立子目录，分支上，未合并）
+
+**Commit**: 6039f63（分支 `claude/robinhood-take-profit-stop-loss-qctwna`）
+
+**需求**：用户「构建一个 robinhood 一键止盈，止损的工具。手机用的」。
+
+**做了什么**：新目录 `robinhood-tpsl/`，Mac 上跑的网页服务 + 手机页面。每日选股的代码、workflow、`tracking/` 都没动；它只读 `tracking/cohorts.json` 取选股的止损价和目标价作为一种基准。
+- 只挂卖出平仓单（止损 / 止盈限价 / 联动单），整股，不超过实际持有。
+- 预览 → 按住确认两步；计划带一次性确认码（3 分钟）；下单前重取持仓和现价复核；结果不明不重试。
+- 三个后端可切换：`demo`（默认，模拟）、`official`（Robinhood Agentic Trading，MCP + OAuth，只能交易 Agentic 账户）、`unofficial`（robin_stocks，主账户）。真实后端默认演练，`TPSL_LIVE=1` 才发单。
+- 接口没有联动单时用「本机盯盘」：止损单挂在 Robinhood，到价由 Mac 撤止损、改挂止盈。
+
+**验证**：123 项测试全过（Python 3.12 全新安装 + 3.13）；官方后端对进程内假 MCP 服务和本地带 OAuth 的假服务（真实 HTTP）跑通；页面在手机尺寸浏览器里实际点过。
+
+**没验证的**：两个真实后端都没连过 Robinhood（开发环境访问不了 robinhood.com）。官方接口的工具参数是按公开报道的名字加通用匹配写的，要在 Mac 上跑 `./run.sh probe` 才能确认。
+
+**待办**（用户侧）：(a) `./run.sh` 看演示；(b) 选后端并登录，官方接口跑 `probe` 把 `~/.rh-tpsl/probe.json` 发回来核对参数；(c) 演练模式核对预览后，先用 1 股试实盘；(d) 决定是否合并进 main。
+
+---
 ## 2026-09-02 — 推送越来越晚：GitHub PAT 8/17 到期，CF cron 静默失效两周
 
 **Commit**: 无代码改动（凭证运维）
