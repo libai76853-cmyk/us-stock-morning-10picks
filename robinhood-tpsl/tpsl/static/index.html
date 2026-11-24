@@ -1,0 +1,721 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="止盈止损">
+<meta name="theme-color" content="#0e1418" media="(prefers-color-scheme: dark)">
+<meta name="theme-color" content="#f4f6f5" media="(prefers-color-scheme: light)">
+<meta name="referrer" content="no-referrer">
+<link rel="manifest" href="/manifest.webmanifest">
+<link rel="icon" href="/icon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<title>止盈止损</title>
+<style>
+:root{
+  --bg:#0e1418; --card:#161e24; --card2:#1c262d; --line:#27333b; --text:#e9eef0; --dim:#8c9aa3; --faint:#5e6c75;
+  --accent:#4cc2b0; --accent-ink:#06211d; --up:#3fb950; --down:#f0635a; --warn:#e3a53c;
+  --up-bg:rgba(63,185,80,.13); --down-bg:rgba(240,99,90,.13); --warn-bg:rgba(227,165,60,.14);
+  --r:14px; --bar-h:76px;
+}
+@media (prefers-color-scheme: light){
+  :root{
+    --bg:#f4f6f5; --card:#ffffff; --card2:#f0f3f2; --line:#dfe5e3; --text:#12191c; --dim:#5d6a70; --faint:#93a0a5;
+    --accent:#0f8f7d; --accent-ink:#ffffff; --up:#1a8f3a; --down:#cf3b32; --warn:#a86a00;
+    --up-bg:rgba(26,143,58,.10); --down-bg:rgba(207,59,50,.09); --warn-bg:rgba(168,106,0,.10);
+  }
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;background:var(--bg);color:var(--text)}
+body{font:15px/1.45 -apple-system,BlinkMacSystemFont,"PingFang SC","Helvetica Neue","Segoe UI",sans-serif;
+  padding:env(safe-area-inset-top) 0 calc(var(--bar-h) + env(safe-area-inset-bottom) + 20px);
+  -webkit-text-size-adjust:100%;overscroll-behavior-y:contain}
+button,input,select{font:inherit;color:inherit}
+button{cursor:pointer;border:0;background:none;padding:0}
+.num{font-variant-numeric:tabular-nums;letter-spacing:-.01em}
+.wrap{max-width:540px;margin:0 auto;padding:0 14px}
+[hidden]{display:none!important}
+
+/* 顶栏 */
+header{position:sticky;top:0;z-index:20;background:color-mix(in srgb,var(--bg) 88%,transparent);
+  backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);padding-top:env(safe-area-inset-top);margin-top:calc(-1*env(safe-area-inset-top))}
+.top{display:flex;align-items:center;gap:8px;padding:12px 0 8px}
+.top h1{font-size:19px;font-weight:700;margin:0;letter-spacing:.01em;flex:1;min-width:0}
+.pill{font-size:12px;font-weight:600;padding:3px 9px;border-radius:99px;background:var(--card2);color:var(--dim);white-space:nowrap}
+.pill.dry{background:var(--warn-bg);color:var(--warn)}
+.pill.live{background:var(--down-bg);color:var(--down)}
+.pill.demo{background:color-mix(in srgb,var(--accent) 16%,transparent);color:var(--accent)}
+.iconbtn{width:36px;height:36px;border-radius:10px;display:grid;place-items:center;color:var(--dim)}
+.iconbtn:active{background:var(--card2)}
+.iconbtn.spin svg{animation:spin .8s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.tabs{display:flex;background:var(--card);border-radius:11px;padding:3px;margin-bottom:10px}
+.tabs button{flex:1;padding:7px 0;border-radius:9px;font-weight:600;font-size:14px;color:var(--dim)}
+.tabs button[aria-selected=true]{background:var(--card2);color:var(--text);box-shadow:0 0 0 1px var(--line)}
+.tabs .cnt{font-size:11px;font-weight:700;margin-left:4px;color:var(--accent)}
+
+.banner{border-radius:var(--r);padding:11px 13px;margin:0 0 10px;font-size:13.5px;line-height:1.5}
+.banner.err{background:var(--down-bg);color:var(--down)}
+.banner.warn{background:var(--warn-bg);color:var(--warn)}
+.banner b{font-weight:700}
+.banner code{font:12.5px ui-monospace,SFMono-Regular,Menlo,monospace;background:rgba(127,127,127,.18);padding:1px 5px;border-radius:5px}
+
+.card{background:var(--card);border-radius:var(--r);padding:13px;margin-bottom:10px}
+.sum{display:flex;gap:18px;align-items:baseline;padding:2px 2px 10px}
+.sum .big{font-size:24px;font-weight:700}
+.sum .lbl{font-size:12px;color:var(--dim);display:block;margin-bottom:1px}
+.acct{width:100%;background:var(--card);border:1px solid var(--line);border-radius:11px;padding:9px 10px;font-size:14px;font-weight:600;margin-bottom:10px}
+.sum .small{font-size:13px;font-weight:600;margin-left:6px}
+
+/* 设置 */
+.set-row{display:flex;align-items:center;gap:10px;margin-bottom:10px}
+.set-row:last-child{margin-bottom:0}
+.set-row>.k{width:38px;flex:none;font-size:13px;color:var(--dim);font-weight:600}
+.seg{display:flex;flex:1;background:var(--card2);border-radius:10px;padding:3px;min-width:0}
+.seg button{flex:1;padding:7px 4px;border-radius:8px;font-size:13.5px;font-weight:600;color:var(--dim);white-space:nowrap}
+.seg button[aria-pressed=true]{background:var(--bg);color:var(--text);box-shadow:0 0 0 1px var(--line)}
+.chips{display:flex;flex:1;gap:6px;min-width:0}
+.chips button,.chips label{flex:1;min-width:0;height:36px;border-radius:10px;background:var(--card2);font-weight:650;font-size:14px;display:grid;place-items:center}
+.chips.tp button[aria-pressed=true],.chips.tp label.on{background:var(--up-bg);color:var(--up);box-shadow:inset 0 0 0 1.5px var(--up)}
+.chips.sl button[aria-pressed=true],.chips.sl label.on{background:var(--down-bg);color:var(--down);box-shadow:inset 0 0 0 1.5px var(--down)}
+.chips label{position:relative;flex:1.15}
+.chips input{width:100%;height:100%;background:none;border:0;text-align:center;font-weight:650;font-size:14px;outline:0;padding:0 14px 0 4px}
+.chips label::after{content:"%";position:absolute;right:7px;top:50%;transform:translateY(-50%);font-size:12px;color:var(--dim);pointer-events:none}
+.chips input::placeholder{color:var(--faint);font-weight:500}
+.hint{font-size:12.5px;color:var(--dim);margin:-3px 0 10px 48px;line-height:1.45}
+.toggles{display:flex;gap:16px;margin-left:48px;flex-wrap:wrap}
+.tg{display:flex;align-items:center;gap:7px;font-size:13.5px;color:var(--dim);padding:4px 0}
+.tg input{appearance:none;-webkit-appearance:none;width:36px;height:22px;border-radius:99px;background:var(--line);position:relative;transition:.15s;margin:0;flex:none}
+.tg input::after{content:"";position:absolute;left:2px;top:2px;width:18px;height:18px;border-radius:50%;background:#fff;transition:.15s;box-shadow:0 1px 2px rgba(0,0,0,.3)}
+.tg input:checked{background:var(--accent)}
+.tg input:checked::after{transform:translateX(14px)}
+
+/* 持仓行 */
+.listhead{display:flex;align-items:center;justify-content:space-between;padding:6px 3px 7px;font-size:12.5px;color:var(--dim)}
+.listhead button{color:var(--accent);font-weight:600;font-size:13px;padding:4px 2px}
+.row{background:var(--card);border-radius:var(--r);margin-bottom:8px;overflow:hidden}
+.row-main{display:flex;gap:11px;padding:12px 12px 11px;align-items:flex-start}
+.chk{width:26px;height:26px;border-radius:8px;border:1.5px solid var(--faint);flex:none;margin-top:1px;display:grid;place-items:center;color:transparent}
+.chk[aria-pressed=true]{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+.body{flex:1;min-width:0}
+.l1{display:flex;align-items:baseline;gap:8px}
+.sym{font-size:16.5px;font-weight:700;letter-spacing:.01em}
+.px{margin-left:auto;font-weight:650}
+.pnl{font-size:13px;font-weight:650;min-width:56px;text-align:right}
+.up{color:var(--up)} .down{color:var(--down)}
+.l2{font-size:12.5px;color:var(--dim);margin-top:1px}
+.legs{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+.leg{font-size:13px;font-weight:650;padding:4px 8px;border-radius:8px;white-space:nowrap}
+.leg i{font-style:normal;font-weight:500;opacity:.85;margin-left:4px;font-size:12px}
+.leg.tp{background:var(--up-bg);color:var(--up)}
+.leg.sl{background:var(--down-bg);color:var(--down)}
+.leg.how{background:var(--card2);color:var(--dim);font-weight:600}
+.msg{font-size:12.5px;margin-top:7px;line-height:1.45}
+.msg.skip{color:var(--warn)} .msg.note{color:var(--dim)}
+.msg.have{color:var(--dim)}
+.row.off .legs,.row.off .msg.skip,.row.off .msg.note{display:none}
+.row.off .sym,.row.off .px{color:var(--dim)}
+.editbtn{font-size:12.5px;font-weight:600;color:var(--accent);padding:5px 2px;margin-top:5px}
+.editor{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;padding:0 12px 12px 49px}
+.editor label{font-size:11.5px;color:var(--dim);display:block}
+.editor input{width:100%;margin-top:3px;height:38px;border-radius:9px;border:1px solid var(--line);background:var(--bg);padding:0 9px;font-size:15px;outline:0}
+.editor input:focus{border-color:var(--accent)}
+.empty{text-align:center;color:var(--dim);padding:38px 10px;font-size:14px}
+
+/* 底部操作条 */
+.bar{position:fixed;left:0;right:0;bottom:0;z-index:30;background:color-mix(in srgb,var(--bg) 90%,transparent);
+  backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-top:1px solid var(--line);
+  padding:10px 0 calc(10px + env(safe-area-inset-bottom))}
+.bar .wrap{display:flex;align-items:center;gap:12px}
+.bar .info{flex:1;min-width:0;font-size:12.5px;color:var(--dim);line-height:1.35}
+.bar .info b{display:block;font-size:14.5px;color:var(--text);font-weight:700}
+.cta{height:50px;padding:0 22px;border-radius:13px;background:var(--accent);color:var(--accent-ink);font-size:16px;font-weight:700;flex:none}
+.cta:disabled{opacity:.38}
+.cta:active:not(:disabled){transform:scale(.98)}
+
+/* 确认面板 */
+.scrim{position:fixed;inset:0;z-index:40;background:rgba(0,0,0,.55);display:flex;align-items:flex-end;justify-content:center}
+.sheet{background:var(--card);width:100%;max-width:540px;border-radius:20px 20px 0 0;max-height:88vh;display:flex;flex-direction:column;
+  padding-bottom:env(safe-area-inset-bottom);animation:rise .22s ease-out}
+@keyframes rise{from{transform:translateY(40px);opacity:.4}}
+.sheet-h{padding:16px 16px 6px}
+.sheet-h h2{margin:0 0 3px;font-size:18px}
+.sheet-h p{margin:0;font-size:13px;color:var(--dim)}
+.sheet-b{overflow-y:auto;padding:6px 16px 10px;-webkit-overflow-scrolling:touch}
+.sheet-f{padding:10px 16px 14px;display:flex;gap:10px;border-top:1px solid var(--line)}
+.item{padding:11px 0;border-bottom:1px solid var(--line)}
+.item:last-child{border-bottom:0}
+.item .t{display:flex;align-items:baseline;gap:8px;font-weight:700}
+.item .t span{font-weight:500;color:var(--dim);font-size:13px}
+.item .d{font-size:13.5px;margin-top:4px;line-height:1.55}
+.item .d .tpc{color:var(--up);font-weight:650} .item .d .slc{color:var(--down);font-weight:650}
+.item .sub{font-size:12.5px;color:var(--dim);margin-top:3px;line-height:1.5}
+.item .sub.w{color:var(--warn)}
+.totals{display:flex;gap:10px;margin:10px 0 4px}
+.totals div{flex:1;border-radius:11px;padding:9px 11px;font-size:12px;color:var(--dim)}
+.totals b{display:block;font-size:16px;margin-top:1px}
+.totals .a{background:var(--up-bg)} .totals .a b{color:var(--up)}
+.totals .b{background:var(--down-bg)} .totals .b b{color:var(--down)}
+details.skipped{margin-top:8px;font-size:13px;color:var(--dim)}
+details.skipped summary{padding:6px 0;font-weight:600}
+details.skipped li{margin:5px 0;line-height:1.45}
+details.skipped ul{margin:0;padding-left:18px}
+.ghost{flex:1;height:52px;border-radius:13px;background:var(--card2);font-weight:650;font-size:15.5px}
+.hold{flex:2;height:52px;border-radius:13px;background:var(--accent);color:var(--accent-ink);font-weight:700;font-size:16px;position:relative;overflow:hidden;
+  user-select:none;-webkit-user-select:none;touch-action:none}
+.hold.live{background:var(--down);color:#fff}
+.hold::before{content:"";position:absolute;inset:0;background:rgba(255,255,255,.32);transform:scaleX(0);transform-origin:left;transition:transform .12s}
+.hold.holding::before{transform:scaleX(1);transition:transform .9s linear}
+.hold span{position:relative}
+.hold:disabled{opacity:.5}
+.res{display:flex;gap:9px;padding:10px 0;border-bottom:1px solid var(--line)}
+.res:last-child{border-bottom:0}
+.res .ic{width:22px;height:22px;border-radius:50%;flex:none;display:grid;place-items:center;font-size:13px;font-weight:800;margin-top:1px}
+.res.ok .ic{background:var(--up-bg);color:var(--up)} .res.bad .ic{background:var(--down-bg);color:var(--down)}
+.res.skip .ic{background:var(--card2);color:var(--dim)}
+.res b{font-weight:700} .res .m{font-size:13px;color:var(--dim);line-height:1.5}
+.res.bad .m{color:var(--down)}
+
+/* 挂单 / 记录 */
+.ord{display:flex;align-items:center;gap:10px;padding:11px 12px}
+.ord .o1{font-weight:700}
+.ord .o2{font-size:12.5px;color:var(--dim);margin-top:1px}
+.ord .act{margin-left:auto;font-size:13.5px;font-weight:650;color:var(--down);padding:8px 10px;border-radius:9px;background:var(--down-bg);flex:none}
+.ord .act.calm{color:var(--dim);background:var(--card2)}
+.sec{font-size:12.5px;color:var(--dim);font-weight:600;padding:8px 3px 6px;display:flex;justify-content:space-between;align-items:center}
+.sec button{color:var(--down);font-weight:650;font-size:13px}
+.state{font-size:11.5px;font-weight:700;padding:2px 7px;border-radius:6px;background:var(--card2);color:var(--dim);margin-left:6px}
+.state.on{background:color-mix(in srgb,var(--accent) 16%,transparent);color:var(--accent)}
+.state.bad{background:var(--down-bg);color:var(--down)}
+.log{padding:9px 12px;border-bottom:1px solid var(--line);font-size:13px;line-height:1.5}
+.log:last-child{border-bottom:0}
+.log time{color:var(--faint);font-size:11.5px;display:block}
+.gate{max-width:420px;margin:18vh auto 0;padding:0 22px;text-align:center}
+.gate h2{font-size:20px;margin:0 0 8px}
+.gate p{color:var(--dim);font-size:14px;margin:0 0 18px;line-height:1.6}
+.gate input{width:100%;height:48px;border-radius:12px;border:1px solid var(--line);background:var(--card);padding:0 14px;font-size:15px;outline:0;text-align:center}
+.gate button{width:100%;height:48px;border-radius:12px;background:var(--accent);color:var(--accent-ink);font-weight:700;margin-top:10px;font-size:16px}
+.toast{position:fixed;left:50%;bottom:calc(var(--bar-h) + env(safe-area-inset-bottom) + 26px);transform:translateX(-50%);z-index:60;
+  background:var(--text);color:var(--bg);padding:9px 15px;border-radius:11px;font-size:13.5px;font-weight:600;max-width:88vw;text-align:center}
+</style>
+</head>
+<body>
+
+<div id="gate" class="gate" hidden>
+  <h2>输入访问口令</h2>
+  <p>口令在 Mac 上启动服务时显示（地址里 <code>#k=</code> 后面那一串）。<br>也可以在 Mac 上运行 <code>./run.sh token</code> 再看一次。</p>
+  <input id="gate-in" type="password" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="粘贴口令" aria-label="访问口令">
+  <button id="gate-go">进入</button>
+</div>
+
+<div id="app" hidden>
+<header><div class="wrap">
+  <div class="top">
+    <h1>止盈止损</h1>
+    <span id="p-backend" class="pill"></span>
+    <span id="p-mode" class="pill" hidden></span>
+    <button id="refresh" class="iconbtn" aria-label="刷新">
+      <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 1 1-2.64-6.36"/><path d="M21 4v5h-5"/></svg>
+    </button>
+  </div>
+  <div class="tabs" role="tablist">
+    <button role="tab" data-tab="pos" aria-selected="true">持仓</button>
+    <button role="tab" data-tab="ord" aria-selected="false">挂单<span id="ord-cnt" class="cnt"></span></button>
+    <button role="tab" data-tab="log" aria-selected="false">记录</button>
+  </div>
+</div></header>
+
+<main class="wrap">
+  <div id="banners"></div>
+
+  <select id="acct" class="acct" aria-label="账户" hidden></select>
+
+  <section id="tab-pos">
+    <div class="sum">
+      <div><span class="lbl">持仓市值</span><span id="mv" class="big num">—</span></div>
+      <div><span class="lbl">浮动盈亏</span><span id="upl" class="num" style="font-size:17px;font-weight:650;white-space:nowrap">—</span></div>
+    </div>
+
+    <div class="card" id="settings">
+      <div class="set-row"><span class="k">模式</span>
+        <div class="seg" data-key="mode">
+          <button data-v="both">止盈 + 止损</button><button data-v="sl">只挂止损</button><button data-v="tp">只挂止盈</button>
+        </div>
+      </div>
+      <div class="set-row"><span class="k">基准</span>
+        <div class="seg" data-key="basis">
+          <button data-v="cost">成本价</button><button data-v="last">现价</button><button data-v="picks" id="basis-picks" hidden>选股价位</button>
+        </div>
+      </div>
+      <div class="set-row" id="row-tp"><span class="k">止盈</span>
+        <div class="chips tp" data-key="tp">
+          <button data-v="10">+10%</button><button data-v="15">+15%</button><button data-v="20">+20%</button><button data-v="30">+30%</button>
+          <label><input inputmode="decimal" placeholder="自定" aria-label="自定止盈百分比"></label>
+        </div>
+      </div>
+      <div class="set-row" id="row-sl"><span class="k">止损</span>
+        <div class="chips sl" data-key="sl">
+          <button data-v="5">−5%</button><button data-v="7">−7%</button><button data-v="10">−10%</button><button data-v="15">−15%</button>
+          <label><input inputmode="decimal" placeholder="自定" aria-label="自定止损百分比"></label>
+        </div>
+      </div>
+      <div class="set-row" id="row-how" hidden><span class="k">挂法</span>
+        <div class="seg" data-key="strategy">
+          <button data-v="watch">本机盯盘</button><button data-v="split">拆成两半</button>
+        </div>
+      </div>
+      <p class="hint" id="how-hint" hidden></p>
+      <div class="toggles">
+        <label class="tg"><input type="checkbox" id="t-replace"> 替换已有卖单</label>
+        <label class="tg"><input type="checkbox" id="t-gfd"> 仅当日有效</label>
+      </div>
+    </div>
+
+    <div class="listhead"><span id="list-info"></span><button id="sel-all"></button></div>
+    <div id="rows"></div>
+  </section>
+
+  <section id="tab-ord" hidden>
+    <div id="watches"></div>
+    <div id="orders"></div>
+  </section>
+
+  <section id="tab-log" hidden><div class="card" style="padding:2px 0" id="logs"></div></section>
+</main>
+
+<div class="bar" id="bar"><div class="wrap">
+  <div class="info" id="bar-info"></div>
+  <button class="cta" id="go" disabled>预览并挂单</button>
+</div></div>
+</div>
+
+<div id="scrim" class="scrim" hidden><div class="sheet" role="dialog" aria-modal="true" aria-labelledby="sh-title">
+  <div class="sheet-h"><h2 id="sh-title"></h2><p id="sh-sub"></p></div>
+  <div class="sheet-b" id="sh-body"></div>
+  <div class="sheet-f" id="sh-foot"></div>
+</div></div>
+<div id="toast" class="toast" hidden></div>
+
+<script>
+"use strict";
+const $ = (s, r = document) => r.querySelector(s);
+const $$ = (s, r = document) => [...r.querySelectorAll(s)];
+const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const LS = {
+  get(k, d){ try{ const v = localStorage.getItem(k); return v === null ? d : JSON.parse(v); }catch(e){ return d; } },
+  set(k, v){ try{ localStorage.setItem(k, JSON.stringify(v)); }catch(e){} },
+  del(k){ try{ localStorage.removeItem(k); }catch(e){} },
+};
+const money = (x, always2) => { if (x === null || x === undefined || x === "") return "—"; const n = +x;
+  const d = (Math.abs(n) < 1 && !always2 && n !== 0) ? 4 : 2; return "$" + n.toLocaleString("en-US", {minimumFractionDigits: 2, maximumFractionDigits: d}); };
+const pct = (x, d = 1) => (x === null || x === undefined) ? "" : (x >= 0 ? "+" : "−") + Math.abs(x).toFixed(d) + "%";
+const qty = x => (+x).toLocaleString("en-US", {maximumFractionDigits: 4});
+const KIND = {stop:"止损单", limit:"止盈限价单", oco:"止盈/止损联动单", market:"市价单", stop_limit:"止损限价单", other:"卖单"};
+const HOW = {oco:"联动单", watch:"本机盯盘", split:"拆成两半", sl:"只挂止损", tp:"只挂止盈"};
+const WSTATE = {armed:["盯盘中","on"], cancelling:["正在改挂","on"], tp_placed:["止盈单已挂","on"], done:["已止盈",""], stopped:["已止损",""], cancelled:["已停止",""], error:["需要处理","bad"]};
+
+const S = {
+  token: LS.get("tpsl_token", ""),
+  st: null, account: LS.get("tpsl_account", null), tab: "pos",
+  set: Object.assign({mode:"both", basis:"cost", tp:"15", sl:"7", strategy:"watch", replace:false, gfd:false}, LS.get("tpsl_settings", {})),
+  off: new Set(), ov: {}, open: new Set(), plan: null, signed: null, previewErr: "", busy: false, seq: 0,
+};
+
+// ---- 口令 ----
+(function takeHash(){
+  const m = location.hash.match(/[#&]k=([^&]+)/);
+  if (m){ S.token = decodeURIComponent(m[1]); LS.set("tpsl_token", S.token); history.replaceState(null, "", location.pathname); }
+})();
+
+async function api(path, body){
+  const opt = {headers: {"Authorization": "Bearer " + S.token}, cache: "no-store"};
+  if (body !== undefined){ opt.method = "POST"; opt.headers["Content-Type"] = "application/json"; opt.body = JSON.stringify(body); }
+  let r;
+  try { r = await fetch(path, opt); } catch(e){ throw {msg: "连不上 Mac 上的服务。确认它在运行、手机和它在同一个网络（或 Tailscale 已连接）。", net: true}; }
+  let j = {}; try { j = await r.json(); } catch(e){}
+  if (r.status === 401){ S.token = ""; LS.del("tpsl_token"); showGate(); throw {msg: "访问口令不对"}; }
+  if (!r.ok) throw {msg: j.error || j.detail || ("请求失败 " + r.status), status: r.status, need_login: j.need_login};
+  return j;
+}
+
+function showGate(){ $("#app").hidden = true; $("#gate").hidden = false; setTimeout(() => $("#gate-in").focus(), 50); }
+$("#gate-go").onclick = () => { const v = $("#gate-in").value.trim(); if (!v) return; S.token = v; LS.set("tpsl_token", v); $("#gate").hidden = true; boot(); };
+$("#gate-in").onkeydown = e => { if (e.key === "Enter") $("#gate-go").click(); };
+
+function toast(t){ const el = $("#toast"); el.textContent = t; el.hidden = false; clearTimeout(toast.t); toast.t = setTimeout(() => el.hidden = true, 2600); }
+
+// ---- 取数 ----
+async function load(quiet){
+  if (!quiet) $("#refresh").classList.add("spin");
+  try {
+    const st = await api("/api/state" + (S.account ? "?account=" + encodeURIComponent(S.account) : ""));
+    S.st = st; S.loadErr = "";
+    if (st.account && st.account !== S.account){ S.account = st.account; LS.set("tpsl_account", S.account); }
+    $("#app").hidden = false;
+    render();
+    schedulePreview(0);
+  } catch(e){
+    if (!S.token) return;
+    S.loadErr = e.msg || String(e); $("#app").hidden = false; renderBanners();
+  } finally { $("#refresh").classList.remove("spin"); }
+}
+
+function planRequest(){
+  const s = S.set, st = S.st;
+  const symbols = st.positions.map(p => p.symbol).filter(x => !S.off.has(x));
+  const overrides = {};
+  for (const sym of symbols){ const o = S.ov[sym]; if (o && (o.tp_price || o.sl_price || o.qty)) overrides[sym] = o; }
+  return {account: S.account, mode: s.mode, basis: s.basis, tp_pct: s.tp || "15", sl_pct: s.sl || "7",
+    both_strategy: st.caps && st.caps.native_oco ? "oco" : (st.caps && !st.caps.watch ? "split" : s.strategy),
+    replace_existing: s.replace, tif: s.gfd ? "gfd" : "gtc", symbols, overrides};
+}
+
+function schedulePreview(ms = 350){
+  clearTimeout(schedulePreview.t);
+  schedulePreview.t = setTimeout(runPreview, ms);
+}
+async function runPreview(){
+  const st = S.st;
+  if (!st || !st.account || !st.positions.length || st.error){ S.plan = null; renderRows(); renderBar(); return; }
+  const acct = st.accounts.find(a => a.id === S.account);
+  if (acct && !acct.tradable){ S.plan = null; S.previewErr = ""; renderRows(); renderBar(); return; }
+  const my = ++S.seq;
+  try {
+    const r = await api("/api/preview", planRequest());
+    if (my !== S.seq) return;
+    S.plan = r.plan; S.signed = {id: r.plan.id, token: r.confirm_token, at: Date.now(), ttl: r.expires_in * 1000}; S.previewErr = "";
+  } catch(e){
+    if (my !== S.seq) return;
+    S.plan = null; S.previewErr = e.msg || String(e);
+  }
+  renderRows(); renderBar(); renderBanners();
+}
+
+// ---- 渲染 ----
+function render(){ renderHeader(); renderBanners(); renderSettings(); renderRows(); renderBar(); renderOrders(); }
+
+function renderHeader(){
+  const b = S.st.backend, pb = $("#p-backend"), pm = $("#p-mode");
+  pb.textContent = b.label; pb.className = "pill" + (b.name === "demo" ? " demo" : "");
+  pm.hidden = b.name === "demo";
+  pm.textContent = b.dry_run ? "演练" : "实盘"; pm.className = "pill " + (b.dry_run ? "dry" : "live");
+  const sel = $("#acct"), acc = S.st.accounts || [];
+  sel.hidden = acc.length < 2;
+  sel.innerHTML = acc.map(a => `<option value="${esc(a.id)}"${a.id === S.account ? " selected" : ""}>${esc(a.label)}${a.tradable ? "" : "（只读）"}</option>`).join("");
+  const n = (S.st.orders || []).length;
+  $("#ord-cnt").textContent = n ? n : "";
+}
+
+function renderBanners(){
+  const out = [], st = S.st;
+  if (S.loadErr) out.push(["err", esc(S.loadErr)]);
+  if (st){
+    if (st.error) out.push(["err", (st.need_login ? "<b>需要登录。</b>" : "") + esc(st.error)]);
+    else if (st.backend && st.backend.ok === false) out.push(["err", esc(st.backend.detail)]);
+    if (st.backend.name === "demo") out.push(["warn", "<b>演示模式</b>：下面是模拟的持仓和行情，点确认也不会下出真实订单。"]);
+    else if (st.backend.dry_run) out.push(["warn", "<b>演练模式</b>：持仓和行情是真的，但确认后只做校验、不发单。确认无误后在 Mac 上设 <code>TPSL_LIVE=1</code> 重启才会真下单。"]);
+    const acct = (st.accounts || []).find(a => a.id === S.account);
+    if (acct && !acct.tradable) out.push(["warn", "这个账户在官方接口下<b>只读</b>：能看持仓，不能下单。请切到 Agentic 账户。"]);
+    if (st.backend.name === "unofficial") out.push(["warn", "正在用<b>非官方接口</b>：不受 Robinhood 支持，账户有被限制的风险。"]);
+    if (st.watcher && st.watcher.last_error) out.push(["err", "盯盘：" + esc(st.watcher.last_error)]);
+    const bad = (st.watches || []).filter(w => w.state === "error");
+    if (bad.length) out.push(["err", `<b>${bad.map(w => esc(w.symbol)).join("、")}</b> 的盯盘需要人工处理，见「挂单」页。`]);
+  }
+  if (S.previewErr) out.push(["err", esc(S.previewErr)]);
+  $("#banners").innerHTML = out.map(([c, h]) => `<div class="banner ${c}">${h}</div>`).join("");
+}
+
+function renderSettings(){
+  const s = S.set, caps = S.st.caps || {};
+  if (s.basis === "picks" && !S.st.has_picks) s.basis = "cost";
+  $("#basis-picks").hidden = !S.st.has_picks;
+  for (const seg of $$(".seg")) for (const b of $$("button", seg)) b.setAttribute("aria-pressed", String(s[seg.dataset.key] === b.dataset.v));
+  for (const key of ["tp", "sl"]){
+    const box = $(`.chips[data-key=${key}]`); let hit = false;
+    for (const b of $$("button", box)){ const on = s[key] === b.dataset.v; b.setAttribute("aria-pressed", String(on)); hit = hit || on; }
+    const inp = $("input", box), lab = $("label", box);
+    lab.classList.toggle("on", !hit && !!s[key]);
+    if (document.activeElement !== inp) inp.value = hit ? "" : (s[key] || "");
+  }
+  const picks = s.basis === "picks";
+  $("#row-tp").hidden = s.mode === "sl" || picks;
+  $("#row-sl").hidden = s.mode === "tp" || picks;
+  const both = s.mode === "both", choose = both && !caps.native_oco && caps.watch !== false;
+  $("#row-how").hidden = !choose;
+  const hint = $("#how-hint");
+  let h = "";
+  if (picks) h = "用每日选股给这只票定的止损价和目标价；选股记录里没有的票会跳过。";
+  else if (both && caps.native_oco) h = "用 Robinhood 的止盈/止损联动单：一边成交，另一边自动撤销。";
+  else if (both && caps.watch === false) h = "当前接口不支持联动单也查不了订单状态：一半股数挂止损、一半挂止盈。";
+  else if (both && s.strategy === "watch") h = "止损单全部挂在 Robinhood；到止盈价时由 Mac 自动撤止损、改挂止盈。Mac 没开时止损仍然有效，止盈不会触发。";
+  else if (both) h = "一半股数挂止损、一半挂止盈，都挂在 Robinhood，不依赖 Mac。";
+  hint.textContent = h; hint.hidden = !h;
+  $("#t-replace").checked = s.replace; $("#t-gfd").checked = s.gfd;
+}
+
+function existing(sym){
+  return (S.st.orders || []).filter(o => o.symbol === sym).map(o =>
+    `${KIND[o.kind] || "卖单"} ${[o.limit_price && money(o.limit_price), o.stop_price && money(o.stop_price)].filter(Boolean).join(" / ")} × ${qty(o.quantity)}`);
+}
+
+function renderRows(){
+  const st = S.st, box = $("#rows");
+  if (!st) return;
+  const ps = st.positions || [];
+  let mv = 0, cost = 0, known = true;
+  for (const p of ps){ if (p.market_value) mv += +p.market_value; if (p.avg_cost && p.last_price) cost += p.avg_cost * p.quantity; else known = false; }
+  $("#mv").textContent = ps.length ? money(mv, true) : "—";
+  const upl = $("#upl");
+  if (ps.length && known && cost > 0){ const d = mv - cost; upl.innerHTML = (d >= 0 ? "+" : "−") + money(Math.abs(d), true) + `<span class="small">${pct(d / cost * 100)}</span>`; upl.className = "num " + (d >= 0 ? "up" : "down"); }
+  else { upl.textContent = "—"; upl.className = "num"; }
+
+  if (!ps.length){ box.innerHTML = `<div class="empty">${st.error ? "读不到持仓" : "这个账户里没有股票持仓"}</div>`; $("#list-info").textContent = ""; $("#sel-all").textContent = ""; return; }
+  const items = {}; if (S.plan) for (const it of S.plan.items) items[it.symbol] = it;
+  const on = ps.filter(p => !S.off.has(p.symbol)).length;
+  $("#list-info").textContent = `${ps.length} 只持仓，选中 ${on} 只`;
+  $("#sel-all").textContent = on === ps.length ? "全不选" : "全选";
+
+  const focus = document.activeElement && document.activeElement.dataset ? document.activeElement.dataset.f : null;
+  box.innerHTML = ps.map(p => {
+    const off = S.off.has(p.symbol), it = items[p.symbol], ov = S.ov[p.symbol] || {}, open = S.open.has(p.symbol);
+    let legs = "", msg = "";
+    if (!off && it && !it.skipped){
+      if (it.tp_price) legs += `<span class="leg tp num">止盈 ${money(it.tp_price)}<i>${pct(it.tp_vs_last_pct)}</i></span>`;
+      if (it.sl_price) legs += `<span class="leg sl num">止损 ${money(it.sl_price)}<i>${pct(it.sl_vs_last_pct)}</i></span>`;
+      legs += `<span class="leg how">${HOW[it.strategy] || ""} · ${qty(it.quantity)} 股</span>`;
+      if (it.cancels.length) msg += `<div class="msg note">会先撤掉这只已有的 ${it.cancels.length} 张卖单</div>`;
+      for (const w of it.warnings) msg += `<div class="msg skip">${esc(w)}</div>`;
+    } else if (!off && it && it.skipped){
+      msg += `<div class="msg skip">跳过：${esc(it.reason)}</div>`;
+    }
+    const have = existing(p.symbol);
+    if (have.length) msg += `<div class="msg have">已挂：${esc(have.join("；"))}</div>`;
+    if (p.pick && S.set.basis !== "picks") msg += `<div class="msg have">选股价位：止损 ${money(p.pick.stop_price)} · 目标 ${money(p.pick.target_price)}</div>`;
+    const up = p.pnl_pct === null ? "" : (p.pnl_pct >= 0 ? "up" : "down");
+    const edited = ov.tp_price || ov.sl_price || ov.qty;
+    return `<div class="row${off ? " off" : ""}" data-sym="${esc(p.symbol)}">
+      <div class="row-main">
+        <button class="chk" aria-pressed="${!off}" aria-label="${off ? "选中" : "取消选中"} ${esc(p.symbol)}"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></button>
+        <div class="body">
+          <div class="l1"><span class="sym">${esc(p.symbol)}</span><span class="px num">${money(p.last_price)}</span><span class="pnl num ${up}">${p.pnl_pct === null ? "" : pct(p.pnl_pct)}</span></div>
+          <div class="l2 num">${qty(p.quantity)} 股${p.avg_cost ? " · 成本 " + money(p.avg_cost) : ""}</div>
+          ${legs ? `<div class="legs">${legs}</div>` : ""}${msg}
+          ${off ? "" : `<button class="editbtn">${open ? "收起" : (edited ? "已改价位 · 编辑" : "单独改这只")}</button>`}
+        </div>
+      </div>
+      ${!off && open ? `<div class="editor">
+        <label>止盈价<input class="num" inputmode="decimal" data-f="${esc(p.symbol)}:tp_price" value="${esc(ov.tp_price || "")}" placeholder="${it && it.tp_price ? esc(it.tp_price) : "默认"}"></label>
+        <label>止损价<input class="num" inputmode="decimal" data-f="${esc(p.symbol)}:sl_price" value="${esc(ov.sl_price || "")}" placeholder="${it && it.sl_price ? esc(it.sl_price) : "默认"}"></label>
+        <label>股数<input class="num" inputmode="numeric" data-f="${esc(p.symbol)}:qty" value="${esc(ov.qty || "")}" placeholder="${it && +it.quantity ? esc(it.quantity) : "全部"}"></label>
+      </div>` : ""}
+    </div>`;
+  }).join("");
+  if (focus){ const el = box.querySelector(`[data-f="${CSS.escape(focus)}"]`); if (el){ el.focus(); const n = el.value.length; try{ el.setSelectionRange(n, n); }catch(e){} } }
+}
+
+function renderBar(){
+  const info = $("#bar-info"), go = $("#go"), st = S.st;
+  $("#bar").hidden = S.tab !== "pos";
+  if (!st) return;
+  const sum = S.plan ? S.plan.summary : null;
+  const acct = (st.accounts || []).find(a => a.id === S.account);
+  if (acct && !acct.tradable){ info.innerHTML = "<b>只读账户</b>不能在这里下单"; go.disabled = true; return; }
+  if (!sum){ info.innerHTML = (st.positions || []).length ? "<b>正在计算…</b>" : ""; go.disabled = true; return; }
+  if (!sum.actionable){ info.innerHTML = `<b>没有可挂的单</b>${sum.skipped ? `跳过 ${sum.skipped} 只，看每只下面的原因` : "先选中持仓"}`; go.disabled = true; return; }
+  info.innerHTML = `<b>${sum.actionable} 只 · ${sum.orders} 张卖单</b>${[sum.cancels ? `先撤 ${sum.cancels} 张旧单` : "", sum.watches ? `${sum.watches} 只盯盘` : "", sum.skipped ? `跳过 ${sum.skipped} 只` : ""].filter(Boolean).join(" · ") || "下一步看清每张单再确认"}`;
+  go.disabled = S.busy;
+}
+
+function renderOrders(){
+  const st = S.st, ws = (st.watches || []), os = (st.orders || []);
+  const live = ws.filter(w => WSTATE[w.state] && WSTATE[w.state][1] !== ""), old = ws.filter(w => !live.includes(w)).slice(0, 8);
+  const wrow = w => { const [lab, cls] = WSTATE[w.state] || [w.state, ""];
+    return `<div class="row"><div class="ord"><div style="min-width:0"><div class="o1">${esc(w.symbol)}<span class="state ${cls}">${lab}</span></div>
+      <div class="o2 num">${qty(w.quantity)} 股 · 止盈 ${money(w.tp_price)} · 止损 ${money(w.sl_price)}</div>
+      <div class="o2">${esc(w.note)}</div></div>
+      ${cls === "on" ? `<button class="act calm" data-watch="${esc(w.id)}">停止盯盘</button>` : ""}</div></div>`; };
+  $("#watches").innerHTML = (live.length ? `<div class="sec"><span>本机盯盘</span></div>` + live.map(wrow).join("") : "")
+    + (old.length ? `<div class="sec"><span>已结束的盯盘</span></div>` + old.map(wrow).join("") : "");
+  $("#orders").innerHTML = `<div class="sec"><span>Robinhood 里未成交的卖单（${os.length}）</span>${os.length > 1 ? `<button id="cancel-all">全部撤销</button>` : ""}</div>` +
+    (os.length ? os.map(o => `<div class="row"><div class="ord"><div style="min-width:0">
+      <div class="o1">${esc(o.symbol)} <span style="font-weight:500;color:var(--dim);font-size:13px">${KIND[o.kind] || "卖单"}${o.watched ? " · 盯盘中" : ""}</span></div>
+      <div class="o2 num">${qty(o.quantity)} 股${o.limit_price ? " · 限价 " + money(o.limit_price) : ""}${o.stop_price ? " · 止损 " + money(o.stop_price) : ""} · ${o.tif === "gfd" ? "当日有效" : "撤销前有效"}</div></div>
+      <button class="act" data-cancel="${esc(o.id)}">撤单</button></div></div>`).join("")
+    : `<div class="empty">没有未成交的卖单</div>`);
+}
+
+async function renderLog(){
+  const box = $("#logs"); box.innerHTML = `<div class="empty">读取中…</div>`;
+  try {
+    const r = await api("/api/log?n=120");
+    const T = {preview:"预览", execute_start:"开始执行", execute_item:"执行", execute_end:"执行结束", cancel:"撤单", watch:"盯盘", watch_trigger:"到止盈价", mcp_call:"接口调用", execute_abort:"执行中止"};
+    const line = e => {
+      if (e.event === "execute_item") return `<b>${esc(e.symbol)}</b> ${esc(e.message || "")}（${esc(e.status)}）` + (e.steps || []).map(s => `<br>· ${esc(s.detail)}`).join("");
+      if (e.event === "watch") return `<b>${esc(e.symbol)}</b> ${esc(e.note || e.state)}`;
+      if (e.event === "preview") return `预览：${e.summary ? `${e.summary.actionable} 只可挂，跳过 ${e.summary.skipped} 只` : ""}`;
+      if (e.event === "execute_start") return `开始执行 ${esc((e.symbols || []).join("、"))}${e.dry_run ? "（演练）" : ""}`;
+      if (e.event === "execute_end") return `执行结束：成功 ${e.done}，有问题 ${e.bad}`;
+      if (e.event === "cancel") return esc(e.detail || "");
+      if (e.event === "watch_trigger") return `<b>${esc(e.symbol)}</b> 现价 ${money(e.last)} 到止盈价 ${money(e.tp)}`;
+      if (e.event === "mcp_call") return `调用 ${esc(e.tool)}`;
+      return esc(T[e.event] || e.event) + (e.error ? "：" + esc(e.error) : "");
+    };
+    const rows = r.entries.filter(e => e.event !== "preview" || true);
+    box.innerHTML = rows.length ? rows.map(e => `<div class="log"><time>${new Date(e.ts).toLocaleString("zh-CN", {hour12:false})}</time>${line(e)}</div>`).join("") : `<div class="empty">还没有记录</div>`;
+  } catch(e){ box.innerHTML = `<div class="empty">${esc(e.msg || e)}</div>`; }
+}
+
+// ---- 确认面板 ----
+function openSheet(html){ $("#scrim").hidden = false; document.body.style.overflow = "hidden"; }
+function closeSheet(){ $("#scrim").hidden = true; document.body.style.overflow = ""; }
+
+function showConfirm(){
+  // 面板打开后，后台刷新可能换掉 S.plan；这里把当前这份和它的确认码固定下来
+  const plan = S.plan, signed = S.signed, st = S.st, b = st.backend;
+  const act = plan.items.filter(i => !i.skipped), skip = plan.items.filter(i => i.skipped);
+  const acct = st.accounts.find(a => a.id === S.account);
+  $("#sh-title").textContent = `确认挂 ${plan.summary.orders} 张卖单`;
+  $("#sh-sub").textContent = `${acct ? acct.label : ""} · ` + (b.name === "demo" ? "演示模式，不会真的下单" : b.dry_run ? "演练模式，只校验不发单" : "实盘：确认后立即发往 Robinhood");
+  let tp = 0, sl = 0, hasTp = false, hasSl = false;
+  const rows = act.map(it => {
+    if (it.pnl_at_tp !== null && it.tp_price){ tp += +it.pnl_at_tp; hasTp = true; }
+    if (it.pnl_at_sl !== null && it.sl_price){ sl += +it.pnl_at_sl; hasSl = true; }
+    const d = it.watch ? `<span class="slc num">跌到 ${money(it.watch.sl_price)}</span> 时市价卖出 ${qty(it.watch.quantity)} 股 <span style="color:var(--dim)">· 止损单挂在 Robinhood</span><br><span class="tpc num">涨到 ${money(it.watch.tp_price)}</span> 时由 Mac 撤掉止损、改挂止盈限价单`
+    : it.orders.map(o => {
+      if (o.kind === "oco") return `卖出 ${qty(o.quantity)} 股 · 联动单<br><span class="tpc num">涨到 ${money(o.limit_price)} 止盈</span>，<span class="slc num">跌到 ${money(o.stop_price)} 止损</span>`;
+      if (o.kind === "stop") return `<span class="slc num">跌到 ${money(o.stop_price)}</span> 时市价卖出 ${qty(o.quantity)} 股`;
+      return `<span class="tpc num">涨到 ${money(o.limit_price)}</span> 时限价卖出 ${qty(o.quantity)} 股`;
+    }).join("<br>");
+    let sub = "";
+    if (it.cancels.length) sub += `<div class="sub">先撤掉：${it.cancels.map(c => `${KIND[c.kind] || "卖单"} ${[c.limit_price && money(c.limit_price), c.stop_price && money(c.stop_price)].filter(Boolean).join(" / ")} × ${qty(c.quantity)}`).join("；")}</div>`;
+    for (const w of it.warnings) sub += `<div class="sub w">${esc(w)}</div>`;
+    const vs = [it.tp_vs_cost_pct !== null && it.tp_price ? `止盈较成本 ${pct(it.tp_vs_cost_pct)}` : "", it.sl_vs_cost_pct !== null && it.sl_price ? `止损较成本 ${pct(it.sl_vs_cost_pct)}` : ""].filter(Boolean).join(" · ");
+    return `<div class="item"><div class="t">${esc(it.symbol)}<span class="num">现价 ${money(it.last)}</span></div><div class="d">${d}</div>${vs ? `<div class="sub num">${vs}</div>` : ""}${sub}</div>`;
+  }).join("");
+  const sign = v => (v >= 0 ? "+" : "−") + money(Math.abs(v), true);
+  const totals = (hasTp || hasSl) ? `<div class="totals">${hasTp ? `<div class="a">全部止盈时，较成本<b class="num">${sign(tp)}</b></div>` : ""}${hasSl ? `<div class="b">全部止损时，较成本<b class="num">${sign(sl)}</b></div>` : ""}</div>` : "";
+  const skipped = skip.length ? `<details class="skipped"><summary>跳过 ${skip.length} 只，不会下单</summary><ul>${skip.map(i => `<li><b>${esc(i.symbol)}</b>：${esc(i.reason)}</li>`).join("")}</ul></details>` : "";
+  $("#sh-body").innerHTML = totals + rows + skipped +
+    `<p style="font-size:12px;color:var(--faint);line-height:1.55;margin:10px 0 0">止损单触发后按市价卖出，跳空或快速下跌时成交价可能低于止损价。${S.set.gfd ? "订单当日有效。" : "订单在撤销前一直有效（Robinhood 最长 90 天）。"}</p>`;
+  const live = b.name !== "demo" && !b.dry_run;
+  $("#sh-foot").innerHTML = `<button class="ghost" id="sh-cancel">取消</button><button class="hold${live ? " live" : ""}" id="sh-hold"><span>${live ? "按住下单" : "按住确认"}</span></button>`;
+  $("#sh-cancel").onclick = closeSheet;
+  bindHold($("#sh-hold"), btn => doExecute(btn, signed));
+  openSheet();
+}
+
+function bindHold(btn, fn){
+  let t = null;
+  const start = e => { if (btn.disabled || t) return; if (e.type === "keydown" && e.key !== "Enter" && e.key !== " ") return; e.preventDefault();
+    btn.classList.add("holding"); t = setTimeout(() => { t = null; btn.classList.remove("holding"); fn(btn); }, 900); };
+  const stop = () => { if (t){ clearTimeout(t); t = null; btn.classList.remove("holding"); toast("按住约 1 秒才会确认"); } };
+  btn.addEventListener("pointerdown", start); btn.addEventListener("pointerup", stop); btn.addEventListener("pointerleave", stop); btn.addEventListener("pointercancel", stop);
+  btn.addEventListener("keydown", e => { if (!e.repeat) start(e); }); btn.addEventListener("keyup", stop);
+  btn.addEventListener("contextmenu", e => e.preventDefault());
+}
+
+async function doExecute(btn, signed){
+  if (S.busy) return;
+  S.busy = true; btn.disabled = true; $("span", btn).textContent = "正在下单…"; $("#sh-cancel").disabled = true;
+  let res;
+  try { res = await api("/api/execute", {plan_id: signed.id, confirm_token: signed.token}); }
+  catch(e){
+    S.busy = false;
+    $("#sh-title").textContent = "没有执行";
+    $("#sh-sub").textContent = "";
+    $("#sh-body").innerHTML = `<div class="banner err" style="margin-top:8px">${esc(e.msg || e)}</div><p style="font-size:13.5px;color:var(--dim)">没有发出任何订单。关掉这个面板，价位会重新计算，再确认一次。</p>`;
+    $("#sh-foot").innerHTML = `<button class="ghost" id="sh-done">关闭</button>`;
+    $("#sh-done").onclick = () => { closeSheet(); load(); };
+    return;
+  }
+  S.busy = false; S.plan = null; S.signed = null;
+  const ICON = {done:["ok","✓"], dry_run:["ok","✓"], skipped:["skip","–"], failed:["bad","!"], partial:["bad","!"], unknown:["bad","?"]};
+  const sm = res.summary || {done:0, bad:0, skipped:0};
+  $("#sh-title").textContent = res.error ? "没有执行" : res.dry_run ? `演练通过 ${sm.done} 只` : sm.bad ? `挂好 ${sm.done} 只，${sm.bad} 只有问题` : `已挂好 ${sm.done} 只`;
+  $("#sh-sub").textContent = res.dry_run ? "演练模式：以下都没有真的发出" : sm.bad ? "有问题的请到「挂单」页或 Robinhood 里核对" : "可以在「挂单」页看到这些订单";
+  $("#sh-body").innerHTML = (res.error ? `<div class="banner err" style="margin-top:8px">${esc(res.error)}</div>` : "") +
+    (res.results || []).map(r => { const [c, i] = ICON[r.status] || ["skip", "·"];
+      return `<div class="res ${c}"><span class="ic">${i}</span><div><b>${esc(r.symbol)}</b> <span class="m">${esc(r.message)}</span>${(r.steps || []).map(s => `<div class="m"${s.ok ? ' style="color:var(--dim)"' : ""}>${esc(s.detail)}</div>`).join("")}</div></div>`; }).join("");
+  $("#sh-foot").innerHTML = `<button class="ghost" id="sh-done">完成</button>`;
+  $("#sh-done").onclick = () => { closeSheet(); load(); };
+  load(true);
+}
+
+function confirmSmall(title, sub, body, label, fn){
+  $("#sh-title").textContent = title; $("#sh-sub").textContent = sub; $("#sh-body").innerHTML = body;
+  $("#sh-foot").innerHTML = `<button class="ghost" id="sh-cancel">返回</button><button class="hold live" id="sh-hold"><span>${label}</span></button>`;
+  $("#sh-cancel").onclick = closeSheet;
+  bindHold($("#sh-hold"), async btn => {
+    btn.disabled = true; $("span", btn).textContent = "处理中…";
+    try { const r = await fn(); toast(r); } catch(e){ toast(e.msg || String(e)); }
+    closeSheet(); load();
+  });
+  openSheet();
+}
+
+// ---- 事件 ----
+function saveSet(){ LS.set("tpsl_settings", S.set); renderSettings(); S.plan = null; renderBar(); schedulePreview(); }
+$("#settings").addEventListener("click", e => {
+  const b = e.target.closest("button[data-v]"); if (!b) return;
+  const key = b.parentElement.dataset.key; S.set[key] = b.dataset.v;
+  if (key === "tp" || key === "sl") $("input", b.parentElement).value = "";
+  saveSet();
+});
+for (const key of ["tp", "sl"]) $(`.chips[data-key=${key}] input`).addEventListener("input", e => {
+  const v = e.target.value.replace(/[^\d.]/g, ""); if (v !== e.target.value) e.target.value = v;
+  if (v && +v > 0){ S.set[key] = v; saveSet(); }
+});
+$("#t-replace").onchange = e => { S.set.replace = e.target.checked; saveSet(); };
+$("#t-gfd").onchange = e => { S.set.gfd = e.target.checked; saveSet(); };
+$("#sel-all").onclick = () => { const ps = S.st.positions; if (S.off.size === 0) ps.forEach(p => S.off.add(p.symbol)); else S.off.clear(); S.plan = null; renderRows(); renderBar(); schedulePreview(150); };
+$("#rows").addEventListener("click", e => {
+  const row = e.target.closest(".row"); if (!row) return; const sym = row.dataset.sym;
+  if (e.target.closest(".chk")){ S.off.has(sym) ? S.off.delete(sym) : S.off.add(sym); S.plan = null; renderRows(); renderBar(); schedulePreview(150); }
+  else if (e.target.closest(".editbtn")){ S.open.has(sym) ? S.open.delete(sym) : S.open.add(sym); renderRows(); }
+});
+$("#rows").addEventListener("input", e => {
+  const f = e.target.dataset.f; if (!f) return; const [sym, k] = f.split(":");
+  const v = e.target.value.replace(/[^\d.]/g, ""); if (v !== e.target.value) e.target.value = v;
+  S.ov[sym] = Object.assign({}, S.ov[sym], {[k]: v}); S.plan = null; renderBar(); schedulePreview(700);
+});
+$("#acct").onchange = e => { S.account = e.target.value; LS.set("tpsl_account", S.account); S.off.clear(); S.ov = {}; S.plan = null; load(); };
+$("#refresh").onclick = () => load();
+$("#go").onclick = async () => {
+  if (!S.plan || !S.signed) return;
+  if (Date.now() - S.signed.at > S.signed.ttl - 20000){ await runPreview(); if (!S.plan || !S.plan.summary.actionable) return; }
+  showConfirm();
+};
+$("#scrim").addEventListener("click", e => { if (e.target.id === "scrim" && !S.busy) closeSheet(); });
+for (const b of $$(".tabs button")) b.onclick = () => {
+  S.tab = b.dataset.tab;
+  for (const x of $$(".tabs button")) x.setAttribute("aria-selected", String(x === b));
+  for (const t of ["pos", "ord", "log"]) $("#tab-" + t).hidden = t !== S.tab;
+  renderBar(); if (S.tab === "log") renderLog(); if (S.tab === "ord") load(true);
+};
+$("#tab-ord").addEventListener("click", e => {
+  const c = e.target.closest("[data-cancel]"), w = e.target.closest("[data-watch]"), all = e.target.closest("#cancel-all");
+  const os = S.st.orders || [];
+  const desc = o => `<div class="item"><div class="t">${esc(o.symbol)}<span>${KIND[o.kind] || "卖单"}</span></div><div class="d num">${qty(o.quantity)} 股${o.limit_price ? " · 限价 " + money(o.limit_price) : ""}${o.stop_price ? " · 止损 " + money(o.stop_price) : ""}</div>${o.watched ? `<div class="sub w">这张单属于一个盯盘，撤掉后盯盘也会停止。</div>` : ""}</div>`;
+  const run = ids => async () => { const r = await api("/api/cancel", {account: S.account, order_ids: ids}); return r.dry_run ? "演练：没有真的撤单" : r.ok ? "已撤销" : "有的没撤成，刷新看看"; };
+  if (c){ const o = os.find(x => x.id === c.dataset.cancel); if (o) confirmSmall("撤掉这张卖单？", "撤掉后这部分股数就没有这张单的保护了", desc(o), "按住撤单", run([o.id])); }
+  else if (all) confirmSmall(`撤掉全部 ${os.length} 张卖单？`, "撤掉后这些持仓就没有止盈止损了", os.map(desc).join(""), "按住全部撤销", run(os.map(o => o.id)));
+  else if (w) confirmSmall("停止这个盯盘？", "只停止 Mac 上的盯盘；Robinhood 里已经挂着的单不会动", "", "按住停止", async () => (await api("/api/watch/stop", {watch_id: w.dataset.watch})).detail);
+});
+
+function boot(){
+  if (!S.token){ showGate(); return; }
+  load();
+  setInterval(() => {
+    if (document.visibilityState !== "visible" || !$("#scrim").hidden || S.busy || !S.token) return;
+    const a = document.activeElement; if (a && a.tagName === "INPUT" && a.type !== "checkbox") return;
+    load(true);
+  }, 30000);
+  document.addEventListener("visibilitychange", () => { if (document.visibilityState === "visible" && $("#scrim").hidden && S.token) load(true); });
+}
+boot();
+</script>
+</body>
+</html>
