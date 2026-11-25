@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-11-25T13:45:49.687216+00:00",
+  "updated_at": "2026-11-25T14:00:59.797865+00:00",
   "tracking_window": 10,
   "cohorts": {
     "2026-05-27": {
@@ -224146,19 +224146,10 @@
           "entry_locked": true,
           "stop_price": 382.76,
           "target_price": 432.17,
-          "status": "STOPPED",
-          "exit_price": 349.91,
-          "exit_date": "2026-11-18",
-          "closes": [
-            {
-              "date": "2026-11-17",
-              "close": 389.68
-            },
-            {
-              "date": "2026-11-18",
-              "close": 349.91
-            }
-          ]
+          "status": "HOLD",
+          "exit_price": null,
+          "exit_date": null,
+          "closes": []
         },
         {
           "rank": 4,
@@ -226900,24 +226891,7 @@
           "status": "HOLD",
           "exit_price": null,
           "exit_date": null,
-          "closes": [
-            {
-              "date": "2026-11-19",
-              "close": 330.48
-            },
-            {
-              "date": "2026-11-20",
-              "close": 339.85
-            },
-            {
-              "date": "2026-11-23",
-              "close": 336.08
-            },
-            {
-              "date": "2026-11-24",
-              "close": 341.88
-            }
-          ]
+          "closes": []
         },
         {
           "rank": 7,
@@ -228301,20 +228275,7 @@
           "status": "HOLD",
           "exit_price": null,
           "exit_date": null,
-          "closes": [
-            {
-              "date": "2026-11-20",
-              "close": 339.85
-            },
-            {
-              "date": "2026-11-23",
-              "close": 336.08
-            },
-            {
-              "date": "2026-11-24",
-              "close": 341.88
-            }
-          ]
+          "closes": []
         },
         {
           "rank": 13,
@@ -229575,16 +229536,7 @@
           "status": "HOLD",
           "exit_price": null,
           "exit_date": null,
-          "closes": [
-            {
-              "date": "2026-11-23",
-              "close": 336.08
-            },
-            {
-              "date": "2026-11-24",
-              "close": 341.88
-            }
-          ]
+          "closes": []
         },
         {
           "rank": 18,
