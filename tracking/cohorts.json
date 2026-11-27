@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-11-27T19:46:02.503242+00:00",
+  "updated_at": "2026-11-27T20:01:12.034895+00:00",
   "tracking_window": 10,
   "cohorts": {
     "2026-05-27": {
@@ -221518,35 +221518,10 @@
           "entry_locked": true,
           "stop_price": 171.5,
           "target_price": 204.98,
-          "status": "STOPPED",
-          "exit_price": 170.36,
-          "exit_date": "2026-11-20",
-          "closes": [
-            {
-              "date": "2026-11-13",
-              "close": 186.78
-            },
-            {
-              "date": "2026-11-16",
-              "close": 186.19
-            },
-            {
-              "date": "2026-11-17",
-              "close": 180.94
-            },
-            {
-              "date": "2026-11-18",
-              "close": 180.21
-            },
-            {
-              "date": "2026-11-19",
-              "close": 172.79
-            },
-            {
-              "date": "2026-11-20",
-              "close": 170.36
-            }
-          ]
+          "status": "HOLD",
+          "exit_price": null,
+          "exit_date": null,
+          "closes": []
         },
         {
           "rank": 10,
@@ -223438,27 +223413,10 @@
           "entry_locked": true,
           "stop_price": 172.8,
           "target_price": 207.24,
-          "status": "STOPPED",
-          "exit_price": 172.79,
-          "exit_date": "2026-11-19",
-          "closes": [
-            {
-              "date": "2026-11-16",
-              "close": 186.19
-            },
-            {
-              "date": "2026-11-17",
-              "close": 180.94
-            },
-            {
-              "date": "2026-11-18",
-              "close": 180.21
-            },
-            {
-              "date": "2026-11-19",
-              "close": 172.79
-            }
-          ]
+          "status": "HOLD",
+          "exit_price": null,
+          "exit_date": null,
+          "closes": []
         },
         {
           "rank": 17,
@@ -224724,10 +224682,19 @@
           "entry_locked": true,
           "stop_price": 67.62,
           "target_price": 84.2,
-          "status": "HOLD",
-          "exit_price": null,
-          "exit_date": null,
-          "closes": []
+          "status": "STOPPED",
+          "exit_price": 67.45,
+          "exit_date": "2026-11-18",
+          "closes": [
+            {
+              "date": "2026-11-17",
+              "close": 72.55
+            },
+            {
+              "date": "2026-11-18",
+              "close": 67.45
+            }
+          ]
         },
         {
           "rank": 14,
@@ -225848,36 +225815,7 @@
           "status": "HOLD",
           "exit_price": null,
           "exit_date": null,
-          "closes": [
-            {
-              "date": "2026-11-18",
-              "close": 180.21
-            },
-            {
-              "date": "2026-11-19",
-              "close": 172.79
-            },
-            {
-              "date": "2026-11-20",
-              "close": 170.36
-            },
-            {
-              "date": "2026-11-23",
-              "close": 173.96
-            },
-            {
-              "date": "2026-11-24",
-              "close": 173.39
-            },
-            {
-              "date": "2026-11-25",
-              "close": 172.15
-            },
-            {
-              "date": "2026-11-27",
-              "close": 179.16
-            }
-          ]
+          "closes": []
         },
         {
           "rank": 7,
@@ -226663,10 +226601,19 @@
           "entry_locked": true,
           "stop_price": 66.05,
           "target_price": 82.25,
-          "status": "HOLD",
-          "exit_price": null,
-          "exit_date": null,
-          "closes": []
+          "status": "STOPPED",
+          "exit_price": 65.58,
+          "exit_date": "2026-11-19",
+          "closes": [
+            {
+              "date": "2026-11-18",
+              "close": 67.45
+            },
+            {
+              "date": "2026-11-19",
+              "close": 65.58
+            }
+          ]
         },
         {
           "rank": 25,
@@ -227370,19 +227317,10 @@
           "entry_locked": true,
           "stop_price": 170.53,
           "target_price": 207.34,
-          "status": "STOPPED",
-          "exit_price": 170.36,
-          "exit_date": "2026-11-20",
-          "closes": [
-            {
-              "date": "2026-11-19",
-              "close": 172.79
-            },
-            {
-              "date": "2026-11-20",
-              "close": 170.36
-            }
-          ]
+          "status": "HOLD",
+          "exit_price": null,
+          "exit_date": null,
+          "closes": []
         },
         {
           "rank": 8,
@@ -229514,28 +229452,7 @@
           "status": "HOLD",
           "exit_price": null,
           "exit_date": null,
-          "closes": [
-            {
-              "date": "2026-11-20",
-              "close": 170.36
-            },
-            {
-              "date": "2026-11-23",
-              "close": 173.96
-            },
-            {
-              "date": "2026-11-24",
-              "close": 173.39
-            },
-            {
-              "date": "2026-11-25",
-              "close": 172.15
-            },
-            {
-              "date": "2026-11-27",
-              "close": 179.16
-            }
-          ]
+          "closes": []
         },
         {
           "rank": 26,
